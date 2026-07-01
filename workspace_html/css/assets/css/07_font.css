@@ -91,3 +91,31 @@
 .none:visited {
     color: greenyellow;
 }
+
+.nowrap {
+    border: 1px solid aqua;
+    width: 250px;
+
+    /* 대표적인 조합 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text {
+    border: 1px solid green;
+    width: 200px;
+}
+
+.word-wrap {
+    word-wrap: break-word;
+}
+
+.word-break {
+    word-break: break-all;
+}
+
+.fake-h1 {
+    font-size: 2em;
+    font-weight: 700;
+}
