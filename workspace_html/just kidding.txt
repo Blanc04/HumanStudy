@@ -10,5 +10,16 @@ Forest
 폰트 1000
 <style>.fw-1000{font-size:1000;}</style><body><div class="fw-1000">☯</div></body>
 
+픽셀 폰트
+<style>@font-face{font-family:'RoundedFixedsys';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');font-weight:normal;font-display:swap;}.roundedfixedsys{font-family:'RoundedFixedsys';}</style><body><h1 class="roundedfixedsys">Goodbye World</h1></body>
+
 사진 섞기
 <style>body{margin:0;}.blend{min-height:100vh;background-image:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC6askWfU6ABtBm1-JC4Pg3mWHd5_h6z0fhLxXX9hRXNX64zqo0Dmiw08&s=10"),url("https://img.magnific.com/free-photo/beautiful-shot-forest-with-green-trees-yellow-leaves-ground-sunny-day_181624-1946.jpg?semt=ais_hybrid&w=740&q=80");background-size:cover,cover;background-position:center,center;background-repeat:no-repeat,no-repeat;background-blend-mode:soft-light;}</style><body><div class="blend"></div></body>
+
+
+
+
+
+
+
+
