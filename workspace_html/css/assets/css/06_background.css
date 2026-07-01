@@ -1,0 +1,50 @@
+#back1 {
+    border: 1px solid green;
+    height: 500px;
+
+    /* background-image: url(http://poiemaweb.com/img/bg/dot.png), url("http://poiemaweb.com/img/bg/paper.gif"); */
+    background-image: url(https://i.namu.wiki/i/-X_inU6XSOtQxue2QFNEcjfxcOwVumMaINdh4plU02LnEsyduqJu9VhtyPzDRGZxSHudgf-vzXVu3R5O03ZQ9A.webp);
+
+    /* background-repeat: repeat-x; */
+    /* background-repeat: repeat-y; */
+    /* background-repeat: no-repeat; */
+    background-repeat: no-repeat, repeat;
+
+    /* background-size: 200px 400px; */
+    /* background-size: 100% 50%; */
+
+    /* 감성 채우기 */
+    /* background-size: cover; */
+
+    /* 사진이 중요 */
+    background-size: contain;
+
+
+}
+#back2 {
+    height: 80vh;
+    background-image: url(https://i.namu.wiki/i/HLF818BA17ND4jqwDeTUNQUF1SqBkwARlW5K8U_jo6P031Jrh7QsT1TNocYCqwmpLP8tOWtrOEOuVtIDqNEFWQ.webp);
+    background-size: contain;
+    background-attachment: fixed;
+
+    overflow: auto;
+
+    border: 1px solid green;
+}
+
+#back2 p {
+    height: 200vh;
+}
+
+.profile {
+    width: 250px;
+    height: 250px;
+    background-image: url(https://i.namu.wiki/i/HLF818BA17ND4jqwDeTUNQUF1SqBkwARlW5K8U_jo6P031Jrh7QsT1TNocYCqwmpLP8tOWtrOEOuVtIDqNEFWQ.webp);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
+    
+    border: 1px solid green;
+    border-radius: 50%;
+}

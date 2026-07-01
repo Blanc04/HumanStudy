@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>unit</title>
+    <style>
+        /*
+            px : pixel, 디스플레이의 절대적인 크기
+        */
+        #pixel .box1 {
+            /* font-size : 폰트 크기, 상속됨 */
+            font-size: 16px;
+            
+            background-color: rgb(255,0,0);
+
+            color: #f0eee9;
+        }
+        #pixel .box1 .box2 {
+            font-size: 32px;
+
+            background-color: rgba(0,0,255, 0.5);
+        }
+        #pixel .box1 .box2 .box3 {
+            font-size: 16px;
+
+            background-color: #00ff00a0;
+        }
+        
+        /*
+            % : 상대적인 크기, 상속됨
+        */
+        #percent .box1 {
+            font-size: 150%;
+        }
+        #percent .box1 .box2 {
+            font-size: 150%;
+        }
+        #percent .box1 .box2 .box3 {
+            font-size: 150%;
+        }
+
+        /*
+            % : 상대적인 크기, 상속됨
+        */
+        #em .box1 {
+            font-size: 1.5em;
+        }
+        #em .box1 .box2 {
+            font-size: 1.5em;
+        }
+        #em .box1 .box2 .box3 {
+            font-size: 1.5em;
+        }
+        /* rem : root em, body의 크기를 활용한다 */
+        #rem .box1 {
+            font-size: 1.5em;
+        }
+        #rem .box1 .box2 {
+            font-size: 1.5em;
+        }
+        #rem .box1 .box2 .box3 {
+            font-size: 1.5rem;
+        }
+        #v1, #v2, #v3, #v4 {
+            border: 1px solid green;
+            margin: 10px;
+        }
+        /* vh : viewport(화면)의 height(높이)를 1/100로 쪼갠 크기 */
+        #v1 {
+            height: 100vh;
+        }
+        /* vw : viewport(화면)의 width(너비)를 1/100으로 쪼갠 크기 */
+        #v2 {
+            height: 20px;
+            width: 50vw;
+        }
+        #v3 {
+            height: 75vmin;
+        }
+        #v4 {
+            height: 75vmax;
+        }
+    </style>
+</head>
+<body>
+    기본글씨 ABC abc 123 Wi<br>
+    <div id="pixel">
+        <div class="box1">
+            box1
+            <div class="box2">
+                box2
+                <div class="box3">
+                    box3
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div id="percent">
+        <div class="box1">
+            box1-150%
+            <div class="box2">
+                box2-150%
+                <div class="box3">
+                    box3-150%
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div id="em">
+        <div class="box1">
+            box1-1.5em
+            <div class="box2">
+                box2-1.5em
+                <div class="box3">
+                    box3-1.5em
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div id="rem">
+        <div class="box1">
+            box1-1.5em
+            <div class="box2">
+                box2-1.5em
+                <div class="box3">
+                    box3-1.5rem
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div id="v1"></div>
+    <div id="v2"></div>
+    <div id="v3"></div>
+    <div id="v4"></div>
+</body>
+</html>

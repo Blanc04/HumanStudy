@@ -1,0 +1,65 @@
+body{
+    background-color: gray;
+}
+
+.god {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.table {
+    display: inline-block;
+    /* text-align: center; */
+    vertical-align: top;
+    margin: 5px;
+
+    /* border: 1px solid green; */
+}
+
+.table .image {
+    width: 500px;
+    height: 650px;
+    text-align: center;
+}
+
+.box {
+    width: 500px;
+    height: 650px;
+    background-color: white;
+
+    /* border: 1px solid green; */
+}
+
+.table .text {
+    font-size: 18px;
+    height: 375px;
+    /* vertical-align: middle; */
+    padding: 75px 75px 0 60px;
+    text-align: left;
+
+    /* border: 1px solid green; */
+}
+
+.table .text2 {
+    font-size: 18px;
+    padding: 0 0 0 120px;
+    text-align: left;
+
+    /* border: 1px solid green; */
+}
+
+.button {
+    box-sizing: border-box;
+    width: 125px;
+    height: 50px;
+    text-align: center;
+    margin: 0 0 0 -60px;
+    padding: 10px 30px;
+    color: gray;
+    border: 2px solid gray;
+}
+
+.readmore {
+    color: gray;
+    text-decoration: none;
+}

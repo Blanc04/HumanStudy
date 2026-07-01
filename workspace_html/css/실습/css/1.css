@@ -1,0 +1,67 @@
+body {
+    /* background-color: rgba(165, 42, 42, 0.75); */
+    background-image: url(https://i.namu.wiki/i/W0wAuvSe0BeRpM9VBqCDSrfhpbiH1vY2ro4Tm5lE5ip5YmecZoLCkg8f0gRN1a8Nl0SMN-ZNIGourB2blj7rag.webp);
+    margin: 0;
+}
+
+.table {
+    padding: 25%;
+    text-align: center;
+
+    /* border: 1px solid green; */
+}
+
+.table .text {
+    /* display: table-cell; */
+    color: white;
+    text-align: center;
+    margin: 8px;
+}
+
+.table .text1 {
+    /* display: inline-block; */
+    font-size: 50px;
+
+    /* border: 1px solid green; */
+}
+
+.table .text2 {
+    /* display: inline-block; */
+    font-size: 30px;
+    margin: 0 0 25px 0;
+
+    /* border: 1px solid green; */
+}
+
+.htmllink {
+    color: white;
+    border-bottom: 1px dotted white;
+    text-decoration: none;
+}
+
+.htmllink:hover {
+    border-bottom: 0;
+}
+
+.table .text3 {
+    display: inline-block;
+    font-size: 25px;
+    border: 1px solid white;
+    border-radius: 8px;
+    width: 62.5%;
+    /* margin: 24px 0 0 0; */
+    padding: 25px;
+    text-decoration: none;
+
+    /* border: 1px solid green; */
+}
+
+.table .link {
+    color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.125);
+}
+
+.table .link:hover {
+    background-color: rgba(240, 248, 255, 0.25);
+    opacity: 0.75;
+}

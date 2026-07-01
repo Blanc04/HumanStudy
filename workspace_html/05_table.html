@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>table</title>
+</head>
+
+<body>
+    <!-- 테이블 -->
+    <table border="1">
+        <!-- tr: table row, 한 줄을 뜻함 -->
+        <tr>
+            <!--
+                td: table data, 한 칸을 뜻함
+                상하 정렬 기능 있음
+              -->
+            <td>내용1</td>
+            <td>내용2<br>내용2</td>
+            <td>내용3</td>
+        </tr>
+        <tr>
+            <td>
+                내용 2-1111111111
+            </td>
+            <td>
+                내용 2-2222222222
+            </td>
+            <td>
+                내용 2-3333333333
+            </td>
+        </tr>
+    </table>
+    <table border="1">
+        <tr>
+            <!--
+              th: table header 컬럼의 제목
+              두꺼운 글씨로 상하좌우 정렬 적용 됨
+              -->
+            <th>내용1</th>
+            <th>내용2<br>내용2</th>
+            <th>내용3</th>
+        </tr>
+        <tr>
+            <td>
+                내용 2-1111111111
+            </td>
+            <td>
+                내용 2-2222222222
+            </td>
+            <td>
+                내용 2-3333333333
+            </td>
+            <!-- 
+                각 줄마다 칸의 개수가 같아야 한다
+                같지 않으면 디자인이 이상해진다
+              -->
+            <td>
+                내용 2-4444444444
+            </td>
+            <!-- td가 아닌 곳 -->
+        </tr>
+    </table>
+    <table border="1">
+        <tr>
+            <th>
+                지역
+            </th>
+            <td>
+                천안
+            </td>
+            <td>
+                서울
+            </td>
+        </tr>
+        <tr>
+            <th>
+                이름
+            </th>
+            <td>
+                ㅂㄱ
+            </td>
+            <td>
+                ㅇㅂ
+            </td>
+        </tr>
+    </table>
+    <!-- table>tr*2>td*3 -->
+    <table border="1">
+        <tr>
+            <td rowspan="2">1-1</td>
+            <td colspan="2">1-2</td>
+            <!-- <td>1-3</td> -->
+        </tr>
+        <tr>
+            <!-- <td>2-1</td> -->
+            <td>2-2</td>
+            <td>2-3</td>
+        </tr>
+    </table>
+    <hr>
+    <h1>테이블의 정석 구성</h1>
+    <table border="1">
+
+        <caption>테이블 내용 설명</caption>
+        <summary>제목, 작성자 (컬럼, 나열)</summary>
+
+        <thead>
+            <tr>
+                <th>제목</th>
+                <th>작성자</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>제목 1</td>
+                <td>작성자 1</td>
+            </tr>
+            <tr>
+                <td>제목 2</td>
+                <td>작성자 2</td>
+            </tr>
+        </tbody>
+
+    </table>
+    <!-- table>tr*2>td -->
+    <table border="1">
+        <tr>
+            <th width="200" height="100">첫 번째</th>
+        </tr>
+        <tr>
+            <td width="50" height="50">두 번째</td>
+        </tr>
+    </table>
+    <br>
+    <table border="1">
+        <tr>
+            <th width="40"></th>
+            <th width="250" height="35">제목</th>
+            <th width="75">작성자</th>
+            <th width="125">작성일</th>
+            <th width="75">조회</th>
+        </tr>
+        <tbody>
+            <tr>
+                <td height="40">23</td>
+                <td>Ul구현(사전평가)</td>
+                <td>이름</td>
+                <td>2022.06.20</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td height="40">23</td>
+                <td>Ul구현(사전평가)</td>
+                <td>이름</td>
+                <td>2022.06.20</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td height="40">23</td>
+                <td>Ul구현(사전평가)</td>
+                <td>이름</td>
+                <td>2022.06.20</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td height="40">23</td>
+                <td>Ul구현(사전평가)</td>
+                <td>이름</td>
+                <td>2022.06.20</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td height="40">23</td>
+                <td>Ul구현(사전평가)</td>
+                <td>이름 1</td>
+                <td>2022.06.20</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td height="40">23</td>
+                <td>Ul구현(사전평가)</td>
+                <td>이름 2</td>
+                <td>2022.06.20</td>
+                <td>2</td>
+            </tr>
+        </tbody>
+    </table>
+    <br><br><br><br><br>
+    <table border="1">
+        <tr>
+            <td><a href="https://comic.naver.com/webtoon/list?titleId=851388" target="_blank"><img
+                        src="https://image-comic.pstatic.net/webtoon/851388/thumbnail/thumbnail_IMAG21_1dcac808-fa37-450b-93c7-ebbc072a3a08.jpg"></a>
+            </td>
+            <td><a href="https://comic.naver.com/webtoon/list?titleId=851854" target="_blank"><img
+                        src="https://image-comic.pstatic.net/webtoon/851854/thumbnail/thumbnail_IMAG21_b4ecff72-291b-4cc3-b913-586ce97680c4.jpg"></a>
+            </td>
+            <td><a href="https://comic.naver.com/webtoon/list?titleId=828715" target="_blank"><img
+                        src="https://image-comic.pstatic.net/webtoon/828715/thumbnail/thumbnail_IMAG21_8957548a-2eb2-4ddf-a50e-dbc7fddc16a7.jpg"></a>
+            </td>
+        </tr>
+        <tbody>
+            <tr>
+                <td height="25"><a href="https://comic.naver.com/webtoon/list?titleId=851388"
+                        target="_blank"><strong>대공가의 새아가는 조금 사나워요</strong></a></td>
+                <td><a href="https://comic.naver.com/webtoon/list?titleId=851854"
+                        target="_blank"><strong>인그레이브</strong></a></td>
+                <td><a href="https://comic.naver.com/webtoon/list?titleId=828715"
+                        target="_blank"><strong>절대회귀</strong></a></td>
+            </tr>
+            <tr>
+                <td heigh="25">심상 / 뫄과 / 진이현</td>
+                <td>도마</td>
+                <td>JP / 박진환 / 장영훈</td>
+            </tr>
+        </tbody>
+    </table>
+    <br><br><br><br><br>
+    <table border="1">
+        <tr>
+            <td colspan="2">
+                <h1>추천 베스트도전 & 도전만화</h1>
+            </td>
+            <td></td>
+            <!-- <td>추천 베스트도전 & 도전만화</td> -->
+            <td><a href="https://comic.naver.com/bestChallenge" target="_blank">베스트도전 전체보기&gt;</a></td>
+        </tr>
+        <tbody>
+            <tr>
+                <td><a href="https://comic.naver.com/bestChallenge/list?titleId=851850" target="_blank">
+                        <img
+                            src="https://image-comic.pstatic.net/user_contents_data/challenge_comic/2026/06/16/358421/upload_3847256487147155555_202x164.jpeg"></a>
+                </td>
+                <td><a href="https://comic.naver.com/bestChallenge/list?titleId=851850" target="_blank">
+                        <strong>당신의 가격</strong></a><br>박정현<br><br>★9.53 👁2,365</td>
+                <td><a href="https://comic.naver.com/bestChallenge/list?titleId=701701" target="_blank">
+                        <img
+                            src="https://image-comic.pstatic.net/user_contents_data/challenge_comic/2020/02/03/312881/thumbnail_202x1644a1ff785_5bae_4dfe_a1ae_53e3528d0836_00003656.JPEG"></a>
+                </td>
+                <td><a href="https://comic.naver.com/bestChallenge/list?titleId=701701" target="_blank">
+                        <strong>아빠는N살</strong></a><br>유영근<br><br>★9.90 👁5,814만</td>
+            </tr>
+            <tr>
+                <td><a href="https://comic.naver.com/bestChallenge/list?titleId=840964" target="_blank">
+                        <img
+                            src="https://image-comic.pstatic.net/user_contents_data/challenge_comic/2026/02/12/374855/upload_3558459660592821350_202x164.jpeg"></a>
+                </td>
+                <td><a href="https://comic.naver.com/bestChallenge/list?titleId=840964" target="_blank">
+                        <strong>대마법소녀의 시대</strong></a><br>한라뽕<br><br>★9.43 👁26만</td>
+                <td><a href="https://comic.naver.com/bestChallenge/list?titleId=826992" target="_blank">
+                        <img
+                            src="https://image-comic.pstatic.net/user_contents_data/challenge_comic/2026/05/20/363625/upload_4063199278040102753_202x164.jpeg"></a>
+                </td>
+                <td><a href="https://comic.naver.com/bestChallenge/list?titleId=826992" target="_blank">
+                        <strong>구미호 사제</strong></a><br>아네모네<br>★9.39 👁63만<br></td>
+            </tr>
+            <tr>
+                <td><a href="https://comic.naver.com/challenge/list?titleId=850359" target="_blank">
+                        <img
+                            src="https://image-comic.pstatic.net/user_contents_data/challenge_comic/2026/05/03/407800/upload_4050814568063186483_202x164.jpeg"></a>
+                </td>
+                <td><a href="https://comic.naver.com/challenge/list?titleId=850359" target="_blank">
+                        <strong>편견 타파 종족 교류회</strong></a><br>위마<br><br>★9.98 👁1.8만</td>
+                <td><a href="https://comic.naver.com/challenge/list?titleId=843945" target="_blank">
+                        <img
+                            src="https://image-comic.pstatic.net/user_contents_data/challenge_comic/2025/12/30/396299/upload_3473232112099799862_202x164.jpeg"></a>
+                </td>
+                <td><a href="https://comic.naver.com/challenge/list?titleId=843945" target="_blank">
+                        <strong>나무와 미어</strong></a><br>나무와 미어<br><br>★8.81 👁3,362</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

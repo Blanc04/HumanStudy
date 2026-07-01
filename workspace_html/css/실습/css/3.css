@@ -1,0 +1,62 @@
+body {
+    background-color: rgba(128, 128, 128, 0.5);
+}
+
+.maintable{
+    text-align: center;
+}
+
+.title {
+    display: inline-block;
+    text-align: center;
+    font-size: 40px;
+    max-width: 650px;
+    margin: 0 auto;
+
+    /* border: 1px solid green; */
+}
+
+.table {
+    display: inline-block;
+    background-color: white;
+    margin: 50px 10px 0;
+    vertical-align: top;
+    width: 367px;
+    height: 475px;
+}
+
+.table .image {
+    text-align: center;
+    height: 244px;
+}
+
+.table .text {
+    width: 350px;
+    margin: 0 auto;
+    
+    /* border: 1px solid green; */
+}
+
+.table .name {
+    font-size: 24px;
+    width: 90%;
+    text-align: center;
+}
+
+.textlink {
+    color: #000000;
+    text-decoration: none;
+}
+
+.table .price {
+    font-size: 24px;
+    color: red;
+}
+
+.table .view {
+    color: #000000;
+    font-size: 16px;
+    width: 50px;
+    border-bottom: 1px solid orange;
+    text-decoration: none;
+}

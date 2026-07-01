@@ -1,0 +1,101 @@
+#div1 {
+    border: 1px solid green;
+}
+.block {
+    border: 1px solid green;
+
+    width: 100px;
+    height: 50px;
+    margin: 10px auto;
+}
+
+.inline {
+    border: 1px solid green;
+
+    /* 너비, 높이가 적용되지 않음 */
+    width: 200px;
+    height: 100px;
+
+    /* 수평은 적용 되고 수직은 적용 안 됨 */
+    margin: 25px 50px;
+
+    /* 
+        수평은 적용 되고 수직은 적용 안 됨
+        그런데 border는 밀림(가짜)
+    */
+    padding: 25px 50px;
+
+    background-color: yellow;
+
+    /* display: block; */
+}
+
+.parent {
+    border: 1px dotted rgb(255,0,255);
+    text-align: center;
+}
+
+.parent > div {
+    border: 1px solid green;
+    display: inline;
+    /* inline은 공간이 없어서 내부 정렬이 없다 */
+    /* width: 50px; */
+    /* text-align: center; */
+}
+
+.parent2 {
+    border: 1px solid green;
+    text-align: center;
+}
+
+.parent2 > div {
+    border: 1px solid green;
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    margin: 25px;
+    /* 내 땅이 없어서 적용 안 됨 */
+    /* margin: 0 auto; */
+    padding: 50px;
+}
+
+.parent3 {
+    border: 1px solid green;
+    font-size: 0;
+}
+
+.parent3 > div {
+    border: 1px solid green;
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    padding: 50px;
+    
+    /* inline, inline-block 만 적용됨 */
+    /* 세로 방향 정렬 */
+    vertical-align: top;
+
+    font-size: 16px;
+}
+
+/* 모바일일 때도 적용되기에 좋아 보이지 않음
+   .parent3 > div.right {
+    margin-left: -4px;
+} */
+
+.hide {
+    display: none;
+}
+
+.table {
+    display: table;
+}
+
+.table .td {
+    display: table-cell;
+    border: 1px solid green;
+    height: 100px;
+    vertical-align: middle;
+}

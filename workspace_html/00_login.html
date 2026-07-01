@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <style>
+        #border {
+            border: 1px solid gray;
+            margin: 0 auto;
+        }
+        #title {
+            color: green;
+            text-align: center;
+            font-size: 1.25em;
+        }
+        #id {
+            text-align: center;
+        }
+        #password {
+            text-align: center;
+        }
+        #login {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+    <table border="0" id="border">
+        <tr>
+            <td colspan="3" id="title"><h1>NAVER</h1></td>
+            <!-- <td></td> -->
+            <!-- <td></td> -->
+        </tr>
+        <tbody>
+        <tr>
+            <td><input type="radio" name="logintype" checked>ID/전화번호</td>
+            <td><input type="radio" name="logintype">일회용 번호</td>
+            <td><input type="radio" name="logintype">QR코드</td>
+        </tr>
+        <tr>
+            <!-- <td rowspan="2"></td> -->
+            <td colspan="3" id="id"><input type="text" name="id" placeholder="아이디 또는 전화번호"></td>
+            <!-- <td></td> -->
+        </tr>
+        <tr>
+            <!-- <td></td> -->
+            <td colspan="3" id="password"><input type="password" name="pw" placeholder="비밀번호"></td>
+            <!-- <td></td> -->
+        </tr>
+        <tr>
+            <td colspan="2"><label><input type="checkbox" name="keeplogin" value="로그인 상태 유지">로그인 상태 유지</label></td>
+            <!-- <td></td> -->
+            <td><label><input type="checkbox" name="ip" value="ip 보안">ip 보안</label></td>
+        </tr>
+        <tr>
+            <!-- <td></td> -->
+            <td colspan="3" id="login"><input type="submit" value="로그인"></td>
+            <!-- <td></td> -->
+        </tr>
+        <tr>
+            <td>
+                <a href="https://nid.naver.com/account/find-pw/id">비밀번호 찾기</a>
+            </td>
+            <td>
+                <a href="https://nid.naver.com/account/find-id/profile">아이디 찾기</a>
+            </td>
+            <td>
+                <a href="https://nid.naver.com/user2/join/agree">회원가입</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </form>
+</body>
+</html>

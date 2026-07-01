@@ -1,0 +1,8 @@
+<style>body {background-color: rgba(255, 123, 0, 0.25);}</style>
+
+Forest
+<style>body {margin: 0; background-image: url(https://img.magnific.com/free-photo/beautiful-shot-forest-with-green-trees-yellow-leaves-ground-sunny-day_181624-1946.jpg?semt=ais_hybrid&w=740&q=80); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;}</style>
+
+마우가
+<style>body {background-image: url(https://i.namu.wiki/i/HLF818BA17ND4jqwDeTUNQUF1SqBkwARlW5K8U_jo6P031Jrh7QsT1TNocYCqwmpLP8tOWtrOEOuVtIDqNEFWQ.webp);background-repeat:no-repeat;background-size: cover; background-attachment: fixed;}</style>
+<style>.textbackground {color: transparent;font-size: 250px;font-weight: bold;background-position: center;background-clip: text;background-image: url(https://i.namu.wiki/i/HLF818BA17ND4jqwDeTUNQUF1SqBkwARlW5K8U_jo6P031Jrh7QsT1TNocYCqwmpLP8tOWtrOEOuVtIDqNEFWQ.webp);color: transpent;background-size: cover;}</style><div id="test" class="textbackground">☯</div>

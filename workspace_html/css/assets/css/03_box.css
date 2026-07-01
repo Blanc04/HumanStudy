@@ -1,0 +1,136 @@
+body {
+    height: 200px;
+}
+
+div.first {
+    border: 1px solid red;
+    width: 150px;
+    height: 200px;
+}
+div.second {
+    /* border: 1px solid red; */
+
+    width: 150px;
+    height: 200px;
+
+    /* margin : border 바깥 영역 */
+    margin-top: 50px;
+    margin-right: 40px;
+    margin-bottom: 30px;
+    margin-left: 20px;
+
+    /* margin 축약형 */
+
+    /* 4개일 때 : top right bottom left 순서 */
+    margin: 50px 40px 30px 20px;
+
+    /* 3개일 때 : top left/right bottom */
+    margin: 50px 40px 30px;
+
+    /* 2개일 때 : top/bottom left/right */
+    margin: 50px 40px;
+
+    /* 1개일 때 : 모두 */
+    margin: 30px;
+
+
+    padding-top: 20px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+
+    padding: 30px;
+
+    border-top-width: 3px;
+    border-top-style: dotted;
+    border-top-color: blue;
+
+    border-left: 2px dashed green;
+
+    border: 2px solid greenyellow;
+
+    border-radius: 10px;
+}
+
+.profile img {
+    border: 1px solid #000;
+    width: 250px;
+    height: 250px;
+
+    border-radius: 50%;
+}
+
+.chat.right {
+    border: 1px solid #000;
+    background-color: yellow;
+
+    width: 100px;
+    padding: 5px;
+    margin: 10px;
+    
+    border-radius: 10px 0px 10px 10px;
+}
+
+.width {
+    border: 1px solid green;
+    width: 75%;
+
+    min-width: 600px;
+    max-width: 750px;
+}
+
+#auto {
+    border: 1px solid green;
+    width: 150px;
+
+    margin: 10px auto;
+}
+
+.box {
+    border: 1px solid green;
+    width: 300px;
+    height: 300px;
+    margin: 50px;
+}
+
+.box-sizing {
+    padding: 50px;
+
+    box-sizing: border-box;
+}
+
+.orig {
+    border: 1px solid green;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+/*
+    마진 중첩
+    세로 방향으로 붙어있을 때 또는 부모와 첫 번째 자식 간에
+    margin이 큰 값 하나만 적용되는 현상
+
+    해법
+    * 사이에 컨텐츠 넣기
+    * border, pedding 등을 이용해서 부모와 첫 번째 자식간의 마진 중첩 해결 가능
+    * 부모에 overflow: hidden 주기
+*/
+#div2, #div3 {
+    margin: 30px;
+}
+
+#div3 {
+    margin: 50px;
+}
+
+#div1 {
+    /* border: 1px solid green; */
+    /* padding-top: 1px; */
+    overflow: hidden;
+}
+
+/* #div2 {
+    margin-top: -1px;
+} */

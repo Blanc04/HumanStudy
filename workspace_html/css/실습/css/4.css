@@ -1,0 +1,54 @@
+.table {
+    text-align: center;
+}
+
+.box {
+    display: inline-block;
+    max-width: 450px;
+    /* margin: 0 32px 0 0; */
+    text-align: center;
+
+    /* border: 1px solid green; */
+}
+
+.box2 {
+    display: inline-block;
+    max-width: 525px;
+    vertical-align: top;
+    text-align: center;
+
+    /* border: 1px solid green; */
+}
+
+.image {
+    height: 266px;
+    margin: 60px 0 10px 0;
+}
+
+.video {
+    width: 510px;
+    height: 312px;
+    margin: 0 0 25px 0;
+}
+
+.title {
+    font-size: 20px;
+    margin: 0 0 -15px 0;
+    text-align: left;
+}
+
+.titleexplain {
+    text-align: left;
+}
+
+.what {
+    border-left: 2px solid skyblue;
+    text-align: left;
+    padding: 0 0 0 8px;
+}
+
+.last {
+    font-size: 18px;
+    padding: 0 12px 0;
+    text-align: left;
+}

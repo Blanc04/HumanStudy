@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form</title>
+</head>
+<body>
+    <form>
+        text : <input type="text"><br>
+        text(기본값) : <input><br>
+        text(value) : <input type="text" Value="FFFF"><br>
+        text(placeholder) : <input type="text" placeholder="FFFF"><br>
+        text(readonly) : <input type="text" value="FFFF" readonly><br>
+        text(disabled) : <input type="text" value="FFFF" disabled><br>
+        password : <input type="password"><br>
+        input:button : <input type="button" value="button"><br>
+        button : <button type="button">button</button><br>
+        submit : <input type="submit" value="전송"><br>
+        button(기본값:submit) : <button>submit</button><br>
+        <!-- 이미지를 버튼 태그로 감싼다 -->
+        <button type="image">
+            <img title="https://www.youtube.com/watch?v=2QgmWsKy4Mo" src="https://i.ytimg.com/vi/dXRRLQEd5r4/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBUraSfPPTtic-IIUV6MpLd9Zs3iw">
+        </button>
+        <hr>
+        <br>
+        <br>
+        커피 :
+        <input type="checkbox" name="coffee" value="1">샷 추가
+        <input type="checkbox" name="coffee" value="2">펄 추가 
+        <input type="checkbox" name="coffee" value="3">간얼음 추가
+    <a href="https://www.youtube.com/watch?v=CEW6OsI222s&pp=ygUTbmF0aW9uYWwgZ2VvZ3JhcGhpYw%3D%3D" target="_blank">
+        <button type="image"><img title="https://www.youtube.com/watch?v=CEW6OsI222s&pp=ygUTbmF0aW9uYWwgZ2VvZ3JhcGhpYw%3D%3D" 
+        src="https://i.ytimg.com/vi/CEW6OsI222s/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLC6fSEKaySTxboR9P8es1Htzw5DYg" alt="그냥 여우 버튼">
+        </button>
+    </a>
+    <br>
+    <br>
+    <input type="radio" name="gender" value="남자">Man
+    <input type="radio" name="gender" value="여자">Girl
+    <input type="radio" name="gender" value="비공">Non-Binary
+    <br>
+    <form>
+        수명 계산
+        <a href="https://www.arealme.com/when-will-i-die/ko/" target="_blank"> 
+            <input type="button" value="submit" id="gotest">
+        </a>
+        </form>
+        <select name="sel1">
+            <option value="1">2%</option>
+            <option value="2">5%</option>
+            <option value="3">9%</option>
+            <option value="4">23%</option>
+        </select>
+        <select multiple size="2">
+            <option>2%</option>
+            <option>5%</option>
+            <option>9%</option>
+            <option>23%</option>
+        </select>
+        <br>
+        <label>
+        <input type="checkbox">펄 추가
+        </label>
+        <br>
+        <label for="pearl">펄 추가</label>
+        <input type="checkbox" id="pearl">
+        <br>
+        <textarea rows="10" cols="50" placeholder="FFFFFFFFFFFFFFFFFF"></textarea>
+        <hr>
+        reset : <input type="reset" value="죽음"><br>
+        color : <input type="color"><br>
+        date : <input type="date"><br>
+        생년월일 : <input type="date"><br>
+        time : <input type="time"><br>
+        datetime : <input type="datetime-local"><br>
+        number : <input type="number"><br>
+        <label>
+        <input type="search" placeholder="검색어를 입력하세요.">
+        <input type="button" value="검색">
+        </label>
+        <br>
+        <label for="search">검색어</label>
+        <input id="search" type="search" placeholder="검색어를 입력하세요.">
+        <input type="button" value="검색">
+        <hr>
+        <form action="https://www.google.com/search" method="get" target="_blank">
+        <label>
+        검색어
+        <input type="search" name="q" placeholder="검색어를 입력하세요.">
+        </label>
+        <input type="submit" value="검색">
+        <input type="range" min="20" max="100" step="5">
+    <hr>
+    <!-- 
+        Form 속성
+        method : get, post
+        method 기본값 : get
+
+        action : 전송할 주소
+        action 기본값 : 현재 내 주소
+      -->
+    <form action="https://www.google.com/search" method="get" target="_blank">
+        <input type="text" name="q"><br>
+        <input type="submit" value="구글 검색">
+        </form>
+    <form action="https://search.naver.com/search.naver" method="get" target="_blank">
+        <input type="text" name="query"><br>
+        <input type="submit" value="네이버 검색">
+        <form action="https://www.coupang.com/np/search" method="get" target="_blank">
+        <input type="text" name="q"><br>
+        <input type="submit" value="쿠팡 검색">
+        </form>
+    <br>
+        <form method="post" target="_blank">
+        <input type="text" name="query"><br>
+        <input type="submit" value="Post Test">
+    </form>
+    <br><br><br><br><br>
+    <form method="get">
+    <input type="file">
+    </form>
+    <form>
+        <input type="checkbox" id="switch">
+    </form>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>
