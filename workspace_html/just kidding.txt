@@ -6,3 +6,35 @@ Forest
 마우가
 <style>body {background-image: url(https://i.namu.wiki/i/HLF818BA17ND4jqwDeTUNQUF1SqBkwARlW5K8U_jo6P031Jrh7QsT1TNocYCqwmpLP8tOWtrOEOuVtIDqNEFWQ.webp);background-repeat:no-repeat;background-size: cover; background-attachment: fixed;}</style>
 <style>.textbackground {color: transparent;font-size: 250px;font-weight: bold;background-position: center;background-clip: text;background-image: url(https://i.namu.wiki/i/HLF818BA17ND4jqwDeTUNQUF1SqBkwARlW5K8U_jo6P031Jrh7QsT1TNocYCqwmpLP8tOWtrOEOuVtIDqNEFWQ.webp);color: transpent;background-size: cover;}</style><div id="test" class="textbackground">☯</div>
+
+
+<style>body{margin:0;}.blend{min-height:100vh;background-image:url("https://i.namu.wiki/i/HLF818BA17ND4jqwDeTUNQUF1SqBkwARlW5K8U_jo6P031Jrh7QsT1TNocYCqwmpLP8tOWtrOEOuVtIDqNEFWQ.webp"),url("https://img.magnific.com/free-photo/beautiful-shot-forest-with-green-trees-yellow-leaves-ground-sunny-day_181624-1946.jpg?semt=ais_hybrid&w=740&q=80");background-size:cover,cover;background-position:center,center;background-repeat:no-repeat,no-repeat;background-blend-mode:multiply;}</style><body><div class="blend"></div></body>
+
+
+
+        <style>
+        .blend {
+            margin: 0;
+            min-height: 100vh;
+
+            background-image:
+                url("https://i.namu.wiki/i/HLF818BA17ND4jqwDeTUNQUF1SqBkwARlW5K8U_jo6P031Jrh7QsT1TNocYCqwmpLP8tOWtrOEOuVtIDqNEFWQ.webp"),
+                url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC6askWfU6ABtBm1-JC4Pg3mWHd5_h6z0fhLxXX9hRXNX64zqo0Dmiw08&s=10");
+
+            background-size:
+                cover,
+                cover;
+
+            background-position:
+                center,
+                center;
+
+            background-repeat:
+                no-repeat,
+                no-repeat;
+
+            background-blend-mode: multiply;
+        }
+        </style>
+        <body>
+        <div class="blend"></div>

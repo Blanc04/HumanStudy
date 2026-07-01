@@ -32,23 +32,25 @@
 }
 
 .title {
+    text-align: left;
     font-size: 20px;
     margin: 0 0 -15px 0;
-    text-align: left;
+    padding: 0 16px 0 0;
 }
 
 .titleexplain {
     text-align: left;
+    padding: 0 40px 0 0;
 }
 
 .what {
     border-left: 2px solid skyblue;
     text-align: left;
-    padding: 0 0 0 8px;
+    padding: 0 20px 0 8px;
 }
 
 .last {
-    font-size: 18px;
-    padding: 0 12px 0;
     text-align: left;
+    font-size: 16px;
+    padding: 0 40px 0;
 }
