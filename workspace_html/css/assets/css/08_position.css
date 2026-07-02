@@ -1,0 +1,173 @@
+.parent {
+    margin-bottom: 32px;
+}
+
+.parent div {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    border: 1px solid green;
+
+    line-height: 50px;
+    text-align: center;
+
+    background-color: aquamarine;
+}
+
+.parent .relative {
+    background-color: green;
+
+    /* 원래 위치 기준으로 이동
+       내가 가지고 있던 공간이 유지됨 */
+    position: relative;
+    /* top: 20px;
+    left: 10px; */
+
+    /* top: -20px;
+    left: -10px; */
+
+    /* top: 20px; */
+    /* left: 50%; */
+}
+
+.parent .absolute {
+    background-color: green;
+
+    /* 내가 가지고 있던 공간이 없어진다
+       부모 중에 relative 등 static이 아닌 것 기준으로 이동
+       없으면 body 기준
+       자동으로 inline-block으로 바뀜
+       모바일 등의 다른 환경에서 대응이 어렵기에 남발하는 건 좋지 않음 */
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    top: 30px;
+}
+
+/* .relative {
+    background-color: green;
+
+    position: relative;
+    top: 0;
+    left: 0;
+
+    top: 32px;
+} */
+
+.parent .abs-b {
+    position: absolute;
+
+    bottom: 0;
+    right: 0;
+}
+
+body {
+    height: 200vh;
+    width: 200vw;
+}
+
+.rel {
+    position: relative;
+}
+
+.fixed {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+
+    border: 1px solid green;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+}
+
+.sticky {
+    position: sticky;
+    top: 50px;
+}
+
+.parent2 {
+    border: 1px solid salmon;
+    width: 100px;
+    background-color: green;
+    color: #fff
+}
+
+.parent2 div {
+    border: 1px solid salmon;
+    width: 50px;
+    height: 50px;
+}
+
+.z1 {
+    background-color: palevioletred;
+    top: 5px;
+    left: 20px;
+    z-index: 1;
+}
+
+.z2 {
+    background-color: yellowgreen;
+    top: -10px;
+    left: 10px;
+
+    z-index: 2;
+}
+
+.z3 {
+    background-color: aquamarine;
+    top: -75px;
+    left: 40px;
+
+    z-index: 3;
+}
+
+.menu {
+    border: 1px solid salmon;
+}
+
+.submenu {
+    border: 1px solid aquamarine;
+    display: none;
+}
+
+.menu:hover .submenu {
+    display: block;
+    position: relative;
+    top: 10px;
+}
+
+.p1 {
+    border: 1px solid salmon;
+    width: 400px;
+    height: 400px;
+
+    position: relative;
+}
+
+.c1 {
+    border: 1px solid aquamarine;
+    width: 100px;
+    height: 100px;
+
+    position: absolute;
+    /* top: 50%;
+    left: 50%; */
+
+    top: calc( 400px/2 - 100px/2 );
+    left: calc( 50% - (100px/2) );
+}
+
+:root {
+    --box-color : palevioletred;
+}
+
+.p1 {
+    background-color: var(--box-color);
+}
+
+.c1 {
+    background-color: var(--box-color);
+}

@@ -1,0 +1,23 @@
+article img {
+    width: 100px;
+    float: right;
+}
+
+.box {
+    border: 1px solid salmon;
+
+    width: 100px;
+    height: 100px;
+
+    margin: 10px;
+}
+
+.box.left {
+    float: left;
+    border-color: aquamarine;
+}
+
+.box.right {
+    float: right;
+    border-color: green;
+}

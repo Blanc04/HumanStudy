@@ -1,0 +1,38 @@
+.box {
+    border: 1px solid salmon;
+    height: 125px;
+    width: 125px;
+    /* width: 100px; */
+    margin: 10px;
+}
+
+.hidden {
+    overflow: hidden;
+}
+
+.scroll {
+    overflow: scroll;
+}
+
+.scroll-y {
+    /* y 스크롤을 보장하라 */
+    overflow-y: scroll;
+}
+
+.auto {
+    overflow: auto;
+}
+
+.parent {
+    border: 1px solid salmon;
+    width: 300px;
+    white-space: nowrap;
+    overflow: auto;
+}
+
+.parent div {
+    border: 1px solid aquamarine;
+    display: inline-block;
+    width: 100px;
+    margin: 5px;
+}
