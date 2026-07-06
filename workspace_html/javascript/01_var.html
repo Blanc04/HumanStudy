@@ -92,8 +92,11 @@
         let strA = '26.1'
         let strB = '10개'
         console.log( strA + .2 )
+
         let numA = Number(strA) + .1
         console.log(numA)
+
+        // 대상 안에 문자가 있으면 숫자 변환 실패
         console.log( Number(strB) )
         
         numA = parseInt( strA )
@@ -103,19 +106,14 @@
         console.log( String(numA) )
         console.log( ''+numA )
 
-        // 평
+        // '' 또는 ""가 없으므로 숫자 판정
         let py = 3.3
         let acre = 4046.8
         let 밭 = 10
-        
-        // let num밭 = Number(밭)
-        // let numacre = Number(acre)
-        // let numpy = Number(py)
-        // console.log( '단위가 평일 때 : 'num밭 * numacre )
-        // console.log( '단위가 에이커일 때 : 'num밭 * numpy )
 
         console.log( '단위가 평일 때 : '+밭 * py )
         console.log( '단위가 에이커일 때 : '+밭 * acre )
+        console.log( 밭 * acre + '단위가 에이커일 때 : ' )
 
         console.log( 82 / py )
     </script>
