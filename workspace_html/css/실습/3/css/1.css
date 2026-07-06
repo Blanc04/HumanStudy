@@ -1,0 +1,274 @@
+body {
+    margin: 0;
+}
+
+.parent {
+    border: 1px solid salmon;
+    height: 100%;
+}
+
+.topbar {
+    background-color: #212121;
+    display: flex;
+    flex-wrap: nowrap;
+    /* justify-content: space-between; */
+    color: white;
+    width: 100%;
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.special {
+    /* float: left; */
+    background-color: #84C639;
+    font-size: 1.2em;
+    padding: .5em 3em;
+    font-weight: 300;
+    line-height: 1.42857;
+    text-decoration: none;
+    text-align: center;
+}
+
+.search {
+    /* float: left; */
+    width: 27%;
+    margin: .1em 0 0 6em;
+}
+
+.search > form {
+    display: flex;
+}
+
+.searchtype {
+    width: 85%;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.searchbutton {
+    background-color: red;
+    /* width: 50px; */
+    width: 15%;
+    /* height: 40px; */
+    padding: 10px 0.9px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.cart {
+    /* float: left; */
+    border: 1px solid ;
+    height: 100%;
+    margin-left: 3em;
+}
+
+.login {
+    /* float: left; */
+    padding-left: 4em;
+}
+
+.contact {
+    /* float: right; */
+    background-color: red;
+    margin: 0;
+    font-size: 100%;
+    line-height: 1.42857;
+    text-align: center;
+    position: relative;
+    right: 0;
+}
+
+.contact > h2 {
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.contact > h2 >a {
+    display: block;
+    /* margin: 0; */
+    padding: .5em 1.5em;
+    font-size: .74em;
+    text-decoration: none;
+    color: #fff;
+}
+
+.support {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 4em 0 1em;
+    line-height: 1.42857;
+}
+    
+.homebar {
+    background-color: #84C639;
+    width: 100%;
+}
+
+.home {
+    height: 22px;
+    margin: 0 47.5px;
+    padding: 16px 16px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.home1, .home2 {
+    display: inline-block;
+}
+
+.home2 {
+    padding-left: 15px;
+}
+
+.main {
+    /* width: 1100px; */
+    width: 100%;
+    margin: 0 auto;
+}
+
+.banner {
+    width: 100%;
+    display: flex;
+    /* height: 1000px; */
+    /* gap: 30px; */
+}
+
+.bannerleft {
+    /* width: 250px; */
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    position: relative;
+    left: 0;
+}
+
+.bannerleft div {
+    padding: 13px 20px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.bannerleft div:hover {
+    background-color: #84C639;
+    color: white;
+}
+
+.bannerright {
+    display: flex;
+    flex-direction: column;
+    /* width: 1000px; */
+    width: 80%
+    /* margin-left: 30px; */
+}
+
+.bannerright .righttitle {
+    background-image: url(https://p.w3layouts.com/demos/july-2016/07-07-2016/grocery_store/web/images/16.jpg);
+    width: 100%;
+    height: 188px;
+    margin: 0 auto;
+    padding-top: 112px;
+}
+
+.righttitle > h3 {
+    background-color: #fff;
+    width: 45%;
+    margin: 0 auto;
+    padding: 9.6px 16px;
+    text-align: center;
+    font-size: 2em;
+    font-weight: 300;
+    color: #FA1818;
+}
+
+.rightmain {
+    margin-top: 3em;
+}
+
+.productstitle {
+    /* display: inline-block; */
+    margin: 0;
+    padding-bottom: 20px;
+    color: #212121;
+    font-size: 2.5em;
+    font-weight: 500;
+    line-height: 1.1;
+    text-align: center;
+}
+
+.productstitle::after {
+    content: "";
+    background-color: #FA1818;
+    height: 2px;
+    width: 8%;
+    position: absolute;
+    bottom: 38%;
+    left: 56%;
+}
+
+.bannerright > h3 {
+    /* display: inline-block; */
+    /* color: #84C639; */
+    color: #212121;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.products {
+    display: flex;
+    /* flex-wrap: nowrap; */
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.product {
+    width: 190px;
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 15px;
+    transition: all .5s;
+}
+
+.product:hover .cartbutton {
+    background-color: #84C639;
+}
+
+.product img {
+    width: 100%;
+    height: 150px;
+    text-align: center;
+    object-fit: contain;
+}
+
+.product p {
+    text-align: left;
+    font-size: 14px;
+    min-height: 40px;
+}
+
+.product strong {
+    text-align: left;
+    color: #212121;
+}
+
+.product del {
+    text-align: left;
+    color: gray;
+}
+
+.cartbutton {
+    height: 20px;
+    background-color: #FA1818;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    padding: .5em 0;
+    position: relative;
+    transition: all .5s;
+}

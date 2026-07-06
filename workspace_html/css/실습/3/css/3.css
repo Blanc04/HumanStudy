@@ -1,0 +1,13 @@
+.parent {
+    border: 1px solid salmon;
+    height: 750px;
+}
+
+.toolbar {
+    border: 1px solid salmon;
+    border-radius: 10px;
+    background-color: rgba(229, 235, 244, 0.8);
+    width: 95%;
+    height: 70px;
+    margin: 0 auto;
+}
