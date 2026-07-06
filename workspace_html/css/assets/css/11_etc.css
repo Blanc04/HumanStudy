@@ -1,0 +1,28 @@
+.salmon {
+    /* offset-x, offset-y */
+    text-shadow: 10px 3px salmon;
+}
+
+.blur {
+    text-shadow: 2px 2px 4px salmon;
+    color: white;
+    font-size: 2em;
+}
+
+.box {
+    border: 1px solid salmon;
+    width: 100px;
+    box-shadow: 2px 2px 4px greenyellow;
+}
+
+.box2 {
+    border: 1px solid black;
+    width: 150px;
+    height: 200px;
+    margin: 10px;
+}
+
+.box2:hover {
+    box-shadow: 2px 2px 4px greenyellow;
+    cursor: pointer;
+}

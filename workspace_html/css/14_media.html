@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>media</title>
+    <style>
+        .mobileonly {
+            display: none;
+        }
+        ul {
+            border: 1px solid aquamarine;
+            list-style: none;
+            padding-left: 0;
+        }
+        li {
+            border: 1px solid salmon;
+            width: 100px;
+            height: 50p;
+            line-height: 50px;
+            display: inline-block;
+            text-align: center;
+        }
+        @media screen and (max-width:800px) {
+            /* 또 다른 CSS 영역 */
+            .mobileonly {
+                display: inline-block;
+            }
+            ul {
+                /* display: none; */
+                opacity: 0;
+                position: relative;
+                top: -20px;
+            }
+            li {
+                display: block;
+                width: 100%;
+            }
+        }
+        span:hover + ul {
+            transition: all 0.5s;
+            /* display: block; */
+            top: 0px;
+            opacity: 1;
+        }
+        </style>
+</head>
+<body>
+    <span class="mobileonly">Burger Menu(Open Menu)</span>
+    <ul>
+        <li>메일</li>
+        <li>블로그</li>
+        <li>웹툰</li>
+        <li>카페</li>
+    </ul>
+</body>
+</html>
