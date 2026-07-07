@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>op</title>
+    <script>
+        let j = 10
+        j = j + 1
+        j += 1
+        j++
+
+        j--
+
+        ++j
+        --j
+
+        let k = 10
+        k++
+        console.log('k++ 이후 : '+ k)
+        ++k
+        console.log('++k 이후 : '+ k)
+
+        k = 10
+        console.log('k++', k++)
+        console.log('k', k)
+
+        k = 10
+        console.log('++k', ++k)
+        console.log('k', k)
+
+        k = 10
+        let m = k++ + 1
+
+        k = 10
+        m = ++k + k++
+
+        k = 10
+        m = k-- + ++k - --k
+
+        let boolA = true
+        let boolB = false
+        let result = boolA && boolB
+        console.log('and : ', result)
+
+        result = boolA || boolB
+        console.log('or : ', result)
+
+        console.log('!boolA', !boolA)
+
+        console.log('같은가?', boolA == boolB )
+        console.log('같지 않은가?', boolA != boolB )
+
+        let n = 3
+        let o = "3"
+        console.log('n == o', n == o)
+        console.log(typeof n)
+        console.log(typeof o)
+        console.log('n === o', n === o)
+        console.log('n !== o', n !== o)
+        
+        console.log(typeof o == "string")
+
+        let num = 25.6
+        result = (num % 2) == 0 ? '짝수' : '홀수'
+        console.log(result)
+
+        //1
+        let money = 10000
+        let p1 = 4800
+        result = (money % p1)
+        console.log(parseInt(money/p1),'잔')
+        console.log(result,'원')
+        
+        //2
+        // 차 가격
+        let tea = 8000
+        // 할인율
+        let salecount = 15
+        // 차 가격에 할인율 수치를 곱하면 120000가 되는데 여기서 100분의 1로 나누면 할인가가 나옴
+        let sale = tea * salecount / 100
+        // 결과는 차 가격에서 할인가 빼면 됨
+        result = tea - sale
+        console.log(result,'원')
+
+        //3
+        // 1234
+        let main = 1234
+        // 1234에 0.01을 곱하면 12.34가 됨
+        result = main * 0.01
+        // 뒤에 .34 쳐내고 100을 곱하면 1200
+        console.log(parseInt(result)*100)
+        
+        //4
+        // 1000
+        let firstnum = 1000
+        // 794
+        let secondnum = 794
+        // 1000을 794로 나누고 100을 곱하면 정수는 125가 됨
+        result = firstnum/secondnum * 100
+        // 끝에 남은 소수점들 쳐내고 0.01 곱해서 소수점 자리를 2 앞으로 보냄
+        console.log(parseInt(result) * 0.01)
+
+        //5
+        // 먼저 목표 계산
+        let total = 17000
+        // 5000원 얼마 줄 수 있는지 계산
+        // 3.4장에서 소수점 쳐내야 함
+        let money5000 = parseInt(total / 5000)
+        // 남은 1000원 얼마 줄 수 있는지 계산
+        let rest = total % 5000
+        // 1000원 변수 저장
+        let money1000 = parseInt(rest / 1000)
+        console.log('5000원 : ', money5000 + '장')
+        console.log('1000원 : ', money1000 + '장')
+
+
+    </script>
+</head>
+<body>
+
+</html>
