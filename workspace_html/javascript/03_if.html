@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>if</title>
+    <script>
+        let value = false
+        if (value){
+            console.log('이거 true임')
+        }
+
+        let value2 = true
+        if (value2){
+            console.log('참')
+        }
+        if(!value2){
+            console.log('거짓')
+        }
+
+        let value3 = true
+        if(value3){
+            console.log('참')
+        } else {
+            console.log('거짓')
+        }
+        
+        let score = 85
+        if(score >= 60) {
+            console.log('합격')
+        } else {
+            console.log('불합격')
+        }
+
+        score = 90
+        if(score >=90){
+            console.log('A')
+        } else {
+            if(score >=80) {
+                console.log('B')
+            }
+            else {
+                console.log('C')
+            }
+        }
+
+        score = 80
+        if(score >=90){
+            console.log('A')
+        } else if(score >=80){
+            console.log('B')
+        } else {
+            console.log('C')
+        }
+
+        score = 70
+        if(score >=90){
+            console.log('A')
+        } else if(score >=80){
+            console.log('B')
+        } else if(score >=70){
+            console.log('C')
+        } else {
+            console.log('D')
+        }
+
+        score = 60
+        if(score >=90){
+            console.log('A')
+        } else if(score >=80){
+            console.log('B')
+        } else if(score >=70){
+            console.log('C')
+        } else {
+            console.log('D')
+        }
+        
+        // js
+        // 참(true)의 정의 : 거짓이 아닌 것
+        // 거짓 : false, 0, undefined, null, NaN
+
+        let fruit = 'apple'
+        if(fruit = 'apple'){
+            console.log('사과')
+        } else if(fruit = 'apple'){
+            console.log('바나나')
+        } else {
+                console.log('모름')
+        }
+        
+        switch( fruit ){
+            case 'apple' :
+                console.log('사과')
+                break
+            case 'bababa' :
+                console.log('바나나')
+                break
+            default : 
+                console.log('모름')
+                break
+        }
+
+        let phone = 's23'
+        if(phone = 's23'){
+            console.log('삼성')
+        } else if(phone = 's24'){
+            console.log('삼성')
+        } else {
+            console.log('모름')
+        }
+
+        if(phone == 's23' || phone == "s24"){
+            console.log('삼성')
+        }
+
+        // switch 쓰는 경우
+        switch( phone ){
+            case 's23' :
+            case 's24' :
+            case 's25' :
+            case 's26' :
+                console.log('삼성')
+                break
+            case 'i15' :
+            case 'i16' :
+            case 'i17' :
+                console.log('애플')
+                break
+            default : 
+                console.log('삼성, 애플 아님')
+        }
+
+        // 1
+        // 아무 숫자나 받아서 다음 형식으로 출력
+        // "양수" 또는 0 또는 "음수"
+
+        // 2
+        // "홀수" 또는 "짝수" 출력
+        // let q2num = prompt('숫자를 아무거나 입력하시오.')
+        // if(q2num % 2){
+        //     console.log('홀수')
+        // } else {
+        //     console.log('짝수')
+        // }
+
+        // 3
+        // 두 수를 받아서
+        // 둘 중에 큰 값을 출력
+        // 3과 5중에 큰수 : 5
+
+        // 4
+        // 임의의 money가 있을 때
+        // 7000원 이상이면 "택시타자" 
+        // 7000원 미만 ~ 3000원 이상이면 "버스타자"
+        // 3000원 미만이면 "걸어가자"
+        // let q4money = prompt('돈 얼마 있음?')
+        // if(q4money >= 7000){
+        //     console.log('택시타자')
+        // } else if (q4money >= 3000) {
+        //     console.log('버스타자')
+        // } else if (q4money < 3000) {
+        //     console.log('걸어가자')
+        // } else {
+        //     console.log('숫자를 모르시나요?')
+        // }
+
+        // 5
+        // '가위' '바위' '보' 중에 하나만 입력
+        // 5-1
+        // 컴퓨터는 항상 '바위'만 내는 경우
+        // let q5 = prompt('뭐 낼거?')
+        // switch( q5 ){
+        //     case '가위' :
+        //         console.log('졌다')
+        //         break
+        //     case '바위' :
+        //         console.log('비겼다')
+        //         break
+        //     case '보' :
+        //         console.log('이겼다')
+        //         break
+        //     default : 
+        //         console.log('게임을 포기했다')
+        // }
+        // 5-2
+        // 이겼다 졌다 비겼다 출력
+        // let q5and2 = prompt('뭐 낼거?')
+        // let alphago = Math.random()
+        // let q5result = parseInt(Math.random() * 10) % 3
+        // if (q5result == 0) {
+        //     console.log('졌다')
+        // } else if (q5result == 1) {
+        //     console.log('비겼다')
+        // } else if (q5result == 2) {
+        //     console.log('이겼다')
+        // }
+
+        // 6
+        // 임의의 수 3개 x, y, z
+        // z가 x~y 사이에 잇는지 판단
+
+        // 7
+        // 월(한자)을 입력 받아서 계절 출력
+        // 단, 13이나 -1같은 걸 받으면 '다시 입력하세요' 출력
+
+        // 8
+        // 온도를 입력받아 다음처럼 출력
+        // 예: 32 입력
+        // "영상 32도 입니다"
+        // 예: -3 입력
+        // "영하 3도 입니다"
+
+        // -- 멘탈 챙길 자신 있으면 도전
+        // 9
+        // 시와 분을 입력 받아서 35분 후의 시간 출력
+        // 3, 51 입력
+        // 출력 : 4시 26분
+        let hour = parseInt(Math.random() * 12)
+        let minute = parseInt(Math.random() * 60)
+        console.log(hour,'시', minute,'분')
+        minute += 35
+        if(hour >= 12){
+            hour -= 12
+        }
+        if(minute >= 60){
+            hour += 1
+            minute -= 60
+        }
+        console.log(hour,'시', minute,'분')
+
+        // 10
+        // 두자리 숫자를 받아서
+        // 10의 자리와 1의 자리가 같은지 판단
+        // 예: 88 => 같음, 89 => 다름
+        let q10 = parseInt(Math.random() * 90) + 10
+        let tennum = parseInt(q10 / 10)
+        let onenum = q10 % 10
+        if (tennum == onenum){
+            console.log(tennum, onenum, '같음')
+        } else {
+            console.log(tennum, onenum, '다름')
+        }
+
+        // 11
+        // 369게임
+        // 어떤 수를 받아서 3,6,9가 있으면 "박수" 출력, 없으면 그 숫자 출력
+        // 예: 31=>박수 12=>12
+
+        // 12
+        // 사각형에서
+        // 좌상단 좌표 : x1:10, y1:20
+        // 우하단 좌표 : x2:90, y2:100
+        // 입력받은 좌표가 사각형에 겹치는가?
+
+        let rand = Math.random()
+        console.log(rand)
+        let parserand = parseInt(Math.random() * 10)
+        console.log(parserand)
+        
+        let test = parseInt(Math.random() * 90) + 10
+        console.log(test)
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

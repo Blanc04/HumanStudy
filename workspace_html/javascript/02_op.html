@@ -40,12 +40,13 @@
 
         let boolA = true
         let boolB = false
+        // and
         let result = boolA && boolB
         console.log('and : ', result)
-
+        // or
         result = boolA || boolB
         console.log('or : ', result)
-
+        // not
         console.log('!boolA', !boolA)
 
         console.log('같은가?', boolA == boolB )
@@ -53,9 +54,12 @@
 
         let n = 3
         let o = "3"
+        // 숫자 같은지만 따짐
         console.log('n == o', n == o)
+        // 형식을 알려줌
         console.log(typeof n)
         console.log(typeof o)
+        // 숫자형인지 문자형인지도 따짐
         console.log('n === o', n === o)
         console.log('n !== o', n !== o)
         
@@ -70,7 +74,7 @@
         let p1 = 4800
         result = (money % p1)
         console.log(parseInt(money/p1),'잔')
-        console.log(result,'원')
+        console.log('남은 돈', result,'원')
         
         //2
         // 차 가격
