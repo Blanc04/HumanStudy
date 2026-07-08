@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pyramid</title>
+    <script>
+        // 1단계
+        // 목표 출력:
+        // +++++
+
+        // 문자열을 저장할 변수
+        // 처음에는 아무 글자도 없는 빈 문자열로 시작
+        let string = ''
+
+        // 아래 코드는 string에 + 하나를 직접 추가하는 방식
+        // string = string + '+'
+
+        // i를 1부터 5까지 반복
+        // 즉, 총 5번 반복함
+        for (let i = 1; i <= 5; i++) {
+
+            // string 뒤에 '+'를 하나씩 추가
+            // 반복될 때마다 +가 하나씩 늘어남
+            string += '+'
+        }
+
+        // 완성된 문자열 출력
+        // 결과: +++++
+        console.log(string)
+
+        // 2단계
+        // 목표 출력:
+        // +_+_+_+_+_
+
+        // string을 다시 빈 문자열로 초기화
+        // 1단계에서 만든 +++++가 남아있으면 안 되기 때문
+        string = ''
+
+        // p에는 '+' 저장
+        let p = '+'
+
+        // u에는 '_' 저장
+        let u = '_'
+
+        // i를 1부터 5까지 반복
+        // 총 5번 반복함
+        for (let i = 1; i <= 5; i++) {
+
+            // string 뒤에 '+' 추가
+            string += p
+
+            // 그 다음 string 뒤에 '_' 추가
+            string += u
+        }
+
+        // 완성된 문자열 출력
+        // 결과: +_+_+_+_+_
+        console.log(string)
+
+        // 3단계
+        // j는 줄 번호 역할
+        // 1부터 3까지 반복하므로 총 3줄 출력
+        for (let j = 1; j <= 3; j++) {
+
+            // 한 줄에 출력할 문자열을 매번 비움
+            // 이걸 안 하면 이전 줄의 +가 계속 누적됨
+            string = ''
+
+            // i는 한 줄 안에서 +를 몇 개 붙일지 정하는 역할
+            // 1부터 5까지 반복하므로 +를 총 5개 붙임
+            for (let i = 1; i <= 5; i++) {
+
+                // string에 p를 하나씩 추가
+                // p가 '+'라면 string에 +가 하나씩 붙음
+                string += p
+            }
+
+            // 완성된 한 줄 출력
+            // 결과적으로 +++++ 출력
+            console.log(string)
+        }
+
+        // 4단계
+        // 목표 출력:
+        // 11111
+        // 22222
+        // 33333
+        // 44444
+        // 55555
+
+        // j를 1부터 5까지 반복
+        // j는 한 줄에 어떤 숫자를 찍을지 정하는 역할
+        for (let j = 1; j <= 5; j++) {
+
+            // 한 줄을 새로 만들기 위해 string을 빈 문자열로 초기화
+            string = ''
+
+            // i를 1부터 5까지 반복
+            // 한 줄에 숫자를 5번 붙이기 위한 반복문
+            for (let i = 1; i <= 5; i++) {
+
+                // 현재 j 값을 string 뒤에 추가
+                // j가 1이면 11111
+                // j가 2이면 22222
+                // 이런 식으로 만들어짐
+                string += j
+            }
+
+            // 한 줄 완성 후 출력
+            console.log(string)
+        }
+
+        // 5단계
+        // 목표 출력
+        // 1
+        // 22
+        // 333
+        // 4444
+        // 55555
+
+        // j는 줄 번호 역할
+        // 1부터 5까지 반복하므로 총 5줄 출력
+        for (let j = 1; j <= 5; j++) {
+
+            // 한 줄에 출력할 문자열을 매번 비움
+            // 이걸 안 하면 이전 줄 내용이 계속 이어짐
+            string = ''
+
+            // i는 한 줄 안에서 숫자를 몇 번 붙일지 정하는 역할
+            // i <= j 이므로 현재 j 값만큼 반복함
+            for (let i = 1; i <= j; i++) {
+
+                // string에 현재 줄 번호인 j를 추가
+                // j가 3이면 '3'을 하나씩 붙여서 333이 됨
+                string += j
+            }
+
+            // 완성된 한 줄 출력
+            console.log(string)
+        }
+
+        // 6단계
+        /*
+            +
+            ++
+            +++
+            ++++
+            +++++
+        */
+        for (let j = 1; j <= 5; j++) {
+            string = ''
+            for (let i = 1; i <= j; i++) {
+                string += p
+            }
+            console.log(string)
+        }
+
+        // 7단계
+        /*
+            11111
+            2222
+            333
+            44
+            5
+        */
+        // j는 출력할 숫자를 의미함
+        // 1부터 5까지 반복
+        for (let j = 1; j <= 5; j++) {
+
+            // 한 줄을 만들기 전에 string을 비워줌
+            // 이전 줄 내용이 남아있으면 안 되기 때문
+            string = ''
+
+            // i는 현재 줄에 숫자를 몇 번 붙일지 정하는 반복문
+            // 6 - j 만큼 반복함
+            // j가 1이면 5번, j가 2이면 4번, j가 3이면 3번...
+            for (let i = 1; i <= 6 - j; i++) {
+
+                // 현재 j 값을 string에 붙임
+                string += j
+            }
+
+            // 완성된 한 줄을 출력
+            console.log(string)
+        }
+
+        // 8단계
+        /*
+            +____
+            ++___
+            +++__
+            ++++_
+            +++++
+        */
+        for (let j = 1; j <= 5; j++) {
+            string = ''
+            for (let i = 1; i <= j; i++) {
+                string += p
+            }
+            for (let i = 1; i <= 6 - j; i++) {
+                string += u
+            }
+            console.log(string)
+        }
+
+        // 9단계
+        /*
+            ____+
+            ___++
+            __+++
+            _++++
+            +++++
+        */
+        for (let j = 1; j <= 5; j++) {
+            string = ''
+            for (let i = 1; i <= 6 - j; i++) {
+                string += u
+            }
+            for (let i = 1; i <= j; i++) {
+                string += p
+            }
+            console.log(string)
+        }
+
+        // 10단계
+        /*
+            ____+
+            ___+++
+            __+++++
+            _+++++++
+            +++++++++
+        */
+        for (let j = 1; j <= 5; j++) {
+            string = ''
+            for (let i = 1; i <= 6 - j; i++) {
+                string += u
+            }
+            for (let i = 1; i <= j; i++) {
+                string += p
+            }
+            for (let i = 2; i <= j; i++) {
+                string += p
+            }
+            console.log(string)
+        }
+
+        // 11단계
+        /*
+            ____+____
+            ___+++___
+            __+++++__
+            _+++++++_
+            +++++++++
+        */
+        for (let j = 1; j <= 5; j++) {
+            string = ''
+            for (let i = 1; i <= 6 - j; i++) {
+                string += u
+            }
+            for (let i = 1; i <= j; i++) {
+                string += p
+            }
+            for (let i = 2; i <= j; i++) {
+                string += p
+            }
+            for (let i = 1; i <= 6 - j; i++) {
+                string += u
+            }
+            console.log(string)
+        }
+
+        // 12단계
+        // 입력 받은 줄 수 대로 출력
+        let line = prompt('줄 입력')
+            for (let j = 1; j <= line; j++) {
+                string = ''
+            for (let i = 1; i <= line - j; i++) {
+                string += u
+            }
+            for (let i = 1; i <= j; i++) {
+                string += p
+            }
+            for (let i = 2; i <= j; i++) {
+                string += p
+            }
+            for (let i = 1; i <= line - j; i++) {
+                string += u
+            }
+            console.log(string)
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

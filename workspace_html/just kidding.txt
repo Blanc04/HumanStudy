@@ -3,7 +3,10 @@
 Forest
 <style>body {margin: 0; background-image: url(https://thumbs.dreamstime.com/b/tropical-waterfall-thailand-nature-photography-fresh-water-mountain-river-wild-green-jungle-forest-scenic-peaceful-asia-42009154.jpg?w=768); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;}</style>
 
-마우가
+Robot
+<style>body {margin: 0; background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8Umg1NO9dfcPJv8UMI7Zp-wQOhwHbw0Bm5Smt8Wt3UTZLpetWNIqMyYE&s=10); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;}</style>
+
+Mauga
 <style>body {background-image: url(https://i.namu.wiki/i/HLF818BA17ND4jqwDeTUNQUF1SqBkwARlW5K8U_jo6P031Jrh7QsT1TNocYCqwmpLP8tOWtrOEOuVtIDqNEFWQ.webp);background-repeat:no-repeat;background-size: cover; background-attachment: fixed;}</style>
 <style>.textbackground {color: transparent;font-size: 250px;font-weight: bold;background-position: center;background-clip: text;background-image: url(https://i.namu.wiki/i/HLF818BA17ND4jqwDeTUNQUF1SqBkwARlW5K8U_jo6P031Jrh7QsT1TNocYCqwmpLP8tOWtrOEOuVtIDqNEFWQ.webp);color: transpent;background-size: cover;}</style><div id="test" class="textbackground">☯</div>
 

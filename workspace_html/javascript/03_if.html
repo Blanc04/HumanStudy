@@ -147,6 +147,14 @@
         // 두 수를 받아서
         // 둘 중에 큰 값을 출력
         // 3과 5중에 큰수 : 5
+        let q3num1 = parseInt(Math.random() * 10)
+        let q3num2 = parseInt(Math.random() * 10)
+        console.log(q3num1, q3num2)
+        if (q3num1 > q3num2) {
+            console.log(`더 큰 수: ${q3num1}`)
+        } else {
+            console.log(`더 큰 수: ${q3num2}`)
+        }
 
         // 4
         // 임의의 money가 있을 때
@@ -200,8 +208,16 @@
         // z가 x~y 사이에 잇는지 판단
 
         // 7
-        // 월(한자)을 입력 받아서 계절 출력
+        // 月을 입력 받아서 계절 출력
         // 단, 13이나 -1같은 걸 받으면 '다시 입력하세요' 출력
+        // let q7 = parseInt(Math.random() * 12)
+        // let month = prompt('月을 입력')
+        // let q7 = month
+        // if(q7 >= 13 || q7 <= 0){
+        //     console.log('다시 입력하세요')
+        // } else {
+        //     console.log(q7, '月')
+        // }
 
         // 8
         // 온도를 입력받아 다음처럼 출력
@@ -209,24 +225,33 @@
         // "영상 32도 입니다"
         // 예: -3 입력
         // "영하 3도 입니다"
+        // let q8 = prompt('온도 입력')
+        // if (q8 >= 0){
+        //     console.log('영상', q8,'도 입니다')
+        // } else if (q8 < 0) {
+        //     q8 = q8 * -1
+        //     console.log('영하', q8,'도 입니다')
+        // } else {
+        //     console.log ('ERROR!')
+        // }
 
         // -- 멘탈 챙길 자신 있으면 도전
         // 9
         // 시와 분을 입력 받아서 35분 후의 시간 출력
         // 3, 51 입력
         // 출력 : 4시 26분
-        let hour = parseInt(Math.random() * 12)
+        let hour = parseInt(Math.random() * 24)
         let minute = parseInt(Math.random() * 60)
-        console.log(hour,'시', minute,'분')
+        console.log(`${hour}시 ${minute}분`)
         minute += 35
-        if(hour >= 12){
-            hour -= 12
-        }
         if(minute >= 60){
-            hour += 1
+            hour ++
             minute -= 60
         }
-        console.log(hour,'시', minute,'분')
+        if(hour >= 24){
+            hour -= 24
+        }
+        console.log(`${hour}시 ${minute}분`)
 
         // 10
         // 두자리 숫자를 받아서
@@ -236,29 +261,41 @@
         let tennum = parseInt(q10 / 10)
         let onenum = q10 % 10
         if (tennum == onenum){
-            console.log(tennum, onenum, '같음')
+            console.log(`${tennum}, ${onenum}, 같음`)
         } else {
-            console.log(tennum, onenum, '다름')
+            console.log(`${tennum}, ${onenum}, 다름`)
         }
-
+        
         // 11
         // 369게임
         // 어떤 수를 받아서 3,6,9가 있으면 "박수" 출력, 없으면 그 숫자 출력
         // 예: 31=>박수 12=>12
+        let q11 = parseInt(Math.random() * 100)
+        let q11ten = parseInt(q11/10)
+        let q11one = q11 % 10
+        if (q11ten == 3 || q11ten == 6 || q11ten == 9 || q11one == 3 || q11one == 6 || q11one == 9){
+            console.log("짝")
+        } else {
+            console.log(q11)
+        }
 
+        
         // 12
         // 사각형에서
         // 좌상단 좌표 : x1:10, y1:20
         // 우하단 좌표 : x2:90, y2:100
         // 입력받은 좌표가 사각형에 겹치는가?
 
+
         let rand = Math.random()
         console.log(rand)
-        let parserand = parseInt(Math.random() * 10)
+        let parserand = parseInt(Math.random() * 10) % 3
         console.log(parserand)
         
         let test = parseInt(Math.random() * 90) + 10
         console.log(test)
+
+        // parseInt(Math.random() * (max - min + 1) ) + min
     </script>
 </head>
 <body>
