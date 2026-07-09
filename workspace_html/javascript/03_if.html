@@ -194,15 +194,35 @@
         // 이겼다 졌다 비겼다 출력
         // let q5and2 = prompt('뭐 낼거?')
         // let alphago = Math.random()
-        // let q5result = parseInt(Math.random() * 10) % 3
+        // let q5result = parseInt(alphago * (2+1)) % 3
         // if (q5result == 0) {
-        //     console.log('졌다')
-        // } else if (q5result == 1) {
+        //     if (q5and2 == '가위'){
         //     console.log('비겼다')
-        // } else if (q5result == 2) {
+        //     }
+        // } else if (q5and2 == '바위') {
+        //     console.log('이겼다')
+        // } else if (q5and2 == '보') {
+        //     console.log('졌다')
+        // }
+        // else if (q5result == 1) {
+        //     if (q5and2 == '가위'){
+        //     console.log('졌다')
+        //     }
+        // } else if (q5and2 == '바위') {
+        //     console.log('비겼다')
+        // } else if (q5and2 == '보') {
         //     console.log('이겼다')
         // }
-
+        // else if (q5result == 2) {
+        //     if (q5and2 == '가위'){
+        //     console.log('이겼다')
+        //     }
+        // } else if (q5and2 == '바위') {
+        //     console.log('졌다')
+        // } else if (q5and2 == '보') {
+        //     console.log('비겼다')
+        // }
+        
         // 6
         // 임의의 수 3개 x, y, z
         // z가 x~y 사이에 잇는지 판단
@@ -278,13 +298,14 @@
         } else {
             console.log(q11)
         }
-
         
         // 12
         // 사각형에서
         // 좌상단 좌표 : x1:10, y1:20
         // 우하단 좌표 : x2:90, y2:100
         // 입력받은 좌표가 사각형에 겹치는가?
+        let q12x = Number(prompt('x 좌표 입력'))
+        let q12y = Number(prompt('y 좌표 입력'))
 
 
         let rand = Math.random()

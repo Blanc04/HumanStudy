@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+}
+
+#main {
+    border: 1px solid black;
+    background-color: rgb(32, 63, 63);
+    width: 500px;
+    height: 300px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: relative;
+    top: 250px
+}
+
+.welcome {
+    color: #fff;
+    font-size: 2em;
+}
+
+.login {
+    /* border: 1px solid salmon; */
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.mailaddress {
+    border: 1px solid gray;
+    background-color: rgb(32, 63, 63);
+    width: 80%;
+    height: 25px;
+}
+
+.password {
+    border: 1px solid gray;
+    background-color: rgb(32, 63, 63);
+    width: 80%;
+    height: 25px;
+}
+
+.loginbutton {
+    display: inline-block;
+    background-color: darkcyan;
+    color: #fff;
+    font-size: 2em;
+    font-weight: 500;
+    width: 80%;
+    text-decoration: none;
+}

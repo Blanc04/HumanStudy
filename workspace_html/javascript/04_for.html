@@ -158,6 +158,52 @@
                 }
             }
         }
+
+        for(let i=1; i<=6; i++){
+            rotto = parseInt(Math.random() * 45) + 1
+            console.log(rotto)
+        }
+
+        for(let i=1; i<=100; i++){
+            if(i > 10){
+                console.log(i, '종료합니다')
+                break;
+            }
+            console.log(i)
+        }
+
+        // 총 4층의 주차 건물
+        // 각 층에는 10대의 자리 보유
+        // 내 차는 1층 첫 번째 부터 17번째 자리에 있음
+        let cnt = 0
+        let flag = false
+        for (let i = 1; i <= 4; i++) {
+            for (let j = 1; j <= 10; j++) {
+                cnt++
+                console.log(`${i}, ${j}, ${cnt} 번째`)
+                if (cnt >= 17) {
+                    flag = true
+                    break
+                }
+            }
+            if (flag == true) {
+                break
+            }
+        }
+
+        for(let i=1; i<=10; i++){
+            if(i%2 == 0){
+                continue
+            }
+            console.log(i)
+        }
+        
+        for(let i=1; i<=10; i++){
+            if(i%2 == 1){
+                continue
+            }
+            console.log(i)
+        }
     </script>
 </head>
 <body>

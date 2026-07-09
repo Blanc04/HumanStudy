@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>while</title>
+    <script>
+        // let i = 1
+        // while(i <= 10){
+        //     console.log(i)
+        //     i++
+        // }
+
+        //메뉴 입력받기
+        // "1: 커피, 2:홍차, 0:종료"
+        // let menu = -1
+        // menu = prompt("1: 커피, 2:홍차, 0:종료")
+        // if(menu == 1){
+        //     console.log('커피드릴게요')
+        // } else if(menu == 2){
+        //     console.log('홍차드릴게요')
+        // } else if(menu == 0){
+        //     console.log('종료할게요')
+        // } else {
+        //     console.log('다시 입력해라.')
+        // }
+        
+        // while(menu != 0){
+        //     menu = prompt("1: 커피, 2:홍차, 0:종료")
+        //     if(menu == 1){
+        //         alert('커피드릴게요')
+        //         console.log('커피드릴게요')
+        //     } else if(menu == 2){
+        //         alert('홍차드릴게요')
+        //         console.log('홍차드릴게요')
+        //     } else if(menu == 0){
+        //         alert('종료할게요')
+        //         console.log('종료할게요')
+        //     } else {
+        //         alert('다시 입력해라.')
+        //         console.log('다시 입력해라.')
+        //     }
+        // }
+
+        // do {
+        //     menu = prompt("1: 커피, 2:홍차, 0:종료")
+        //     if(menu == 1){
+        //         alert('커피드릴게요')
+        //         console.log('커피드릴게요')
+        //     } else if(menu == 2){
+        //         alert('홍차드릴게요')
+        //         console.log('홍차드릴게요')
+        //     } else if(menu == 0){
+        //         alert('종료할게요')
+        //         console.log('종료할게요')
+        //     } else {
+        //         alert('다시 입력해라.')
+        //         console.log('다시 입력해라.')
+        //     }
+        // } while(menu != 0)
+
+    
+        let money = 0
+        let menu = -1
+        let menu1 = -1
+        let menu2 = -1
+        while(menu != 0){
+            // 메뉴
+            menu = prompt("1:입금, 2:출금, 3:잔액보기, 0:종료")
+            // 입금 메뉴
+            if(menu == 1){
+                menu1 = Number(prompt('얼마를 입금하시겠습니까? (0 누르면 뒤로 감.)'))
+                // 오 드디어 if 안에 if를 넣을 수 있다는 걸 알았어
+                if(menu1 > 0){
+                    money += menu1
+                    // 정신병 1
+                    alert(`${menu1}원 입금되었습니다. 잔액에 ${menu1}원이 추가되었습니다.`)
+                    console.log(`${menu1}원 입금되었습니다.`)
+                } else{
+                    alert('잔액을 다시 입력해주세요.')
+                    console.log('잔액을 다시 입력해주세요.')
+                }
+            } 
+            // 출금 메뉴
+            if(menu == 2){
+                menu2 = Number(prompt('얼마를 출금하시겠습니까? (원 제외하고 입력)'))
+                if(money > menu2){
+                    money -= menu2
+                // 정신병 2
+                alert(`${menu2}원 출금되었습니다. 잔액에 ${menu2}원이 차감되었습니다.`)
+                console.log(`${menu2}원 출금되었습니다.`)
+            } else{
+                alert('잔액이 부족합니다.')
+                console.log('잔액이 부족합니다.')
+                }
+            } 
+            // 잔액 확인
+            if(menu == 3){
+                alert(`현재 잔액은 ${money}원 입니다.`)
+            }
+            // Get off.
+            if(menu == 0){
+                alert(`꺼져.`)
+            }
+        }
+
+        let dicetry = 0
+            // 주사위 계속 굴리기
+        for(let dice=1; dice<=100; dice++){
+            dicetry = parseInt(Math.random() * 7)
+            console.log(dicetry)
+                // 언제 나왔는지 확인
+            if(dicetry == 6){
+                console.log(`최초${dice}`) 
+                break 
+            }
+        }
+
+        let p = +
+        let u = _
+        for(let pl=1; pl<=4; pl++){
+            string +- p
+            for(let un=0; un<=2; un++){
+                string +- u
+            }
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
