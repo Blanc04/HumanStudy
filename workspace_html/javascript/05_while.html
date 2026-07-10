@@ -80,7 +80,7 @@
                     alert('잔액을 다시 입력해주세요.')
                     console.log('잔액을 다시 입력해주세요.')
                 }
-            } 
+            }
             // 출금 메뉴
             if(menu == 2){
                 menu2 = Number(prompt('얼마를 출금하시겠습니까? (원 제외하고 입력)'))
@@ -93,7 +93,7 @@
                 alert('잔액이 부족합니다.')
                 console.log('잔액이 부족합니다.')
                 }
-            } 
+            }
             // 잔액 확인
             if(menu == 3){
                 alert(`현재 잔액은 ${money}원 입니다.`)
@@ -116,13 +116,21 @@
             }
         }
 
-        let p = +
-        let u = _
-        for(let pl=1; pl<=4; pl++){
-            string +- p
-            for(let un=0; un<=2; un++){
-                string +- u
+        let p = '+'
+        let u = '_'
+        let string = ''
+        for(let j=1; j<=4; j++){
+                string = ''
+            for(let pl=1; pl<=4; pl++){
+                // 오 그래 if를 쓰면 되는 구나
+                // 양쪽 끝이 맞을 떄만 +를 추가하면 되
+                if(j==1 || j==4 || pl==1 || pl ==4) {
+                string += p
+            } else {
+                string += u
             }
+            }
+            console.log(string)
         }
     </script>
 </head>
