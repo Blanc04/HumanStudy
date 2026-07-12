@@ -205,13 +205,14 @@
         const q2 = [3, 4, 7, 5, 1, 6]
         // 문제 2-1
         // 홀수의 개수 구하기
+        let q2num = 0
         for(let i=0;i<q2.length;i++){
-            for(let j=0;j<q2[0];j++){
-            if(j%2){
-                console.log(j)
+            if(q2[i]%2){
+                q2num ++
+                console.log(q2[i])
             }
         }
-        }
+        console.log(q2num)
         // 문제 2-2
         // 4보다 큰 수의 개수 구하기
 
