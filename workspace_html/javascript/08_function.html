@@ -145,12 +145,76 @@
         let cl = console.log
         cl(166)
 
+        function test1(){
+            console.log('test1')
+            return 3
+        }
+
+        function test2(a){
+            console.log('test2')
+            console.log(a)
+        }
+
+        test2(test1())
+        // 즉
+        x = test1()
+        test2(x)
+
+        test2(test1)
+        // 즉
+        x = test1()
+        test2(x)
+
         let yahoo = function(){
             console.log('야호')
         }
         // setTimeout(함수, 지연시간ms == 1/1000초)
+        // 예약하는 기능
         setTimeout(yahoo, 3000)
-        setTimeout(yahoo, 3000)
+        // 더 빠른 방법
+        setTimeout(
+            function(){
+                console.log('야호')
+            }, 
+            4000
+        )
+
+        // setTimeout의 return은 예약 번호
+        let idx = setTimeout(
+            function(){
+                console.log('야호!!!!!!!!!!!!!!')
+            }, 
+            1000
+        )
+        console.log(idx)
+        // 예약 취소
+        clearTimeout(idx)
+
+        function rc(cb){
+            cb()
+            setTimeout(
+                cb, 
+                1000
+            )
+        }
+
+        function 기계_1초_후_한_번_더(함수){
+            함수()
+            setTimeout(
+                기계_1초_후_한_번_더(함수), 
+                1000
+            )
+        }
+
+        let idx2 = setInterval(function(){
+            console.log('인터발')
+        }, 1000*2)
+        // clearInterval(idx2)
+
+        console.log(idx2)
+        setTimeout(function(){
+            clearInterval(idx2)
+        }, 1000*10)
     </script>
 </head>
 <body>

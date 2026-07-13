@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <script>
+        // TV 만들기
+        // 채널 : 0~100 까지
+        // 100일 때 up을 누르면 0번으로
+        // 0일 때 down을 누르면 100번으로
+        // 볼륨 : 0~5 까지
+
+        // 기능
+        /*
+            전원 on
+            전원 off
+            채널(직접 입력)
+            채널 up
+            채널 down
+            볼륨 up
+            볼륨 down
+            음소거 on
+            음소거 off
+        */
+
+        let power = false // 전원 상태 저장
+        let lastCh = 0
+        let lastVo = 0
+        let muted = false // 음소거 상태 저장
+        let voBeforeMute = 0 // 음소거 활성화 전 볼륨 저장
+        const maxCh = 100
+        const minCh = 0
+        const maxVo = 5
+        const minVo = 0
+
+        function powerOn(){
+            power = true
+            console.log("TV 켜짐")
+        }
+        function powerOff(){
+            power = false
+            console.log("TV 꺼짐")
+        }
+        function channel(ch){
+            if(power){
+                // 주의 : = 안 쓰면 조건이 false가 됨 
+                if(ch >= maxCh || ch <= minCh){
+                    console.log('채널이 없습니다')
+                    return
+                }
+                lastCh = ch
+                console.log(ch+'번으로 채널 변경')
+            } else {
+                console.log('전원 꺼져있음')
+            }
+        }
+        function channelUp(){
+            if(power){
+                // 주의 : = 안 쓰면 조건이 false가 됨
+                if(lastCh >= maxCh){
+                    lastCh = minCh
+                }
+                lastCh++
+                console.log(lastCh+'번으로 채널 변경')
+                // console.log(++lastCh+'번으로 채널 변경')
+            } else {
+                console.log('전원 꺼져있음')
+            }
+        }
+        function channelDown(){
+            if(power){
+                // 주의 : = 안 쓰면 조건이 false가 됨
+                if(lastCh <= minCh){
+                    lastCh = maxCh
+                }
+                lastCh--
+                console.log(lastCh+'번으로 채널 변경')
+                // console.log(--lastCh+'번으로 채널 변경')
+            } else {
+                console.log('전원 꺼져있음')
+            }
+        }
+        function volumeUp(){
+            if(power){
+                // 음소거일 때 볼륨 조절 시도하면 음소거 해제 함수 작동
+                if(muted){
+                    muteOff()
+                }
+                if(lastVo >= maxVo){
+                    console.log('최대 볼륨입니다')
+                    return
+                }
+                lastVo++
+                console.log('볼륨 :'+lastVo)
+            } else {
+                console.log('전원 꺼져있음')
+            }
+        }
+        function volumeDown(){
+            if(power){
+                // 음소거일 때 볼륨 조절 시도하면 음소거 해제 함수 작동
+                if(muted){
+                    muteOff()
+                }
+                if(lastVo <= minVo){
+                    console.log('최소 볼륨입니다')
+                    return
+                }
+                lastVo--
+                console.log('볼륨 :'+lastVo)
+            } else {
+                console.log('전원 꺼져있음')
+            }
+        }
+        function muteOn(){
+            if(power){
+                if(muted){
+                    console.log('이미 음소거 상태입니다')
+                    return
+                }
+                // 마지막 볼륨을 저장
+                voBeforeMute = lastVo
+                // 저장해두었으니 꺼도 됨
+                lastVo = 0
+                muted = true
+                console.log('음소거 켜짐')
+            } else {
+                console.log('전원 꺼져있음')
+            }
+        }
+        function muteOff(){
+            if(power){
+                if(!muted){
+                    console.log('음소거 상태가 아닙니다')
+                    return
+                }
+                // 저장해둔 마지막 볼륨 불러오기
+                lastVo = voBeforeMute
+                muted = false
+                console.log('음소거 꺼짐')
+            } else {
+                console.log('전원 꺼져있음')
+            }
+        }
+
+        powerOn()
+        channelUp()
+        channelUp()
+        channelUp()
+        channelUp()
+        channelUp()
+        channelDown()
+        volumeUp()
+        volumeUp()
+        volumeUp()
+        volumeUp()
+        volumeUp()
+        volumeDown()
+        muteOn()
+        muteOff()
+        muteOn()
+        volumeUp()
+        volumeDown()
+        powerOff()
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
