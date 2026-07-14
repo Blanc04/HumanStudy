@@ -250,25 +250,24 @@
         // 조건2 : 예약이 이미 되어있다면 "이미 예약된 자리입니다"
         let q4MenuDisplay = ''
         let q4 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        let setSeet = prompt('어느 좌석에 예약하시겠습니까?')
-        let remainSeat = q4.length
         while(q4MenuDisplay != 'x'){
             q4MenuDisplay = prompt('1.예약\n2.모든 좌석 현황\n3.잔여 좌석\nx.종료')
             if(q4MenuDisplay == 1){
-                prompt('어느 좌석에 예약하시겠습니까?')
-                if(q4[setSeet]){
-                    Number(setSeet)
-                    setSeet--
-                    alert(`${setSeet}번 자리 예약 완료`)
-                    setSeet = '예약됨'
+                let setSeet = prompt('어느 좌석에 예약하시겠습니까?')
+                Number(setSeet)
+                if(q4[setSeet] != '예약됨'){
+                    q4[setSeet] --
+                    alert(`${q4[setSeet]}번 자리 예약 완료`)
+                    q4[setSeet] = '예약됨'
                 } else {
                     alert(`이미 예약된 자리입니다`)
                 }
             }
             if(q4MenuDisplay == 2){
-                alert(`현재 좌석 현황입니다\n${q4[0]}`)
+                alert(`현재 좌석 현황입니다\n${q4}`)
             }
             if(q4MenuDisplay == 3){
+                let remainSeat = q4.length
                 alert(`현재 남은 좌석입니다\n${remainSeat}좌석`)
             }
             if(q4MenuDisplay == 'x'){
@@ -279,6 +278,8 @@
 
         // 문제5,
         // 로또(1~45) 6개 중복없이 출력
+        const lotto = []
+        let q5 = parseInt(Math.random() * 45) + 1
     </script>
 </head>
 <body>

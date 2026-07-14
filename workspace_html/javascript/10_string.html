@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>string</title>
+    <script>
+        const str = '기사도가 죽었을 리가'
+
+        // 문자열의 길이
+        console.log('str.length : ', str.length)
+
+        // indexOf
+        // 동일한 글씨 찾기
+        // 있으면 동일한 첫 번째 글씨 index 반환
+        // 없으면 -1
+        console.log('죽었', str.indexOf('죽었'))
+        console.log('가',str.indexOf('가'))
+        console.log('나',str.indexOf('나'))
+
+        // replace
+        // 첫 번째 전달인자를 두 번째 전달인자로 바꿈
+        // 단, 처음 만나는 것만 바꿈
+        let s1 = str.replace('죽었', '살았')
+        console.log(str)
+        console.log(s1)
+
+        let s2 = str.replace('가', '나')
+        console.log(s2)
+
+        // 정규 표현식
+        s2 = str.replace(/가/g, '나')
+        console.log(s2)
+
+        // slice
+        // 시작부터 끝 바로 앞 까지 복사
+        console.log(str.slice(3, 6))
+
+        // split
+        // 구분자로 배열을 돌려줌
+        console.log(str.split(' '))
+
+        // substring
+        let s = str.substring(3, 6)
+        console.log(str)
+        console.log(s)
+
+        // substr
+        // 시작 index 부터 몇 개
+        s = str.substr(3, 7)
+        console.log(s)
+
+        // trim
+        // 앞, 뒤 공백 제거
+        let str2 = "    1 2  3   "
+        s = str2.trim()
+        console.log(s)
+
+        str2 = ' '
+        if(str2.trim().length != 0){}
+
+        // 문제 1
+        // 어떤 이메일에서 id만 출력하기
+        let q1 = 'd16udonne04@gmail.com'
+        let q1id = q1.split('@')[0]
+        console.log(q1)
+        console.log(q1id)
+
+        // 문제 2
+        // 주민번호로 성별 출력하기
+        let q2 = '000000-2000000'
+        let q2num7 = q2[7]
+        if(q2num7 % 2 == 1){
+            console.log('남성')
+        } else {
+            console.log('여성')
+        }
+
+        // 문제 3
+        // '2026-07-14 12:43:19'
+        // 월, 분 구하기
+        let q3 = '2026-07-14 12:43:19'
+        let q3month = q3.slice(5, 7)
+        let q3minute = q3.slice(14, 16)
+        console.log(`${q3month}월`)
+        console.log(`${q3minute}분`)
+        console.log(`${q3month}월 ${q3minute}분`)
+
+
+        // -------------------------------------------------------
+        // 보안 상 당첨 이메일을 가려서 출력
+        // todair@naver.com >>>> to****@naver.com
+
+        // 문제 4
+        // 앞 2글자만 제대로 표시하고 *표 4개 표시하고 @부터 다
+
+        // 문제 5
+        // 앞 2글자만 제대로 표시하고 *표는 가려진 개수만큼
+        // 예: study.todair@gmail.com >> st**********@gmail.com
+        let q5 = 'study.todair@gmail.com'
+        let q5id = q5.split('@')[0]
+        let mask_id = q5id.slice(0, 2)
+        let len = q5id.length - 2
+        let mailcom = q5.split('@')[1]
+        for(let i=0;i<len;i++){
+            mask_id +="*"
+        }
+        console.log(`${mask_id}@${mailcom}`)
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
