@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 | 코딩 부트캠프</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/main.js" defer></script>
+</head>
+<body class="login-page">
+    <header class="site-header">
+        <div class="header-left">
+            <a class="logo" href="index.html" aria-label="코딩 부트캠프 홈">코딩 부트캠프</a>
+
+            <nav class="main-nav" aria-label="주요 메뉴">
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-button" type="button" aria-expanded="false">
+                        부트캠프
+                        <span class="dropdown-arrow" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="dropdown-menu bootcamp-menu">
+                        <section class="dropdown-section">
+                            <h2>소프트웨어 개발</h2>
+                            <a href="index.html#backend-java">백엔드 : JAVA</a>
+                            <a href="index.html#unity-game">유니티 게임 개발</a>
+                            <a href="index.html#cloud-engineering">클라우드 엔지니어링</a>
+                        </section>
+
+                        <section class="dropdown-section">
+                            <h2>데이터, AI 및 사용자 이용 경험</h2>
+                            <a href="index.html#data-analysis">데이터 분석</a>
+                            <a href="index.html#growth-marketing">그로스 마케팅</a>
+                        </section>
+
+                        <section class="dropdown-section">
+                            <h2>단기 심화</h2>
+                            <a href="index.html#advanced-nlp">AI 심화 : 자연어 처리</a>
+                        </section>
+                    </div>
+                </div>
+
+                <a class="nav-link" href="index.html#career">취업지원</a>
+
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-button" type="button" aria-expanded="false">
+                        블로그
+                        <span class="dropdown-arrow" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="dropdown-menu blog-menu">
+                        <a href="index.html#blog-home">블로그 홈</a>
+                        <a href="index.html#student-diary">수강생 일기</a>
+                        <a href="index.html#study-diary">학습 일기</a>
+                        <a href="index.html#it-trend">IT 트렌드</a>
+                    </div>
+                </div>
+
+                <a class="nav-link" href="index.html#learning-card">내일배움카드</a>
+            </nav>
+        </div>
+
+        <a class="login-button" href="index.html">홈으로</a>
+    </header>
+
+    <main class="login-main">
+        <section class="login-box" aria-labelledby="login-title">
+            <h1 id="login-title" class="login-logo">코딩 부트캠프</h1>
+
+            <form class="login-form" action="#" method="post">
+                <label class="sr-only" for="email">이메일</label>
+                <input
+                    id="email"
+                    class="login-field"
+                    type="email"
+                    name="email"
+                    placeholder="이메일"
+                    autocomplete="email"
+                    required
+                >
+
+                <label class="sr-only" for="password">비밀번호</label>
+                <input
+                    id="password"
+                    class="login-field"
+                    type="password"
+                    name="password"
+                    placeholder="비밀번호"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <button class="login-submit" type="submit">로그인</button>
+            </form>
+
+            <nav class="login-help-links" aria-label="계정 도움말">
+                <a href="#find-account">계정 찾기</a>
+                <a href="#find-password">비밀번호 찾기</a>
+                <a href="#sign-up">회원가입</a>
+            </nav>
+        </section>
+    </main>
+</body>
+</html>

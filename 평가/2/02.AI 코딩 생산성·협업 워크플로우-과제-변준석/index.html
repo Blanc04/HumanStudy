@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코딩 부트캠프</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-left">
+            <a class="logo" href="index.html" aria-label="코딩 부트캠프 홈">코딩 부트캠프</a>
+
+            <nav class="main-nav" aria-label="주요 메뉴">
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-button" type="button" aria-expanded="false">
+                        부트캠프
+                        <span class="dropdown-arrow" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="dropdown-menu bootcamp-menu">
+                        <section class="dropdown-section">
+                            <h2>소프트웨어 개발</h2>
+                            <a href="#backend-java">백엔드 : JAVA</a>
+                            <a href="#courses">유니티 게임 개발</a>
+                            <a href="#cloud-engineering">클라우드 엔지니어링</a>
+                        </section>
+
+                        <section class="dropdown-section">
+                            <h2>데이터, AI 및 사용자 이용 경험</h2>
+                            <a href="#courses">데이터 분석</a>
+                            <a href="#growth-marketing">그로스 마케팅</a>
+                        </section>
+
+                        <section class="dropdown-section">
+                            <h2>단기 심화</h2>
+                            <a href="#courses">AI 심화 : 자연어 처리</a>
+                        </section>
+                    </div>
+                </div>
+
+                <a class="nav-link" href="#career">취업지원</a>
+
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-button" type="button" aria-expanded="false">
+                        블로그
+                        <span class="dropdown-arrow" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="dropdown-menu blog-menu">
+                        <a href="#blog-home">블로그 홈</a>
+                        <a href="#student-diary">수강생 일기</a>
+                        <a href="#study-diary">학습 일기</a>
+                        <a href="#it-trend">IT 트렌드</a>
+                    </div>
+                </div>
+
+                <a class="nav-link" href="#learning-card">내일배움카드</a>
+            </nav>
+        </div>
+
+        <a class="login-button" href="login.html">로그인</a>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-text">
+                <p class="hero-kicker">IT 전문 교육 기관</p>
+                <h1>실무 중심 커리어 부트캠프로<br>취업까지 한 번에 준비하세요.</h1>
+                <p class="hero-description">
+                    코딩 부트캠프는 프로젝트 중심 학습, 현직자 피드백, 취업 지원 프로그램을 통해
+                    개발·클라우드·마케팅 분야의 실무형 인재를 양성합니다.
+                </p>
+                <div class="hero-actions">
+                    <a class="primary-button" href="#courses">과정 살펴보기</a>
+                    <a class="secondary-button" href="#career">취업지원 보기</a>
+                </div>
+            </div>
+
+            <div class="hero-highlight-card">
+                <h2>왜 코딩 부트캠프인가?</h2>
+                <ul>
+                    <li>실무 프로젝트 중심 커리큘럼</li>
+                    <li>현직 멘토와 포트폴리오 피드백</li>
+                    <li>인턴십 연계 및 취업 컨설팅 제공</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="courses-section" id="courses">
+            <div class="section-heading">
+                <p class="section-kicker">Bootcamp Courses</p>
+                <h2>지금 모집 중인 대표 부트캠프 과정</h2>
+                <p>시험 조건에 맞춰 최소 2개 이상이 아니라, 총 3개의 과정을 한눈에 비교할 수 있도록 구성했습니다.</p>
+            </div>
+
+            <div class="course-grid">
+                <article class="course-card" id="growth-marketing">
+                    <img class="course-image" src="assets/images/growth-marketing.svg" alt="그로스 마케팅 부트캠프를 상징하는 성장 그래프 이미지">
+                    <div class="course-body">
+                        <h3>그로스 마케팅 부트캠프</h3>
+                        <p class="course-period-label">모집기간</p>
+                        <p class="course-period">26.06.16 ~ 26.07.19</p>
+                        <div class="tag-list" aria-label="그로스 마케팅 부트캠프 태그">
+                            <span class="tag">단독 인턴십 기회</span>
+                            <span class="tag">기업 실무 프로젝트</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="course-card" id="cloud-engineering">
+                    <img class="course-image" src="assets/images/cloud-devops.svg" alt="AWS DevOps 엔지니어 교육을 상징하는 클라우드 인프라 이미지">
+                    <div class="course-body">
+                        <h3>클라우드 커리어의 시작: AWS - DevOps 엔지니어 교육</h3>
+                        <p class="course-period-label">모집기간</p>
+                        <p class="course-period">26.06.23 ~ 26.07.27</p>
+                        <div class="tag-list" aria-label="AWS DevOps 엔지니어 교육 태그">
+                            <span class="tag">대규모트래픽</span>
+                            <span class="tag">AWS</span>
+                            <span class="tag">취업지원</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="course-card" id="backend-java">
+                    <img class="course-image" src="assets/images/backend-java.svg" alt="백엔드 부트캠프 Java & Spring 과정을 상징하는 개발 이미지">
+                    <div class="course-body">
+                        <h3>백엔드 부트캠프: Java &amp; Spring</h3>
+                        <p class="course-period-label">모집기간</p>
+                        <p class="course-period">26.07.01 ~ 26.08.17</p>
+                        <div class="tag-list" aria-label="백엔드 부트캠프 Java & Spring 태그">
+                            <span class="tag">단독 인턴십 기회</span>
+                            <span class="tag">3번의 실무 프로젝트</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="support-section" id="career">
+            <div class="section-heading left-aligned">
+                <p class="section-kicker">Career Support</p>
+                <h2>학습에서 끝나지 않는 취업지원</h2>
+                <p>이력서 첨삭, 모의 면접, 포트폴리오 점검, 기업 연계형 프로젝트로 취업 준비를 체계적으로 돕습니다.</p>
+            </div>
+            <div class="support-grid">
+                <div class="support-card">
+                    <h3>1:1 취업 컨설팅</h3>
+                    <p>경력 목표 설정부터 지원 전략 수립까지 개인 맞춤형으로 지원합니다.</p>
+                </div>
+                <div class="support-card">
+                    <h3>실무 프로젝트</h3>
+                    <p>과정별 프로젝트 경험을 통해 포트폴리오 완성도를 높입니다.</p>
+                </div>
+                <div class="support-card" id="learning-card">
+                    <h3>내일배움카드 안내</h3>
+                    <p>국비지원 대상 여부와 신청 절차를 쉽게 확인할 수 있도록 안내합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="blog-preview-section" id="blog-home">
+            <div class="section-heading">
+                <p class="section-kicker">Blog</p>
+                <h2>부트캠프 소식과 학습 기록</h2>
+            </div>
+            <div class="blog-link-row">
+                <a href="#student-diary" class="blog-pill" id="student-diary">수강생 일기</a>
+                <a href="#study-diary" class="blog-pill" id="study-diary">학습 일기</a>
+                <a href="#it-trend" class="blog-pill" id="it-trend">IT 트렌드</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

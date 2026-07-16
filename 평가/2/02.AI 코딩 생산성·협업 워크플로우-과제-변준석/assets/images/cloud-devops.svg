@@ -1,0 +1,15 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="500" rx="28" fill="#F4F9FF"/>
+  <circle cx="620" cy="110" r="55" fill="#E1EEFF"/>
+  <rect x="120" y="190" width="560" height="180" rx="26" fill="white" stroke="#B2D1FF" stroke-width="8"/>
+  <path d="M260 278C260 244.863 286.863 218 320 218C345.698 218 367.623 234.148 376.097 256.903C382.285 252.461 389.873 249.846 398 249.846C419.848 249.846 437.555 267.553 437.555 289.401C437.555 311.249 419.848 328.956 398 328.956H320C286.863 328.956 260 302.093 260 268.956V278Z" fill="#73A8FF"/>
+  <rect x="452" y="235" width="140" height="94" rx="18" fill="#1F6FEB" fill-opacity="0.12"/>
+  <path d="M490 262H554" stroke="#1F6FEB" stroke-width="16" stroke-linecap="round"/>
+  <path d="M490 293H531" stroke="#1F6FEB" stroke-width="16" stroke-linecap="round"/>
+  <path d="M545 297L562 280L576 292L604 258" stroke="#1F6FEB" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="145" y="125" width="210" height="32" rx="16" fill="#1F6FEB" fill-opacity="0.12"/>
+  <text x="168" y="148" font-size="22" font-weight="700" fill="#1F6FEB" font-family="Arial, sans-serif">AWS DevOps Career</text>
+  <rect x="188" y="390" width="120" height="16" rx="8" fill="#DDEBFF"/>
+  <rect x="335" y="390" width="150" height="16" rx="8" fill="#DDEBFF"/>
+  <rect x="510" y="390" width="88" height="16" rx="8" fill="#DDEBFF"/>
+</svg>

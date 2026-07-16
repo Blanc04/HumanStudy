@@ -1,0 +1,18 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="500" rx="28" fill="#FFF8F3"/>
+  <circle cx="165" cy="100" r="58" fill="#FFE2D3"/>
+  <rect x="112" y="176" width="576" height="212" rx="28" fill="white" stroke="#F1C2A2" stroke-width="8"/>
+  <rect x="170" y="225" width="170" height="116" rx="18" fill="#FFF2E8"/>
+  <text x="214" y="295" font-size="58" font-weight="800" fill="#E76F51" font-family="Arial, sans-serif">J</text>
+  <rect x="375" y="225" width="255" height="34" rx="17" fill="#FFE0D1"/>
+  <rect x="375" y="275" width="215" height="18" rx="9" fill="#FFECDD"/>
+  <rect x="375" y="309" width="176" height="18" rx="9" fill="#FFECDD"/>
+  <path d="M195 155C220 140 253 140 278 155" stroke="#E76F51" stroke-width="12" stroke-linecap="round"/>
+  <path d="M540 213C554 193 580 193 594 213" stroke="#E76F51" stroke-width="10" stroke-linecap="round"/>
+  <path d="M565 195V177" stroke="#E76F51" stroke-width="10" stroke-linecap="round"/>
+  <rect x="166" y="126" width="220" height="32" rx="16" fill="#E76F51" fill-opacity="0.12"/>
+  <text x="188" y="149" font-size="22" font-weight="700" fill="#D96347" font-family="Arial, sans-serif">Java &amp; Spring Backend</text>
+  <rect x="175" y="404" width="120" height="16" rx="8" fill="#FFE7D9"/>
+  <rect x="322" y="404" width="160" height="16" rx="8" fill="#FFE7D9"/>
+  <rect x="508" y="404" width="114" height="16" rx="8" fill="#FFE7D9"/>
+</svg>
