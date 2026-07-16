@@ -92,7 +92,11 @@
         // todair@naver.com >>>> to****@naver.com
 
         // 문제 4
-        // 앞 2글자만 제대로 표시하고 *표 4개 표시하고 @부터 다
+        // 앞 2글자만 제대로 표시하고 *표 4개 표시하고 @부터 다\
+        let q4 = 'todair@gmail.com'
+        let q4Id = q4.split('@')[0]
+        let q4MaskId = q4Id.slice(0, 2)
+        let q4Result = q4MaskId+'****'+'@'+q4[1]
 
         // 문제 5
         // 앞 2글자만 제대로 표시하고 *표는 가려진 개수만큼

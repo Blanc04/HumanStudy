@@ -228,19 +228,30 @@
         // 마라톤에 5명의 선수가 참가함. 등번호 1~5번까지
         // 대회가 끝났을 때 완주 목록 : [2, 4, 5, 1]
         // 완주를 못한 사람은?
-        // const q3 = [2, 4, 5, 1]
-        // let q3num = 0
-        // for(let i=0;i<q3.length;i++){
-        //     if(q3 != q3[i]){
-        //         q3num++
-        //         console.log(q3num)
-        //     }
-        // }
-        // console.log(`${q3num}개`)
+        const q3 = [2, 4, 5, 1]
+        let q3num = 0
+        for(let i=1;i<=5;i++){
+            if(!q3.includes(i)){
+                q3num = i
+                break;
+            }
+        }
+        console.log(`${q3num}님은 탈락했습니다`)
 
         // 문제3-1,
         // 참가목록 : ['나미', '우솝', '조로', '루피', '상디']
         // 완주목록 : ['우솝', '나미', '상디', '조로']
+        const q3s1 = ['나미', '우솝', '조로', '루피', '상디']
+        const q3s1result = ['우솝', '나미', '상디', '조로']
+        let q3s1name = ''
+        for(let i=0;i<q3s1.length;i++){
+            const q3s1player = q3s1[i]
+            if(!q3s1result.includes(q3s1player)){
+                q3s1name = q3s1player
+                break;
+            }
+        }
+        console.log(`${q3s1name}님은 탈락했습니다`)
 
         // 문제4,
         // 소극장 예약 시스템
@@ -286,10 +297,29 @@
 
         // 문제5,
         // 로또(1~45) 6개 중복없이 출력
+        // const lotto = []
+        // for(let i=0;lotto.length<6;i++){
+        //     let q5 = parseInt(Math.random() * 45) + 1
+        //     if(!lotto.includes(q5)){
+        //         lotto.push(q5)
+        //     }
+        // }
+        // console.log(lotto)
+
         const lotto = []
-        let q5 = parseInt(Math.random() * 45) + 1
-        lotto.includes(q5)
-        lotto.push(q5)
+        while(lotto.length < 6){
+        const q5 = parseInt(Math.random() * 45) + 1
+        let duplicate = false
+        for(let i=0; i<lotto.length; i++){
+            if(lotto[i] == q5){
+                duplicate = true
+            }
+        }
+        if(duplicate == false){
+            lotto.push(q5)
+            }
+        }
+        console.log(lotto)
     </script>
 </head>
 <body>

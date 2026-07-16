@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dom_content</title>
+</head>
+<body>
+    <div id="msg">
+        <span>원래</span> 있던   글씨
+    </div>
+
+    <div id="count">0</div>
+    <div id="clock">시계 로딩 중...</div>
+
+    <div id="log">원래 있던 글씨</div>
+
+    <table border 1>
+        <tbody id="tbody">
+            <!-- <tr>
+                <td>첫 째 칸</td>
+            </tr> -->
+        </tbody>
+    </table>
+    <table border 1>
+        <thead>
+            <tr>
+                <th>제목</th>
+                <th>작성자</th>
+            </tr>
+        </thead>
+        <tbody id="board">
+
+        </tbody>
+    </table>
+    <hr>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>상품명</th>
+                <th>가격</th>
+                <th>재고</th>
+            </tr>
+        </thead>
+        <tbody id="productList">
+
+        </tbody>
+    </table>
+    <hr>
+    <table border 2>
+        <thead>
+            <tr>
+                <th>제목</th>
+                <th>작성자</th>
+            </tr>
+        </thead>
+        <tbody id="board2">
+
+        </tbody>
+    </table>
+    <script>
+        const msg = document.querySelector('#msg')
+        console.log(msg)
+
+        // 태그 안쪽의 글씨들(컨텐츠) 가져오는 방법들
+
+        // textContent
+        // 컨텐츠 영역의 소스 중에서 text(글씨)만 그대로 가져옴
+        console.log('msg.textContent', msg.textContent)
+
+        // innerText
+        // 브라우저에 보이는 text(글씨)로 가져옴
+        // - 브라우저가 보여줄 내용에 대한 계산이 끝나고 실제로 표시하는 text를 가져옴
+        console.log('msg.innerText', msg.innerText)
+
+        // innerHTML
+        console.log('msg.innerHTML', msg.innerHTML)
+
+        // 위의 것은 변수의 배용을 읽은 것
+        // 이제부터 변수에 값을 담으면
+        // 컨텐츠의 내용을 바꿔줌
+
+        // textContent, innerText는 tag도 글씨로 인식함
+        msg.textContent = '<h1>h1제목</h1>    a      b        c'
+        msg.innerText = '<h1>h1제목</h1>    a      b        c'
+
+        // innerHTML은 tag는 tag로 인식함
+        msg.innerHTML = '<h1>h1제목</h1>    a      b        c'
+        msg.innerHTML += 'd'
+
+        msg.innerHTML = '<a href="javascript:alert(1);alert(2)">눌러봐</a>'
+
+        const count = document.querySelector('#count')
+        setInterval( function(){
+            const count = document.querySelector('#count')
+            let cnt = count.textContent
+            // console.log(cnt, typeof cnt)
+            cnt = Number(cnt) + 1
+            count.innerText = cnt
+        }, 1000)
+
+        // #clock에 시간을 "몇 분 몇 초"가 나오게 계속 갱신
+        setInterval( function(){
+            const nowtime = new Date()
+            const minute = nowtime.getMinutes()
+            const second = nowtime.getSeconds()
+            const millisecond = nowtime.getMilliseconds()
+
+            // HTML에서 id="clock"인 요소를 찾아서 clock에 저장함
+            const clock = document.querySelector('#clock')
+
+            const time = minute + '분' + second + '초' + '.' + millisecond
+            clock.textContent = time
+        }, 10)
+
+        // DOM 생성
+
+        // DOM 요소 생성
+        const div = document.createElement('div') // <div></div>
+        console.log(div)
+        // <div id='lol'></div>
+        div.setAttribute('id', 'lol')
+        // <div id='lol'>정글차이</div>
+        div.innerText = '정글차이'
+        console.log(div)
+        div.setAttribute('style', 'color:salmon;')
+
+        const log = document.querySelector('#log')
+        // append
+        // 마지막 자식 요소로 추가됨
+        // 글씨도 넣을 수는 있음
+        log.append(div)
+        log.append('<h1>abcd</h1>')
+        // 같은 객체를 두 번 append 할 때 조심!!
+        // 같은 객체는 이동됨
+        log.append(div)
+
+        const p = document.createElement('p')
+        p.textContent = 'p태그'
+        // appendChild
+        // append 처럼 마지막 자식 요소로 추가됨
+        // DOM만 넣을 수 있음
+        log.appendChild(p)
+        // log.appendChild('<h1>태그처럼 보이는 글씨</h1>')
+
+        const p2 = document.createElement('p')
+        p2.textContent = 'p2'
+        // prepend : 첫 번째 자식 요소로 추가
+        log.prepend(p2)
+
+        const p3 = document.createElement('p')
+        p3.textContent = 'p3'
+        // before : 이전 형제로 추가
+        log.before(p3)
+
+        const p4 = document.createElement('p')
+        p4.textContent = 'p4'
+        // after : 다음 형제로 추가
+        log.after(p4)
+
+        const tbody = document.querySelector('#tbody')
+        const tr = document.createElement('tr')
+        const td = document.createElement('td')
+        tbody.append(tr)
+        tr.append(td)
+        td. textContent = '첫 째칸'
+
+        // const title = rows[0][0]
+        // const author = rows[0][1]
+        const rows = [
+            ['제목 1', '작성자 1'],
+            ['제목 2', '작성자 2'],
+            ['제목 3', '작성자 3'],
+            ['제목 4', '작성자 4'],
+            ['제목 5', '작성자 5']
+        ]
+        // id가 board인 요소 가져오기
+        const board = document.querySelector('#board')
+        // tr은 rows의 행 개수만큼 반복문 돌리기
+        for(let i=0;i<rows.length;i++){
+            // 현재 행을 담을 tr 생성
+            const tr = document.createElement('tr')
+            // td는 현재 행에 들어 있는 값의 개수만큼 반복문 돌리기
+            for(let j=0;j<rows[i].length;j++){
+                // 반복 수 만큼 td 생성
+                const td = document.createElement('td')
+                // i = 몇 번째 행, j = 행 안의 몇 번째 칸
+                td.textContent = rows[i][j]
+                // 현재 tr 안에 td를 자식으로 넣기
+                tr.append(td)
+            }
+            // board 안에 완성된 현재 tr을 자식으로 넣기
+            board.append(tr)
+        }
+
+        const products = [
+        ['키보드', 50000, 10],
+        ['마우스', 30000, 5],
+        ['모니터', 250000, 3],
+        ['스피커', 70000, 8]
+        ]
+
+        // id가 productList인 것 가져오기
+        const productList = document.querySelector('#productList')
+        // 반복문 작성
+        for(let i=0;i<products.length;i++){
+            // 현재 행을 담을 tr 생성
+            const tr = document.createElement('tr')
+            for(let j=0;j<products[i].length;j++){
+                // 반복 수 만큼 td 생성
+                const td = document.createElement('td')
+                if(j == 1){
+                    // 가격을 표시하는 배열일 경우 +원을 추가로 표시
+                    td.textContent = products[i][j]+'원'
+                } else {
+                    // 나머지 배열은 그냥 표시
+                    td.textContent = products[i][j]
+                }
+                // 현재 tr 안에 td를 자식으로 넣기
+                tr.append(td)
+            }
+            // productList 안에 완성된 현재 tr을 자식으로 넣기
+            productList.append(tr)
+        }
+
+        // 존나 쉬운 방법
+        const board2 = document.querySelector('#board2')
+        // let html = `
+        //         <tr>
+        //             <td>${rows[0][0]}</td>
+        //             <td>${rows[0][1]}</td>
+        //         </tr>
+        // `
+        // board2.innerHTML = html
+
+        for(let i=0; i<rows.length; i++){
+          let html = `
+                <tr>
+                    <td>${rows[i][0]}</td>
+                    <td>${rows[i][1]}</td>
+                </tr>
+            `
+            board2.innerHTML += html
+        }
+
+        let str = ''
+        for(let i=0; i<5; i++){
+            str = i + str
+        }
+        console.log(str)
+
+        const body = document.querySelector('body')
+        const style = document.createElement('style')
+        /*
+            <style>
+                #board {
+                    border: 1px solid salmon;
+                }
+            </style>
+        */
+        style.innerText = `
+                #board {
+                    border: 1px solid salmon;
+            }   
+        `
+        body.append(style)
+
+        const script = document.createElement('script')
+        // script.innerText = `
+        //         alert(1)
+        // `
+        body.append(script)
+        
+        // style
+        const clock = document.getElementById('clock')
+        // CSS에서 -로 연결되는 프로퍼티 명은
+        // 카멜케이스(단어를 대문자로)로 변경해서 사용하면 됨
+        // font-size >>>> fontSize
+        // background-color >>>> backgroundColor
+        clock.style.color = 'green'
+        clock.style.fontSize = '1.5em'
+        console.log(clock.style)
+        console.log(clock.style.color)
+        console.log(clock.style.height)
+        clock.style.height = '50px'
+        console.log(clock.style.height)
+
+        let w = window.getComputedStyle(clock, null).getPropertyValue('width')
+        console.log('w', w)
+
+        clock.style.border = '1px solid salmon'
+ 
+        clock.style.height = parseInt(Math.random() * 100) + 'px'
+        console.log(clock.style.height)
+        // const currentHeight = parseInt(getComputedStyle(clock).height)
+        const currentHeight = parseInt(clock.style.height)
+        clock.style.height = (currentHeight + 5) + 'px'
+        console.log(clock.style.height)
+
+        // 문제 1
+        // <div class='quiz q1'>힌트만 달라</div>
+        // 글씨 마지막에 ' 쮸인님~♥' 붙이기
+        // '힌트만 달라 쮸인님~♥'
+        let q1 = document.createElement('div')
+        q1.setAttribute('class', 'quiz q1')
+        q1.innerText = '힌트만 달라'
+        document.body.append(q1)
+        console.log(q1)
+        q1.innerText = q1.innerText + ' 쮸인님~♥'
+
+        /*
+            <div class='quiz q2'>퀴즈2</div>
+            <div class='quiz q2-1'>퀴즈2-1</div>
+            <div class='quiz q2-2'>퀴즈2-2</div>
+            <div class='quiz q2'></div>
+            <div class='quiz q2-1'>퀴즈2-1</div>
+        */
+        // const q2classNames = ['q2', 'q2-1', 'q2-2', 'q2', 'q2-1']
+        // const q2texts = ['퀴즈2', '퀴즈2-1', '퀴즈2-2', '', '퀴즈2-1']
+        // for (let i=0; i<q2classNames.length; i++) {
+        //     const div = document.createElement('div')
+        // }
+        const q2 = `
+            <div class='quiz q2'>퀴즈2</div>
+            <div class='quiz q2-1'>퀴즈2-1</div>
+            <div class='quiz q2-2'>퀴즈2-2</div>
+            <div class='quiz q2'></div>
+            <div class='quiz q2-1'>퀴즈2-1</div>
+            `
+        document.body.innerHTML += q2
+
+        // 문제 2
+        // 위 코드 중 클래스 q2가 몇개인가?
+        // 2개
+        const q2List = document.querySelectorAll('.q2')
+        console.log(`${q2List.length}개`)
+
+        // 문제 3
+        // 위 코드에서 q2를 가지는 태그의 글씨를 출력
+        /* 
+            퀴즈2-1
+        
+        */
+        // 위에서 발견한 q2 개수만큼 반복 돌리기
+        for(let i=0; i<q2List.length; i++){
+            // 표시 방식 지정
+            console.log(q2List[i].innerText)
+        }
+        
+        // 문제 4
+        // 위 코드 중 글씨가 없는 태그의 내용을 '비어있음'으로 바꾸기
+        const q4List = document.querySelectorAll('.quiz')
+        for(let i=0; i<q4List.length; i++){
+            if(q4List[i].innerText==''){
+            q4List[i].innerText='비어있음'
+            }
+        }
+
+    </script>
+</body>
+</html>
