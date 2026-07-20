@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event</title>
+    <style>
+        body {
+            height: 300vh;
+        }
+        .warning {
+            color: red;
+        }
+        #top {
+            position: fixed;
+            right: 10px;
+            bottom: 10px;
+        }
+        #game {
+            width: 250px;
+            position: absolute;
+            top: 0;
+            left: 50px;
+            transition: left 0.1s linear;
+        }
+    </style>
+    <script src="assets/js/15_event.js"></script>
+</head>
+<body onload="init();">
+    <div>
+        <button type="button" id="btn1">버튼1</button><br>
+        <button type="button" id="btn2">버튼2</button><br>
+        <button type="button" id="btn3" onclick="btn3click()">버튼3</button><br>
+        <button type="button" id="btn4">버튼4</button><br>
+    </div>
+
+    <div>
+        아이디: <input type="text" id="id"><br>
+        비밀번호: <input type="password" id="pw"><br>
+        <div class="warning"></div>
+        <br>
+        <input type="button" id="login" value="로그인">
+    </div>
+    <div id="view"></div>
+    <!-- <script src="assets/js/15_event.js"></script> -->
+    <button type="button" id="top">맨 위로</button>
+    <img id="game" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMNfPGkVr_6A8Ed9BR2aUgtZ2JLMxeVmfTVzT4V9HCDw&s=10">
+</body>
+</html>

@@ -20,9 +20,14 @@ Mauga
 사진 섞기
 <style>body{margin:0;}.blend{min-height:100vh;background-image:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC6askWfU6ABtBm1-JC4Pg3mWHd5_h6z0fhLxXX9hRXNX64zqo0Dmiw08&s=10"),url("https://img.magnific.com/free-photo/beautiful-shot-forest-with-green-trees-yellow-leaves-ground-sunny-day_181624-1946.jpg?semt=ais_hybrid&w=740&q=80");background-size:cover,cover;background-position:center,center;background-repeat:no-repeat,no-repeat;background-blend-mode:soft-light;}</style><body><div class="blend"></div></body>
 
+긍정
+<style>#btn_vote_1 {background-image: url(https://i.namu.wiki/i/HLF818BA17ND4jqwDeTUNQUF1SqBkwARlW5K8U_jo6P031Jrh7QsT1TNocYCqwmpLP8tOWtrOEOuVtIDqNEFWQ.webp); background-repeat: no-repeat; background-size: contain;}</style>
 
+중립
+<style>#btn_vote_2 {background-image: url(https://img.amiami.jp/images/product/review/122/FIG-IPN-4376_03.jpg); background-repeat: no-repeat; background-size: contain;}</style>
 
-
+부정
+<style>#btn_vote_3 {background-image: url(https://media.tenor.com/-68ecKnbTVoAAAAM/head-bang-dr-cox.gif); background-repeat: no-repeat; background-size: contain;}</style>
 
 
 
