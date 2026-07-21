@@ -177,19 +177,76 @@ function bind(){
     // - 감자(2000), 고구마(2000), 치즈(2500), 베이컨(3000), 옥수수(500), 페페론치노(2500)
     // [확인]
     // + 문제3-1 : 선택 내역 모두 출력
+    // 피자 종류를 선택하는 select
     const q3Pizza = document.querySelector('select[name="q3Pizza"]')
-    const q3Size = document.querySelectorAll('.q3Size')
-    const q3Dow = document.querySelectorAll('.q3Dow')
-    const q3Topping = document.querySelector('.q3Topping')
+    // 선택 결과를 출력하는 버튼
     const q3Button = document.querySelector('#q3Button')
-    const q3Result = document.querySelectorAll('.q3Result')
-    q3Button.addEventListener('click', function(event){
-        q3Result.innerText = q3Pizza.value
-        // q3Result.innerText = q3Size.checked
-        // q3Result.innerText = q3Dow.checked
-        // q3Result.innerText = q3Topping.checked
+
+    // 각각의 결과를 출력할 div
+    // 클래스가 2개인 요소는 클래스 사이를 띄우지 않고 붙여서 선택
+    // 예: class="q3Result pizza" → '.q3Result.pizza'
+    const resultPizza = document.querySelector('.q3Result.pizza')
+    const resultSize = document.querySelector('.q3Result.size')
+    const resultDow = document.querySelector('.q3Result.dow')
+    const resultTopping = document.querySelector('.q3Result.topping')
+    const resultPrice = document.querySelector('.q3Result.price')
+
+    // 출력 버튼을 클릭했을 때 주문 내역을 확인
+    q3Button.addEventListener('click', function(event) {
+
+    // 1. 피자 종류 출력
+    resultPizza.innerText = `피자: ${q3Pizza.value}`
+
+    // 2. 사이즈 (단일 선택)
+    // :checked를 사용하면 같은 name을 가진 라디오 버튼 중
+    // 현재 선택된 요소 하나만 가져올 수 있음
+    const checkedSize = document.querySelector('input[name="q3Size"]:checked')
+    // 사이즈 가격을 저장할 변수
+    let sizePrice = 0
+    
+    // 라디오 버튼을 감싸는 부모 label의 글자를 가져옴
+    // trim()은 글자 앞뒤의 불필요한 공백과 줄바꿈을 제거
+    resultSize.innerText = `사이즈: ${checkedSize.parentElement.innerText.trim()}`
+    // input의 value는 문자열이므로 가격 계산을 위해 숫자로 변환
+    sizePrice = parseInt(checkedSize.value) // value에 있는 가격을 숫자로 변환 (총액 계산용)
+
+    // 3. 도우 (단일 선택)
+    // 사이즈와 마찬가지로 :checked를 사용해서
+    // 선택된 도우 라디오 버튼 하나만 가져옴
+    const checkedDow = document.querySelector('input[name="q3Dow"]:checked')
+    // 도우는 value에 이름이 들어 있으므로 바로 출력
+    resultDow.innerText = `도우: ${checkedDow.value}`
+
+    // 4. 토핑 (다중 선택)
+    // 체크박스는 여러 개를 동시에 선택할 수 있으므로
+    // querySelectorAll()로 선택된 체크박스를 모두 가져옴
+    const checkedToppings = document.querySelectorAll('.q3Topping input[type="checkbox"]:checked');
+    // 선택된 토핑 이름들을 저장할 배열
+    let toppingNames = []
+    // 선택된 토핑 가격의 합계를 저장할 변수
+    let toppingPrice = 0
+
+     // 선택된 토핑 체크박스를 하나씩 반복
+    checkedToppings.forEach(function(checkbox) {
+        // 체크박스를 감싸는 label의 글자를 배열에 추가
+        toppingNames.push(checkbox.parentElement.innerText.trim()) // 텍스트 추출
+        // value의 가격을 숫자로 변환한 뒤 기존 가격에 더함
+        toppingPrice += parseInt(checkbox.value) // 토핑 가격 누적
     })
+
+    // 선택된 토핑이 하나 이상 있으면
+    // join(', ')으로 배열의 항목들을 쉼표로 연결
+    if (toppingNames.length > 0) {
+        resultTopping.innerText = `토핑: ${toppingNames.join(', ')}`
+    } else {
+        resultTopping.innerText = `토핑: 선택안함`
+    }
+
     // + 문제3-2 : 선택 내역과 총액 출력
+    // 5. 총액 계산 (문제 3-2)
+    const totalPrice = sizePrice + toppingPrice;
+    resultPrice.innerText = `총액: ${totalPrice}원`
+    })
 
 
 
