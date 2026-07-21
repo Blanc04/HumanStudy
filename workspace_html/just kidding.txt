@@ -24,7 +24,7 @@ Mauga
 <style>#btn_vote_1 {background-image: url(https://i.namu.wiki/i/HLF818BA17ND4jqwDeTUNQUF1SqBkwARlW5K8U_jo6P031Jrh7QsT1TNocYCqwmpLP8tOWtrOEOuVtIDqNEFWQ.webp); background-repeat: no-repeat; background-size: contain;}</style>
 
 중립
-<style>#btn_vote_2 {background-image: url(https://img.amiami.jp/images/product/review/122/FIG-IPN-4376_03.jpg); background-repeat: no-repeat; background-size: contain;}</style>
+<style>#btn_vote_2 {background-image: url(https://mblogthumb-phinf.pstatic.net/20111116_127/canals_1321449443452cunia_JPEG/o0471060011614829353.jpg?type=w420); background-repeat: no-repeat; background-size: contain;}</style>
 
 부정
 <style>#btn_vote_3 {background-image: url(https://media.tenor.com/-68ecKnbTVoAAAAM/head-bang-dr-cox.gif); background-repeat: no-repeat; background-size: contain;}</style>

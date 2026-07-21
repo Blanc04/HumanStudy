@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event_form</title>
+    <style>
+        .warning {
+            color: red;
+        }
+    </style>
+    <script src="assets/js/17_event_form.js"></script>
+</head>
+<body>
+    <form id="form" action="https://search.naver.com/search.naver" method="get" target="_blank">
+        검색: <input type="text" id="query" name="query"><br>
+        <br>
+        <input type="submit" value='검색'>
+    </form>
+
+    <div id="parent">
+        부모
+        <div id='child1'>자식1</div>
+        <div id='child2'>자식2</div>
+    </div>
+
+    <table id="board" border=1>
+        <tr>
+            <td>
+                <input type="checkbox" class="chk" value="1">
+            </td>
+            <td class="title">제목1</td>
+            <td writer="w1">작성자1</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" class="chk" value="2">
+            </td>
+            <td class="title">제목2</td>
+            <td writer="w2">작성자2</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" class="chk" value="3">
+            </td>
+            <td class="title">제목3</td>
+            <td writer="w3">작성자3</td>
+        </tr>
+    </table>
+    <hr>
+    <div id="q1">
+        Q1
+        <div id="q1Order">
+            주문 정보
+            <br>
+            이름
+            <input type="text" class="q1Name" name="이름"><br>
+            주소
+            <input type="text" class="q1Address" name="주소"><br>
+        </div>
+        <input type="checkbox" id="q1Same">주문 정보와 배송 정보가 같습니다
+        <div id="q1Delivery">
+            배송 정보
+            <br>
+            이름
+            <input type="text" class="q1Name" name="이름"><br>
+            주소
+            <input type="text" class="q1Address" name="주소"><br>
+        </div>
+    </div>
+    <hr>
+    <div>
+        Q2<br>
+        아이디: <input type="text" id="id"><br>
+        비밀번호: <input type="password" id="pw"><br>
+        <div class="warning"></div>
+        <br>
+        <input type="button" id="login" value="로그인">
+    </div>
+    <hr>
+    <div>
+        Q3<br>
+        <div>
+            피자 종류 선택<br>
+            <select name="q3Pizza">
+                <option value="불고기">불고기</option>
+                <option value="페퍼로니">페퍼로니</option>
+                <option value="포테이토">포테이토</option>
+                <option value="치즈">치즈</option>
+                <option value="파인애플">파인애플</option>
+                <option value="고르곤졸라">고르곤졸라</option>
+            </select>
+        </div>
+        <div>
+            사이즈 선택<br>
+            <label id="small">
+            <input type="radio" name="q3Size" value="18000" class="q3Size">small(18000)
+            </label>
+            <label id="medium">
+            <input type="radio" name="q3Size" value="20000" class="q3Size">medium(20000)
+            </label>
+            <label id="large">
+            <input type="radio" name="q3Size" value="22000" class="q3Size">large(22000)
+            </label>
+        </div>
+        <div>
+            도우 선택<br>
+            <input type="radio" name="q3Dow" value="씬" class="q3Dow">씬
+            <input type="radio" name="q3Dow" value="고구마" class="q3Dow">고구마
+            <input type="radio" name="q3Dow" value="치즈" class="q3Dow">치즈
+            <input type="radio" name="q3Dow" value="소보로" class="q3Dow">소보로
+        </div>
+        <div class="q3Topping">
+            토핑 선택<br>
+            <label id="q3Potato">
+            <input type="checkbox" value="2000">감자(2000)
+            </label>
+            <label id="q3SweetPotato">
+            <input type="checkbox" value="2000">고구마(2000)
+            </label>
+            <label id="q3Cheeze">
+            <input type="checkbox" value="2500">치즈(2500)
+            </label>
+            <label id="q3Bacon">
+            <input type="checkbox" value="3000">베이컨(3000)
+            </label>
+            <label id="q3Corn">
+            <input type="checkbox" value="500">옥수수(500)
+            </label>
+            <label id="q3Pepper">
+            <input type="checkbox" value="2500">페페론치노(2500)
+            </label>
+        </div>
+        <input type="button" value='출력' id="q3Button">
+        <div class="q3Result pizza"></div>
+        <div class="q3Result size"></div>
+        <div class="q3Result dow"></div>
+        <div class="q3Result topping"></div>
+        <div class="q3Result price"></div>
+    </div>
+
+    <div id="view"></div>
+</body>
+</html>
