@@ -8,6 +8,9 @@
         .warning {
             color: red;
         }
+        .q4Checked {
+            font-weight: bold;
+        }
     </style>
     <script src="assets/js/17_event_form.js"></script>
 </head>
@@ -17,7 +20,7 @@
         <br>
         <input type="submit" value='검색'>
     </form>
-
+    <hr>
     <div id="parent">
         부모
         <div id='child1'>자식1</div>
@@ -94,7 +97,7 @@
         <div>
             사이즈 선택<br>
             <label>
-            <input type="radio" name="q3Size" value="18000" class="q3Size" checked>
+            <input type="radio" name="q3Size" value="18000" a="b" class="q3Size" checked>
             small(18000)
             </label>
             <label>
@@ -141,7 +144,38 @@
         <div class="q3Result topping"></div>
         <div class="q3Result price"></div>
     </div>
+    <hr>
+    <div>
+        Q4<br>
+        <span class="q4Menu">인기상품순</span>
+        <span class="q4Menu">낮은가격순</span>
+        <span class="q4Menu">높은가격순</span>
+        <span class="q4Menu">신상품순</span>
+        <span class="q4Menu">상품평 많은순</span>
+        <!-- <input type="button" value='인기상품순' class="q4Menu">
+        <input type="button" value='낮은가격순' class="q4Menu">
+        <input type="button" value='높은가격순' class="q4Menu">
+        <input type="button" value='신상품순' class="q4Menu">
+        <input type="button" value='상품평 많은순' class="q4Menu"> -->
+    </div>
+    <hr>
+    <div>
+        Q5<br>
+        <div id="q5Custom">
+            <textarea placeholder="할 일 적기" id="q5Area"></textarea>
+            <input type="button" value="추가" id="q5Add">
+        </div>
+        <div class="q5Control">
+            <label>
+                <input type="checkbox" id="q5AllCheck">
+                전체 선택
+            </label>
+            <button id="q5SelectDelete">선택 삭제</button>
+        </div>
+        <div class="q5Board">
 
+        </div>
+    </div>
     <div id="view"></div>
 </body>
 </html>

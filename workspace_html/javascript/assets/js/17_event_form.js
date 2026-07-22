@@ -130,16 +130,18 @@ function bind(){
     const q1Address = document.querySelectorAll('.q1Address')
     const same = document.querySelector('#q1Same')
     same.addEventListener('click', function(event){
-    if(same.checked == true){
-        q1Name[1].value = q1Name[0].value
-        q1Address[1].value = q1Address[0].value
-        // q1Delivery.querySelector('.q1Name').value = q1Order.querySelector('.q1Name').value
-        // q1Delivery.querySelector('.q1Address').value = q1Order.querySelector('.q1Address').value
+        if(same.checked == true){
+            q1Name[1].value = q1Name[0].value
+            q1Address[1].value = q1Address[0].value
+            // q1Delivery.querySelector('.q1Name').value = q1Order.querySelector('.q1Name').value
+            // q1Delivery.querySelector('.q1Address').value = q1Order.querySelector('.q1Address').value
         } else {
             q1Delivery.querySelector('.q1Name').value = ''
             q1Delivery.querySelector('.q1Address').value = ''
         }
     })
+
+
     // 문제 2 : 로그인창
     // 로그인 버튼 눌렀을 때
     // 아이디 / 비밀번호 없으면 빨간 글씨 나오게
@@ -166,6 +168,7 @@ function bind(){
         }
     })
 
+
     // 문제 3 : 피자 주문
     // 1. 피자 종류 선택 : select
     // - 불고기, 페퍼로니, 포테이토, 치즈, 파인애플, 고르곤졸라
@@ -185,9 +188,9 @@ function bind(){
     // 각각의 결과를 출력할 div
     // 클래스가 2개인 요소는 클래스 사이를 띄우지 않고 붙여서 선택
     // 예: class="q3Result pizza" → '.q3Result.pizza'
-    const resultPizza = document.querySelector('.q3Result.pizza')
+    
     const resultSize = document.querySelector('.q3Result.size')
-    const resultDow = document.querySelector('.q3Result.dow')
+    const resultPizza = document.querySelector('.q3Result.pizza')
     const resultTopping = document.querySelector('.q3Result.topping')
     const resultPrice = document.querySelector('.q3Result.price')
 
@@ -214,6 +217,7 @@ function bind(){
     // 사이즈와 마찬가지로 :checked를 사용해서
     // 선택된 도우 라디오 버튼 하나만 가져옴
     const checkedDow = document.querySelector('input[name="q3Dow"]:checked')
+    const resultDow = document.querySelector('.q3Result.dow')
     // 도우는 value에 이름이 들어 있으므로 바로 출력
     resultDow.innerText = `도우: ${checkedDow.value}`
 
@@ -249,19 +253,55 @@ function bind(){
     })
 
 
-
     // 문제 4 : 메뉴 선택
     // 인기상품순, 낮은가격순, 높은가격순, 신상품순, 상품평 많은순
     // + 클릭한 것만 굵은 글씨로 유지
+    const q4Menu = document.querySelectorAll('.q4Menu')
+    q4Menu.forEach(function(menu){
+    menu.addEventListener('click', function(){
+        q4Menu.forEach(function(menu){
+        menu.classList.remove('q4Checked')
+        })
+        menu.classList.add('q4Checked')
+        })
+    })
 
 
     // 문제 5 : Todo List
     // 할일을 적는 input, 추가 버튼
+    const q5Custom = document.getElementById('q5Custom') 
+    const q5Area = document.getElementById('q5Area')
+    const q5Add = document.getElementById('q5Add')
+    const q5Board = document.querySelector('.q5Board')
 
     // + 5-1 : 추가버튼 누르면 체크박스와 할일이 하단에 추가된다
+    // <div>
+    //     <input type="checkbox">
+    //     <span>입력한 할 일</span>
+    //     <button>삭제</button>
+    // </div>
+    q5Add.addEventListener('click', function(event) {
+        const div = document.createElement('div')
+        const input = document.createElement('input')
+        input.setAttribute('type', 'checkbox')
+        input.setAttribute('class', 'checked')
+        const span = document.createElement('span')
+        span.innerText = q5Area.value
+        const button = document.createElement('button')
+        button.setAttribute('id', 'q5Delete')
     // + 5-2 : 개별 삭제 버튼이 있고, 클릭 시 그 줄이 지워진다 (dom.remove())
+        button.textContent = '삭제'
+        button.addEventListener('click', function(event) {
+            event.target.parentElement.remove()
+        })
+        div.append(input, span, button)
+        q5Board.append(div)
+    })
+
     // + 5-3 : 전체 선택 checkbox가 있고
     //         전체 선택 체크 시 : 모든 checkbox 체크
+    const q5AllCheck = document.getElementById('q5AllCheck')
+    const q5SelectDelete = document.getElementById('q5SelectDelete')
     //         해제 시 : 모든 checkbox 체크 해제
     // + 5-4 : 전체 선택 후 하나라도 개별 해제가 되면 전체 선택도 해제
     //         개별로 모두 체크한 경우 전체 선택도 체크된다

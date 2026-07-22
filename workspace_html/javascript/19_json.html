@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json</title>
+    <script>
+        // json
+        // 값을 key와 value로 관리
+        // 순서는 보장하지 않음
+
+        // json 선언
+        let json = {}
+        json = {
+            'key': 'value',
+            'num': 1234,
+            'fn': function(){
+                console.log(1)
+            },
+            'k1': {
+                'k1-1': 1,
+                'k1-2': 2,
+                k:3
+            }
+        }
+        // 출력해보기
+        console.log(json)
+        // 잘못된 출력
+        console.log(""+ json)
+
+        // 값에 접근하는 방법
+        // 방법1 : 배열처럼
+        console.log('json[key]: ', json['key'])
+        console.log('json[num]: ', json['num'])
+        console.log('json[k1][k1-1]: ', json['k1']['k1-1'])
+        json['fn']()
+
+        // 방법2 : 프로퍼티처럼
+        console.log('json.key: ', json.key)
+        // console.log('json.k1.k1-2: ', json.k1.k1-2)
+        console.log('json.k1.k: ', json.k1.k)
+        json.fn()
+
+        // 값 넣기
+        // key가 있으면 덮어쓰기
+        // key가 없으면 추가
+        json.num = 456
+        console.log(json.num)
+        console.log(json.num2)
+        json.num2 = 222
+        console.log(json.num2)
+        console.log(json)
+
+        // 네트워크 통신할 때 무조건 문자로 전송
+        // stringify : json을 문자열로 만들어 줌
+        // 단, 값이 함수인 요소는 제외
+        const str = JSON.stringify(json)
+        console.log(str)
+
+        // 글씨를 json으로
+        const json2 = JSON.parse(str)
+        console.log(json2)
+
+        // 일부러 에러 내기
+        // Syntax 나오면 무조건 오타
+        // JSON.parse('<h1>')
+
+        // 허용 범위
+        let j = JSON.parse('{}')
+        j = JSON.parse('[{}]')
+
+        const temple = [{
+            이름: '그랜절',
+            주소: '광장',
+            가격: 300000
+        }, {
+            이름: '만우절',
+            주소: '없음',
+            가격: 2147483647
+        }]
+        for(let t of temple){
+            console.log(t.이름)
+        }
+        for(let i in temple){
+            console.log(temple[i].가격)
+        }
+
+        // json의 모든 key를 배열로 돌려줌
+        const keys = Object.keys(json)
+        console.log(keys)
+
+        // key 삭제
+        delete json.num
+        console.log(json)
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
