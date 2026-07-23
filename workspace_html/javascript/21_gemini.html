@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gemini</title>
+    <script>
+        const list = {
+            contents: []
+        }
+
+        window.onload = function(){
+            gemini()
+        }
+        function gemini(){
+            const ask = document.querySelector('#ask')
+            ask.addEventListener('click', function(){
+                const key = 'AIzaSyBkggMn3xMNSzMvHWdnDu476SvNYLd57Eo'
+                const prompt = document.querySelector('#prompt').value
+                const url = ''
+
+                const data = {
+                    contents: [{
+                        parts: [{
+                            text: prompt
+                        }]
+                    }]
+                }
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'x-goog-api-key': key,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }).then(function(responce){
+                    return responce.json()
+                }).then(function(result){
+                    console.log(result)
+                    const geminiSponce = document.querySelector('#geminiSponce')
+                    geminiSponce.textContent = result.candidates[0].content.parts[0].text
+                }).catch(function(error){
+                    console.error('요청 중 에러', error)
+                })
+            })
+            const ask2 = document.querySelector('#ask2')
+            ask2.addEventListener('click', function(){
+                const key = 'AIzaSyBkggMn3xMNSzMvHWdnDu476SvNYLd57Eo'
+                const prompt = document.querySelector('#prompt').value
+                const url = ''
+
+                list.contents.push({
+                    role: 'user',
+                    parts: [{
+                        text: prompt
+                    }]
+                })
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'x-goog-api-key': key,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(list)
+                }).then(function(responce){
+                    return responce.json()
+                }).then(function(result){
+                    console.log(result)
+
+                    list.contents.push({
+                        role: 'user',
+                        parts: [{
+                            text: JSON.stringify(result)
+                        }]
+                    })
+                    const geminiSponce = document.querySelector('#geminiSponce')
+                    geminiSponce.textContent = result.candidates[0].content.parts[0].text
+                }).catch(function(error){
+                    console.error('요청 중 에러', error)
+                })
+            })
+        }
+    </script>
+</head>
+<body>
+    <textarea id="prompt"></textarea>
+    <br>
+    <button type="button" id="ask">질문하기</button><br>
+    <button type="button" id="ask2">멀티턴</button>
+    <div id="geminiSponce"></div>
+</body>
+</html>
