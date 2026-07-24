@@ -12,6 +12,7 @@ Mauga
 
 폰트 1000
 <style>.fw-1000{font-size:1000;}</style><body><div class="fw-1000">☯</div></body>
+<style>body{font-size:1000;}</style>
 
 픽셀 폰트
 <style>@font-face{font-family:'RoundedFixedsys';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');font-weight:normal;font-display:swap;}.roundedfixedsys{font-family:'RoundedFixedsys';}</style><body><div class="roundedfixedsys">Goodbye World</div></body>
@@ -24,7 +25,7 @@ Mauga
 <style>#btn_vote_1 {background-image: url(https://i.namu.wiki/i/HLF818BA17ND4jqwDeTUNQUF1SqBkwARlW5K8U_jo6P031Jrh7QsT1TNocYCqwmpLP8tOWtrOEOuVtIDqNEFWQ.webp); background-repeat: no-repeat; background-size: contain;}</style>
 
 중립
-<style>#btn_vote_2 {background-image: url(https://mblogthumb-phinf.pstatic.net/20111116_127/canals_1321449443452cunia_JPEG/o0471060011614829353.jpg?type=w420); background-repeat: no-repeat; background-size: contain;}</style>
+<style>#btn_vote_2 {background-image: url(https://cdn.discordapp.com/attachments/1484792150653931592/1527152472924356708/1784171904.jpg?ex=6a638252&is=6a6230d2&hm=3efd01750e767a835d05227b3571a4d143a8351551faddaeb9c2f79a05efc725&); background-repeat: no-repeat; background-size: contain;}</style>
 
 부정
 <style>#btn_vote_3 {background-image: url(https://media.tenor.com/-68ecKnbTVoAAAAM/head-bang-dr-cox.gif); background-repeat: no-repeat; background-size: contain;}</style>
