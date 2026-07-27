@@ -297,13 +297,46 @@ function bind(){
         div.append(input, span, button)
         q5Board.append(div)
     })
-
     // + 5-3 : 전체 선택 checkbox가 있고
     //         전체 선택 체크 시 : 모든 checkbox 체크
     const q5AllCheck = document.getElementById('q5AllCheck')
     const q5SelectDelete = document.getElementById('q5SelectDelete')
     //         해제 시 : 모든 checkbox 체크 해제
+    // 전체 선택 체크박스를 클릭하면
+    q5AllCheck.addEventListener('click', function(event) {
+        // 현재 만들어져 있는 할 일 체크박스를 모두 찾고
+        const checkList = document.querySelectorAll('.checked')
+        // 체크박스를 하나씩 꺼내서
+        checkList.forEach(function(check) {
+            // 전체 선택과 동일한 체크 상태로 바꿈
+            check.checked = event.target.checked
+        })
+    })
     // + 5-4 : 전체 선택 후 하나라도 개별 해제가 되면 전체 선택도 해제
     //         개별로 모두 체크한 경우 전체 선택도 체크된다
+    q5Board.addEventListener('change', function(event) {
+        // 변경된 요소가 할 일 체크박스인지 확인
+        if(event.target.classList.contains('checked')) {
+            // 현재 존재하는 할 일 체크박스를 모두 가져옴
+            const checkList = document.querySelectorAll('.checked')
+            let allChecked = true
+            // 하나라도 체크 해제된 항목이 있는지 검사
+            checkList.forEach(function(check) {
+                if(check.checked == false) {
+                    allChecked = false
+                }
+            })
+            // 검사 결과를 전체 선택 체크박스에 적용
+            q5AllCheck.checked = allChecked
+        }
+    })
     // + 5-5 : 선택 삭제 버튼 클릭 시 선택된 내용만 삭제
+    q5SelectDelete.addEventListener('click', function(event){
+        const checkList = document.querySelectorAll('.checked')
+        checkList.forEach(function(check){
+            if(check.checked == true){
+                check.parentElement.remove()
+            }
+        })
+    })
 }
