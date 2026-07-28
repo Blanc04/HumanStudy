@@ -124,17 +124,14 @@ function bind(){
     // 배송 정보 : input으로 이름, 주소
     // + 체크하면 주문 정보가 배송 정보로 복사
     // + 체크 풀면 배송 정보 글씨 지우기
-    const q1Order = document.querySelector('#q1Order')
-    const q1Delivery = document.querySelector('#q1Delivery')
-    const q1Name = document.querySelectorAll('.q1Name')
-    const q1Address = document.querySelectorAll('.q1Address')
     const same = document.querySelector('#q1Same')
     same.addEventListener('click', function(event){
+        const q1Delivery = document.querySelector('#q1Delivery')
+        const q1Name = document.querySelectorAll('.q1Name')
+        const q1Address = document.querySelectorAll('.q1Address')
         if(same.checked == true){
             q1Name[1].value = q1Name[0].value
             q1Address[1].value = q1Address[0].value
-            // q1Delivery.querySelector('.q1Name').value = q1Order.querySelector('.q1Name').value
-            // q1Delivery.querySelector('.q1Address').value = q1Order.querySelector('.q1Address').value
         } else {
             q1Delivery.querySelector('.q1Name').value = ''
             q1Delivery.querySelector('.q1Address').value = ''
@@ -184,35 +181,28 @@ function bind(){
     const q3Pizza = document.querySelector('select[name="q3Pizza"]')
     // 선택 결과를 출력하는 버튼
     const q3Button = document.querySelector('#q3Button')
-
     // 각각의 결과를 출력할 div
     // 클래스가 2개인 요소는 클래스 사이를 띄우지 않고 붙여서 선택
     // 예: class="q3Result pizza" → '.q3Result.pizza'
-    
     const resultSize = document.querySelector('.q3Result.size')
     const resultPizza = document.querySelector('.q3Result.pizza')
     const resultTopping = document.querySelector('.q3Result.topping')
     const resultPrice = document.querySelector('.q3Result.price')
-
     // 출력 버튼을 클릭했을 때 주문 내역을 확인
     q3Button.addEventListener('click', function(event) {
-
     // 1. 피자 종류 출력
     resultPizza.innerText = `피자: ${q3Pizza.value}`
-
     // 2. 사이즈 (단일 선택)
     // :checked를 사용하면 같은 name을 가진 라디오 버튼 중
     // 현재 선택된 요소 하나만 가져올 수 있음
     const checkedSize = document.querySelector('input[name="q3Size"]:checked')
     // 사이즈 가격을 저장할 변수
     let sizePrice = 0
-    
     // 라디오 버튼을 감싸는 부모 label의 글자를 가져옴
     // trim()은 글자 앞뒤의 불필요한 공백과 줄바꿈을 제거
     resultSize.innerText = `사이즈: ${checkedSize.parentElement.innerText.trim()}`
     // input의 value는 문자열이므로 가격 계산을 위해 숫자로 변환
     sizePrice = parseInt(checkedSize.value) // value에 있는 가격을 숫자로 변환 (총액 계산용)
-
     // 3. 도우 (단일 선택)
     // 사이즈와 마찬가지로 :checked를 사용해서
     // 선택된 도우 라디오 버튼 하나만 가져옴
@@ -220,7 +210,6 @@ function bind(){
     const resultDow = document.querySelector('.q3Result.dow')
     // 도우는 value에 이름이 들어 있으므로 바로 출력
     resultDow.innerText = `도우: ${checkedDow.value}`
-
     // 4. 토핑 (다중 선택)
     // 체크박스는 여러 개를 동시에 선택할 수 있으므로
     // querySelectorAll()로 선택된 체크박스를 모두 가져옴
@@ -229,7 +218,6 @@ function bind(){
     let toppingNames = []
     // 선택된 토핑 가격의 합계를 저장할 변수
     let toppingPrice = 0
-
      // 선택된 토핑 체크박스를 하나씩 반복
     checkedToppings.forEach(function(checkbox) {
         // 체크박스를 감싸는 label의 글자를 배열에 추가
@@ -237,7 +225,6 @@ function bind(){
         // value의 가격을 숫자로 변환한 뒤 기존 가격에 더함
         toppingPrice += parseInt(checkbox.value) // 토핑 가격 누적
     })
-
     // 선택된 토핑이 하나 이상 있으면
     // join(', ')으로 배열의 항목들을 쉼표로 연결
     if (toppingNames.length > 0) {
@@ -245,7 +232,6 @@ function bind(){
     } else {
         resultTopping.innerText = `토핑: 선택안함`
     }
-
     // + 문제3-2 : 선택 내역과 총액 출력
     // 5. 총액 계산 (문제 3-2)
     const totalPrice = sizePrice + toppingPrice;
@@ -331,9 +317,9 @@ function bind(){
         }
     })
     // + 5-5 : 선택 삭제 버튼 클릭 시 선택된 내용만 삭제
-    q5SelectDelete.addEventListener('click', function(event){
+    q5SelectDelete.addEventListener('click', function(event) {
         const checkList = document.querySelectorAll('.checked')
-        checkList.forEach(function(check){
+        checkList.forEach(function(check) {
             if(check.checked == true){
                 check.parentElement.remove()
             }
