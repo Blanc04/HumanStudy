@@ -34,6 +34,12 @@ while dice != 3:
         break
 print(f'3은 {count}번 만에 나왔습니다.')
 
+import turtle as t
+t.shape('turtle')
+
+while True :
+    print(1)
+
 m = '+'
 s = '-'
 # q1
@@ -52,3 +58,8 @@ for i in range(1, 4):
         print(m, end='')
     print()
 print()
+# q4
+for i in range(1, 6):
+    for j in range(1, 6):
+        print(i, end='')
+        print(j, end='')
