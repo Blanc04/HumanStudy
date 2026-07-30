@@ -23,16 +23,18 @@ Mauga
 
 긍정
 <script>document.querySelector('.txt_vote_1').innerText = '1번 (긍정)'</script>
+<script>document.querySelector('.txt_vote_1').innerText = '알아'</script>
 (알아)<style>#btn_vote_1 {background-image: url(https://i.namu.wiki/i/HLF818BA17ND4jqwDeTUNQUF1SqBkwARlW5K8U_jo6P031Jrh7QsT1TNocYCqwmpLP8tOWtrOEOuVtIDqNEFWQ.webp); background-repeat: no-repeat; background-size: contain;}</style>
 
 중립
 <script>document.querySelector('.txt_vote_2').innerText = '2번 (중립)'</script>
+<script>document.querySelector('.txt_vote_2').innerText = '몰랐어'</script>
+(몰랐어)<style>#btn_vote_2 {background-image: url(https://dcimg4.dcinside.co.kr/viewimage.php?id=22abd534f2d32ca566ed&no=24b0d769e1d32ca73de787fa11d0283190dd0349b9d9dce5ef617559e29cfb7c31e349f8c55f4951f6b7d68525e9cdbbad8e20c4ee9a7e9fb2478006313460f74a2a61780ef21e4e984010d2999591e0e68a7c1df83d8f217d7d55ca1ab38ffc0c4849dd21eda9e51e5b1f); background-repeat: no-repeat; background-size: contain;}</style>
 (모피어스)<style>#btn_vote_2 {background-image: url(https://cdn.discordapp.com/attachments/1484792150653931592/1527152472924356708/1784171904.jpg?ex=6a638252&is=6a6230d2&hm=3efd01750e767a835d05227b3571a4d143a8351551faddaeb9c2f79a05efc725&); background-repeat: no-repeat; background-size: contain;}</style>
 (돌셀리스니스)<style>#btn_vote_2 {background-image: url(https://images.steamusercontent.com/ugc/1858299054732047827/DBD8294FC7BA3A78DB202CC26AD9441713C02A90/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false); background-repeat: no-repeat; background-size: contain;}</style>
 
 부정
 <script>document.querySelector('.txt_vote_3').innerText = '3번 (부정)'</script>
-(몰랐어)<style>#btn_vote_3 {background-image: url(https://dcimg4.dcinside.co.kr/viewimage.php?id=22abd534f2d32ca566ed&no=24b0d769e1d32ca73de787fa11d0283190dd0349b9d9dce5ef617559e29cfb7c31e349f8c55f4951f6b7d68525e9cdbbad8e20c4ee9a7e9fb2478006313460f74a2a61780ef21e4e984010d2999591e0e68a7c1df83d8f217d7d55ca1ab38ffc0c4849dd21eda9e51e5b1f); background-repeat: no-repeat; background-size: contain;}</style>
 (머리 박기)<style>#btn_vote_3 {background-image: url(https://media.tenor.com/-68ecKnbTVoAAAAM/head-bang-dr-cox.gif); background-repeat: no-repeat; background-size: contain;}</style>
 
 

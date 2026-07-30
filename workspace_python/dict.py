@@ -12,6 +12,18 @@ for i in range(len(numbers)):
     if (numbers[i]%2 == 1):
         q1And2.append(numbers[i])
     print(sum(q1And2))
+# 문제1-1 : 짝수만 따로 리스트로 만들어서 출력
+q1And1 = []
+for i in numbers:
+    if (i%2 == 0):
+        q1And1.append(i)
+    print(q1And1)
+# 문제1-2 : 홀수의 합
+q1And2 = []
+for i in numbers:
+    if (i%2 == 1):
+        q1And2.append(i)
+    print(sum(q1And2))
 
 # 문제 2
 cart = {
