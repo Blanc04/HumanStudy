@@ -1,93 +1,93 @@
-a = 'hello'
-b = "world"
+a = 'hello' # 작은따옴표로 문자열 저장
+b = "world" # 큰따옴표로 문자열 저장
 
-c = '''여기에
+c = '''여기에 # 작은따옴표 3개를 사용하면 여러 줄 문자열을 저장할 수 있다
 여러 줄
 넣을 수 있다'''
 
-d = """여러 줄
+d = """여러 줄 # 큰따옴표 3개도 여러 줄 문자열을 저장할 수 있다
 가능"""
 
 '''
 여러 줄
 주석으로 사용됨
-'''
+''' # 실행에 사용되지 않는 여러 줄 문자열로, 여러 줄 주석처럼 사용할 수 있다
 
-b = 32.5
-c = "지금 온도는 "+ str(b) +"도 입니다"
-print(c)
+b = 32.5 # 실수형 온도 저장
+c = "지금 온도는 "+ str(b) +"도 입니다" # 숫자 b를 문자열로 변환한 뒤 문자열과 연결
+print(c) # 완성된 문자열 출력
 
-d = f"지금 온도는 {b}도 입니다"
-print(d)
+d = f"지금 온도는 {b}도 입니다" # f-string으로 문자열 안에 변수 b의 값을 삽입
+print(d) # 완성된 문자열 출력
 
-e = "지금 온도는 {0}도 입니다".format(b)
-print(e)
+e = "지금 온도는 {0}도 입니다".format(b) # format을 사용해 {0} 자리에 b의 값을 삽입
+print(e) # 완성된 문자열 출력
 
-f = f'''
+f = f''' # f-string과 여러 줄 문자열을 함께 사용
 <div>
     지금 온도는 {b}도 입니다
 <div>
 '''
 
-g = '지금 온도는 %d도 입니다' % b
-print(g)
-h = '지금 온도는 %f도 입니다' % b
-print(h)
+g = '지금 온도는 %d도 입니다' % b # %d를 사용해 b를 정수 형태로 삽입
+print(g) # 소수점 이하가 제거된 온도 출력
+h = '지금 온도는 %f도 입니다' % b # %f를 사용해 b를 실수 형태로 삽입
+print(h) # 기본적으로 소수점 아래 6자리까지 출력
 
-i = 'hello'
-print(len(i))
+i = 'hello' # 문자열 저장
+print(len(i)) # 문자열 i의 전체 문자 개수 출력
 
-print(i.count('l'))
-print(i.find('l')) # indexOf
-print(i.find('z')) # 없으면 -1
+print(i.count('l')) # 문자열 안에 l이 몇 개 있는지 출력
+print(i.find('l')) # indexOf와 비슷하며 첫 번째 l의 위치를 출력
+print(i.find('z')) # 찾는 문자가 없으면 -1 출력
 
-print(i.index('l'))
-# print(i.index('z')) # 없으면 에러
+print(i.index('l')) # 첫 번째 l의 위치를 출력
+# print(i.index('z')) # 찾는 문자가 없으면 에러 발생
 
-print( i.rfind('l')) # rear 뒤에서부터 indexOf
+print( i.rfind('l')) # 문자열의 뒤쪽부터 찾아 마지막 l의 위치를 출력
 
-print(i.replace('l', 'w')) # 모두 바꿔 줌
+print(i.replace('l', 'w')) # 문자열 안의 모든 l을 w로 변경한 새 문자열 출력
 
-j = '1111'
-k = j.split()
-print(k)
+j = '1111' # 문자열 저장
+k = j.split() # 공백을 기준으로 문자열을 나누어 리스트로 저장
+print(k) # 공백이 없으므로 ['1111'] 출력
 
-m = [1, 2, 3]
-a, b, c = m
+m = [1, 2, 3] # 숫자 3개가 들어 있는 리스트
+a, b, c = m # 리스트의 값을 순서대로 a, b, c에 저장
 
-a = ['a', 'b', 'c', 'd', 'e']
-b = '-'.join(a)
-a = [1,2,3,4,5]
-'-'.join(map(str,a))
-'-'.join(str(data) for data in a)
+a = ['a', 'b', 'c', 'd', 'e'] # 문자열이 들어 있는 리스트
+b = '-'.join(a) # 리스트의 문자열들을 -로 연결하여 하나의 문자열로 저장
+a = [1,2,3,4,5] # 숫자가 들어 있는 리스트
+'-'.join(map(str,a)) # 리스트의 숫자를 문자열로 변환한 뒤 -로 연결
+'-'.join(str(data) for data in a) # 반복문 표현식으로 숫자를 문자열로 변환한 뒤 -로 연결
 
-print(b)
-c = b.split('-')
-print(c)
+print(b) # a-b-c-d-e 출력
+c = b.split('-') # -를 기준으로 문자열을 나누어 리스트로 저장
+print(c) # ['a', 'b', 'c', 'd', 'e'] 출력
 
-a = "Don't Look Back in Anger"
-b = a.find('back')
-print(b)
-c = a.upper()
-print(c)
+a = "Don't Look Back in Anger" # 문자열 저장
+b = a.find('back') # 소문자 back을 찾지만 원본에는 Back이므로 -1 저장
+print(b) # -1 출력
+c = a.upper() # 문자열의 모든 영문자를 대문자로 변환
+print(c) # 대문자로 변환된 문자열 출력
 
-d = a.upper().find('back'.upper())
-print(d)
+d = a.upper().find('back'.upper()) # 두 문자열을 모두 대문자로 바꾼 뒤 BACK의 위치 검색
+print(d) # 대소문자 구분 없이 찾은 위치 출력
 
-a = ' a b '
-print(a.strip())
+a = ' a b ' # 문자열 앞뒤에 공백이 있는 상태
+print(a.strip()) # 문자열 양쪽 끝의 공백을 제거하여 출력
 
-print('35'.zfill(4))
-print('35000'.zfill(4))
+print('35'.zfill(4)) # 전체 길이가 4가 되도록 왼쪽에 0을 채워 0035 출력
+print('35000'.zfill(4)) # 이미 길이가 4보다 크므로 원래 문자열 그대로 출력
 
-a = 7
-print(f'{a:03}')
-print(f'{a:3}')
-print(f'..{a:<3}..')
-print(f'..{a:^10}..')
+a = 7 # 정수 저장
+print(f'{a:03}') # 전체 3칸을 사용하고 빈 왼쪽 자리를 0으로 채워 007 출력
+print(f'{a:3}') # 전체 3칸을 사용하고 기본값인 오른쪽 정렬로 출력
+print(f'..{a:<3}..') # 전체 3칸 안에서 값을 왼쪽 정렬
+print(f'..{a:^10}..') # 전체 10칸 안에서 값을 가운데 정렬
 
-a = 3.14
-print(f'{a:08.3f}')
+a = 3.14 # 실수 저장
+print(f'{a:08.3f}') # 전체 8칸, 소수점 아래 3자리로 표시하고 빈 왼쪽 자리를 0으로 채움
 
-a = 15000
-print(f'{a:,}')
+a = 15000 # 정수 저장
+print(f'{a:,}') # 천 단위마다 쉼표를 넣어 15,000 출력

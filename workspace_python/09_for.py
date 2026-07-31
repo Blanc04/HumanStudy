@@ -1,7 +1,7 @@
-for i in range(5) :
+for i in range(5):
     print(i, end=' ')
 print()
-for i in reversed(range(5)) :
+for i in reversed(range(5)):
     print(i, end=' ')
 print()
 l = 10
