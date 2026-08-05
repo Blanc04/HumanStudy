@@ -36,7 +36,7 @@ Mauga
 부정
 <script>document.querySelector('.txt_vote_3').innerText = '3번 (부정)'</script>
 (머리 박기)<style>#btn_vote_3 {background-image: url(https://media.tenor.com/-68ecKnbTVoAAAAM/head-bang-dr-cox.gif); background-repeat: no-repeat; background-size: contain;}</style>
-(돌셀리스니스)<style>#btn_vote_2 {background-image: url(https://images.steamusercontent.com/ugc/1858299054732047827/DBD8294FC7BA3A78DB202CC26AD9441713C02A90/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false); background-repeat: no-repeat; background-size: contain;}</style>
+(돌셀리스니스)<style>#btn_vote_3 {background-image: url(https://images.steamusercontent.com/ugc/1858299054732047827/DBD8294FC7BA3A78DB202CC26AD9441713C02A90/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false); background-repeat: no-repeat; background-size: contain;}</style>
 
 <script>const vote2Image = document.querySelector('#btn_vote_2')vote2Image.style.backgroundImage = "url('https://scontent-ssn1-1.cdninstagram.com/v/t51.82787-15/709101632_17952022296147496_7181445814924439862_n.webp?_nc_cat=103&ig_cache_key=MzkwNzAzNzg3NjczMTIwODQ5MA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQueHBpZHMuMjQ0LnNkci5yZWd1bGFyX3Bob3RvLkMzIn0%3D&_nc_ohc=McEf7RORbRQQ7kNvwG0bSZ2&_nc_oc=Ado7u4XRt2bR_yPwdIfG2kNsfVYff-xCcON1xEwIxlj5FoWe-nV0bFNGDy0295zJdfc&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_gid=byNjlp-EPDR7A5qhWhmTSg&_nc_ss=7a22e&oh=00_AQCUmIN6t5RfQ01CvzEZD-2a2KCymZsyVLG209JU_TpF1Q&oe=6A6F56A2')"vote2Image.style.backgroundSize = 'contain'vote2Image.style.backgroundRepeat = 'no-repeat'vote2Image.style.backgroundPosition = 'center'</script>
 

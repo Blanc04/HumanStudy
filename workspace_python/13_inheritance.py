@@ -1,0 +1,123 @@
+class Person:
+    def greeting(self) :
+        print('안녕하세요')
+
+class Student(Person):
+    def study(self):
+        print('공부하기')
+        self.greeting()
+
+s1 = Student()
+s1.study()
+s1.greeting()
+
+class Person2:
+    def __init__(self):
+        print('Person2 __init__ 실행')
+        self.hello = '방가'
+
+class Student2(Person2):
+    def __init__(self):
+        print('Student2 __init__ 실행')
+        super().__init__()
+        self.school = '휴먼'
+
+s2 = Student2()
+print( s2.school )
+print( s2.hello )
+
+
+class Student3(Person2):
+    # 기본 생성자
+    # def __init__(self):
+    #     super().__init__()
+
+    def test(self):
+        print('테스트')
+print('-'*30)
+a = Student3()
+
+class Person3:
+    def __init__(self, str):
+        print('Person3 __init__ 실행')
+        self.hello = '방가'
+        self.str = str
+
+class Student4(Person3):
+    # 기본 생성자의
+    # super의 __init__ 전달 인자는 없으므로
+    # 전달 인자가 필수인 경우 생략 불가능
+    def __init__(self):
+        super().__init__(None)
+
+s4 = Student4()
+print(s4.hello)
+
+class Person5:
+    def hi(self):
+        print('안녕하시오')
+
+class Student5(Person5):
+    def hi(self):
+        print('야호')
+
+s5 = Student5()
+s5.hi()
+
+class Champ :
+    def attack(self):
+        print('기본 공격')
+
+class Lux(Champ) :
+    def attack(self):
+        super().attack()
+        print('데마시~~~~~~아!!!')
+
+class Jax(Champ):
+    def defence(self):
+        print('절대 지켜')
+
+c1 = Lux()
+c2 = Jax()
+cList = [c1, c2]
+for c in cList:
+    c.attack()
+
+
+# 문제4
+'''
+부모 Car 클래스
+def start(self)
+    print('시동을 켭니다')
+def accel(self)
+    print('속도를 높입니다')
+
+자식 람보르기니
+시동걸면 "바랑~"
+엑셀을 밟으면 "스~아~앙"
+
+자식 티코
+엑셀을 밟으면 "부다다당"
+'''
+
+from abc import *
+# 부모 전용 클래스
+class StudentBase(metaclass=ABCMeta) :
+    @abstractmethod
+    def study(self):
+        pass
+
+    @abstractmethod
+    def go_to_school(self) :
+        pass
+
+class Student(StudentBase) :
+    def study(self):
+        print('공부하기')
+    def go_to_school(self) :
+        print('학교가기')
+
+a = Student()
+a.study()
+
+# b = StudentBase()
