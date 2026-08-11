@@ -266,7 +266,6 @@ when 'SALESMAN' then sal * 1.03
 else sal
 end as upsal
 from emp;
-
 -- WHEN 뒤에 조건식을 직접 작성하는 방식
 select
 job, sal,
@@ -276,7 +275,6 @@ when job = 'SALESMAN' then sal * 1.03
 else sal
 end as upsal
 from emp;
-
 -- NULL 여부도 CASE 조건으로 처리 가능
 select
 sal, comm,
@@ -497,6 +495,7 @@ where 3000 between losal and hisal) as grade
 from emp where ename = 'SCOTT';
 
 -- having 없이 서브쿼리로 해결
+-- GROUP BY 결과를 다시 바깥 SELECT의 테이블처럼 사용해서 조건을 걸 수도 있음
 -- 1. 부서 별 평균 연봉 출력
 select avg(sal)
 from emp
@@ -511,6 +510,8 @@ group by deptno
 having avg(sal) >= 2000;
 
 -- 서브쿼리 사용
+-- FROM 안에 들어간 서브쿼리를 인라인 뷰(파생 테이블)처럼 사용
+-- 안쪽에서 계산한 avg_sal을 바깥 WHERE에서 일반 컬럼처럼 조건 검사
 select *
 from (
 	select avg(sal) avg_sal
@@ -520,9 +521,12 @@ from (
 where avg_sal >= 2000;
 
 -- DDL
+-- DDL(Data Definition Language): 테이블 같은 데이터베이스 구조 자체를 생성/변경/삭제
 -- create
+-- DESC는 테이블의 컬럼, 자료형, NULL 허용 여부, KEY 등의 구조를 확인
 desc emp;
 
+-- CREATE TABLE로 새 테이블의 컬럼과 제약조건을 직접 정의
 create table emp2(
 	empno int(4) primary key,
 	ename varchar(10) not null,
@@ -545,21 +549,28 @@ create table dept2(
 select * from dept2;
 
 -- 테이블 복사
+-- CREATE TABLE ... AS SELECT ... : SELECT 결과를 기반으로 새 테이블 생성
+-- 아래 문장은 EMP의 데이터까지 함께 복사
 create table emp_copy
 as select * from emp;
 
 select * from emp_copy
 
+-- 1 <> 1은 항상 거짓이므로 조회되는 행이 없음
+-- 따라서 컬럼 구조만 만들어지고 데이터는 복사되지 않음
 create table emp_copy2
 as select * from emp where 1 <> 1;
 
 select * from emp_copy2;
 
+-- 1 != 1 역시 항상 거짓이므로 데이터 없이 테이블 형태만 생성
 create table dept3
 as select * from dept where 1 != 1;
 
 select * from dept3;
 
+-- PRIMARY KEY는 각 행을 유일하게 식별
+-- FOREIGN KEY는 다른 테이블의 키를 참조해서 테이블 사이의 관계를 제한
 create table emp3 (
 	empno int(4),
 	ename varchar(10) not null,
@@ -574,6 +585,7 @@ create table emp3 (
 );
 
 -- 테이블 삭제
+-- DROP TABLE은 테이블의 데이터뿐 아니라 테이블 구조 자체도 삭제
 drop table dept3;
 
 create table dept3(
@@ -583,22 +595,28 @@ create table dept3(
 );
 
 -- alter
+-- ALTER TABLE은 이미 만들어진 테이블의 구조를 변경
+-- ADD: 새 컬럼 추가 / DEFAULT: 값을 생략했을 때 사용할 기본값
 alter table emp3
 add gender varchar(10) not null default '남';
 select * from emp3;
 
+-- CHANGE는 컬럼 이름과 정의를 함께 변경할 때 사용
 alter table emp3
 change gender gender2 varchar(10);
 select * from emp3;
 
+-- RENAME COLUMN은 컬럼 이름만 변경
 alter table emp3
 rename column gender2 to gender3;
 select * from emp3;
 
+-- DROP COLUMN은 테이블에서 해당 컬럼을 제거
 alter table emp3
 drop column gender;
 select * from emp3;
 
+-- RENAME TO는 테이블 자체의 이름을 변경
 alter table emp3
 rename to emp4;
 select * from emp4;
@@ -607,6 +625,7 @@ drop table emp4;
 drop table dept3;
 
 select * from emp_copy;
+-- TRUNCATE는 테이블 구조는 남겨두고 내부 행을 전부 비움
 truncate table emp_copy;
 
 select * from dept2;
@@ -621,6 +640,7 @@ create table dept2(
 	loc varchar(13)
 );
 
+-- DEFAULT를 지정한 컬럼은 INSERT에서 값을 생략하면 기본값이 사용됨
 create table emp2(
 	empno int(4),
 	ename varchar(10) not null,
@@ -635,6 +655,8 @@ create table emp2(
 );
 select * from emp2;
 
+-- INSERT INTO ... VALUES는 새 행을 추가
+-- 컬럼 목록을 생략하면 테이블에 정의된 컬럼 순서대로 값을 전부 맞춰 넣어야 함
 insert into dept2
 values (
 	10,
@@ -655,6 +677,8 @@ values (
 );
 select * from emp2;
 
+-- INSERT에 컬럼 목록을 적으면 지정한 컬럼에만 값을 넣을 수 있음
+-- 생략된 컬럼은 DEFAULT가 있으면 기본값, 없으면 NULL이 사용됨
 insert into emp2 (empno, ename, sal, comm, deptno)
 values (1001, '강사', 4100, 150, 10);
 
@@ -679,6 +703,7 @@ insert into emp2 (empno, ename, sal, comm, deptno)
 values (1002, '강사', 4100, 150, 20);
 */
 
+-- VALUES 뒤에 괄호를 여러 개 적으면 한 번의 INSERT로 여러 행을 추가
 insert into emp2 (empno, ename, sal, comm, deptno)
 values
 (1002, '강사2', 4100, 150, 10),
@@ -688,11 +713,15 @@ values
 select * from emp2;
 
 -- update
+-- UPDATE는 기존 행의 값을 수정
+-- 아래처럼 WHERE가 없으면 EMP2의 모든 행이 수정됨
 update emp2
 set
 	sal = 1000,
 	comm = 200;
 
+-- 기존 컬럼 값을 계산식에 다시 사용해서 값을 갱신할 수도 있음
+-- WHERE가 있으므로 empno가 1002인 행만 대상
 update emp2
 set
 	sal = sal * 1.1,
@@ -705,14 +734,18 @@ update dept2
 set deptno = 20
 where deptno = 10;
 
+-- DELETE는 행을 삭제하며 WHERE로 삭제 대상을 지정
 delete from emp2
 where empno = 1002;
 select * from emp2;
 
+-- ROLLBACK은 아직 COMMIT하지 않은 트랜잭션 변경사항을 되돌림
 rollback;
 select * from emp2;
 select * from dept2;
 
+-- COMMIT은 현재까지의 트랜잭션 변경사항을 확정
+-- COMMIT된 변경은 그 이전 상태로 ROLLBACK할 수 없음
 commit;
 rollback;
 delete from emp2
@@ -721,6 +754,8 @@ select * from emp2;
 rollback;
 select * from emp2;
 
+-- JOIN은 연속해서 여러 테이블을 연결할 수도 있음
+-- LEFT OUTER JOIN이므로 왼쪽 EMP(e)의 행은 조건이 맞지 않아도 유지됨
 select *
 from emp e
 	left outer join emp e2 on(e.mgr = e.empno)
@@ -731,29 +766,36 @@ select * from emp
 where deptno = 10;
 
 -- index
+-- INDEX는 특정 컬럼 검색/정렬에 사용할 수 있는 별도의 탐색 구조
+-- 아래 인덱스는 empno를 내림차순 기준으로 정의
 create index idx_emp_empno_desc
 on emp(empno desc);
 
 select * from emp
 order by empno desc;
 
+-- deptno 조건 검색용 인덱스 생성
 create index idx_emp_deptno
 on emp(deptno);
 
 select * from emp
 where deptno = 10;
 
+-- FORCE INDEX는 옵티마이저에게 지정한 인덱스를 사용하도록 강하게 지시
 select *
 from emp force index (idx_emp_deptno)
 where deptno = 10
 order by deptno;
 
 -- mariadb 한글 한 글자는 3byte
+-- LENGTH는 문자 개수가 아니라 문자열이 차지하는 바이트 수를 반환
 select length('한글');
 select length('ab');
 
+-- 현재 가장 큰 번호에 1을 더해서 다음 번호를 직접 계산하는 방식
 select max(empno)+1 from emp;
 
+-- AUTO_INCREMENT를 사용하면 새 행이 들어올 때 번호를 자동 증가시킬 수 있음
 create table emp_auto (
 	empno int auto_increment,
 	ename varchar(50),
@@ -771,6 +813,8 @@ values ('에이딘2');
 select * from emp)_auto;
 
 -- 무한 대댓글
+-- 아래 UNION ALL 예시는 관리자 없는 최상위 행(level 1)과 특정 관리자의 직속 부하(level 2)를 직접 합침
+-- 단계가 더 깊어질 수 있는 구조는 WITH RECURSIVE로 반복 탐색할 수 있음
 select
 	empno, ename, mgr, 1 as level
 from emp
@@ -781,6 +825,8 @@ select
 from emp
 where mgr = 7839;
 
+-- WITH RECURSIVE: 이전 단계의 결과를 다시 참조하면서 계층 구조를 반복 조회
+-- emp_recu가 재귀 CTE의 이름
 with recursive emp_recu as (
 	select
 		empno, ename, mgr,
@@ -788,12 +834,16 @@ with recursive emp_recu as (
 		1 as level,
 	 	cast(ename as char(200)) as sort_key
 	from emp
+	-- Anchor(시작) 쿼리: 관리자가 없는 최상위 사원부터 시작
 	where mgr is null
 	union all
+	-- Recursive(반복) 쿼리: 직전 단계의 사원을 관리자로 가진 다음 사원을 계속 연결
 	select
 		e.empno, e.ename, e.mgr,
 		lpad(e.ename, (er.level*2)+length(e.ename), ' '),
+		-- 부모 level에 1을 더해서 현재 깊이를 계산
 		er.level+1 as level,
+		-- 부모의 sort_key 뒤에 현재 이름을 붙여 계층 순서를 유지할 정렬용 키 생성
 		concat(er.sort_key, '-', cast(e.ename as char(200))) as sort_key
 	from emp e
 		join emp_recu er on (e.mgr = er.empno)
@@ -807,6 +857,8 @@ select * from emp;
 1981년에 입사한 사원 중에서
 급여가 가장 낮은 사원을 조회하시오
 */
+-- 서브쿼리에서 1981년 입사자 중 최저 급여를 먼저 구하고
+-- 바깥 쿼리에서 같은 조건 + 그 급여와 일치하는 사원을 조회
 select * from emp
 where hiredate like '1981%' and sal = (select min(sal) from emp where hiredate like '1981%');
 
@@ -820,11 +872,23 @@ select job, max(sal) - min(sal)
 from emp
 group by job;
 
+select deptno, max(sal), min(sal) from emp
+group by deptno;
+select * from emp
+where deptno = 10
+order by sal;
+
+-- EMP를 DEPT와 연결해야 부서번호가 아니라 실제 부서명(dname)을 출력 가능
+-- 같은 부서 그룹 안에서 최고 급여 - 최저 급여를 계산
+select d.dname, max(e.sal) - min(e.sal) as salCalc
+from emp e join dept d using(deptno)
+group by d.deptno, d.dname;
 
 /*
 문제 3
 BLAKE보다 높은 연봉을 받는 사람들 출력
 */
+-- 안쪽 쿼리로 BLAKE의 급여 한 값을 구하고, 그 값보다 큰 사원만 조회
 select ename, sal
 from emp
 where sal > (
@@ -837,6 +901,7 @@ where sal > (
 문제 4
 JONES랑 같은 job을 가진 사람들
 */
+-- 안쪽 쿼리로 JONES의 JOB을 구한 뒤 같은 JOB을 가진 사원을 조회
 select ename, job
 from emp
 where job = (
@@ -850,6 +915,7 @@ where job = (
 급여 등급 별 사원 수를 등급 오름차순으로 정렬
 단, 모든 등급을 표시한다
 */
+-- COUNT(*)가 아니라 COUNT(e.empno)를 사용하면 사원이 없는 등급은 0으로 셀 수 있음
 select s.grade, count(e.empno)
 -- salgrade의 행은 전부 살려둠
 from salgrade s
@@ -865,9 +931,38 @@ order by s.grade;
 단, 급여 등급 3 이상만 조회.
 급여 등급 내림차순, 등급이 같은 경우 급여 내림차순, 급여가 같은 경우 이름 내림차순
 */
+select ename, sal, s.grade, job
+from emp e
+join salgrade s
+    on sal between s.losal and s.hisal
+where s.grade >= 3
+order by s.grade desc, sal desc, ename desc;
+
+-- EMP + SALGRADE + DEPT 세 테이블을 각각 급여 범위와 부서번호로 연결
+select e.ename, e.sal, s.grade, d.dname
+from emp e
+join salgrade s
+    on e.sal between s.losal and s.hisal
+join dept d
+    on e.deptno = d.deptno
+where s.grade >= 3
+order by s.grade desc, e.sal desc, e.ename desc;
 
 /*
 문제 7
 부서명이 SALES인 사원 중
 급여 등급이 2 또는 3인 사원을 급여 내림차순으로 정렬
 */
+select e.ename, e.sal, s.grade, d.dname
+from emp e
+join salgrade s
+    on e.sal between s.losal and s.hisal
+join dept d
+    on e.deptno = d.deptno
+-- 부서명은 DEPT에서, 급여 등급은 SALGRADE에서 조건 검사
+-- IN (2, 3)은 grade = 2 OR grade = 3과 같은 의미
+where d.dname = 'SALES'
+  and s.grade in (2, 3)
+order by e.sal desc;
+
+select * from emp;

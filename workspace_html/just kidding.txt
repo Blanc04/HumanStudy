@@ -35,6 +35,7 @@ Mauga
 
 부정
 <script>document.querySelector('.txt_vote_3').innerText = '3번 (부정)'</script>
+<script>document.querySelector('.txt_vote_3').innerText = '몰라!!!!!!!!!!!!!!'</script>
 (머리 박기)<style>#btn_vote_3 {background-image: url(https://media.tenor.com/-68ecKnbTVoAAAAM/head-bang-dr-cox.gif); background-repeat: no-repeat; background-size: contain;}</style>
 (돌셀리스니스)<style>#btn_vote_3 {background-image: url(https://images.steamusercontent.com/ugc/1858299054732047827/DBD8294FC7BA3A78DB202CC26AD9441713C02A90/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false); background-repeat: no-repeat; background-size: contain;}</style>
 
