@@ -861,7 +861,6 @@ select * from emp;
 -- 바깥 쿼리에서 같은 조건 + 그 급여와 일치하는 사원을 조회
 select * from emp
 where hiredate like '1981%' and sal = (select min(sal) from emp where hiredate like '1981%');
-
 /*
 문제 2
 각 부서 별
@@ -883,7 +882,6 @@ order by sal;
 select d.dname, max(e.sal) - min(e.sal) as salCalc
 from emp e join dept d using(deptno)
 group by d.deptno, d.dname;
-
 /*
 문제 3
 BLAKE보다 높은 연봉을 받는 사람들 출력
@@ -896,7 +894,6 @@ where sal > (
 	from emp
 	where ename = 'BLAKE'
 );
-
 /*
 문제 4
 JONES랑 같은 job을 가진 사람들
@@ -909,7 +906,6 @@ where job = (
 	from emp
 	where ename = 'JONES'
 );
-
 /*
 문제 5
 급여 등급 별 사원 수를 등급 오름차순으로 정렬
@@ -924,7 +920,6 @@ left join emp e
     on e.sal between s.losal and s.hisal
 group by s.grade
 order by s.grade;
-
 /*
 문제 6
 이름, 급여, 급여 등급, 부서 이름 조회
@@ -947,7 +942,6 @@ join dept d
     on e.deptno = d.deptno
 where s.grade >= 3
 order by s.grade desc, e.sal desc, e.ename desc;
-
 /*
 문제 7
 부서명이 SALES인 사원 중
@@ -966,3 +960,81 @@ where d.dname = 'SALES'
 order by e.sal desc;
 
 select * from emp;
+
+-- 문제1. 급여가 2000을 초과하는 사원의 사원명, 급여, 부서이름을 조회하세요.
+select ename, sal, dname
+from emp e
+join dept d
+    on e.deptno = d.deptno
+where sal > 2000;
+
+-- 문제2. 급여가 1000 이상 3000 이하인 사원의 사원명, 급여, 급여등급을 
+-- 조회하세요.
+select ename, sal, s.grade
+from emp e
+join salgrade s
+    on e.sal between s.losal and s.hisal
+where sal >= 1000 and sal <= 3000;
+
+-- 문제3. 입사일이 빠른 순으로 사원명, 입사일, 부서이름을 출력하세요.
+select ename, hiredate, dname
+from emp e
+join dept d
+    on e.deptno = d.deptno
+order by hiredate;
+
+-- 문제4. 급여등급이 3 이상인 사원만 사원명, 부서이름, 급여, 급여등급을 급여 
+-- 기준 내림차순 정렬하세요.
+select ename, d.dname, sal, s.grade
+from emp e
+join dept d
+    on e.deptno = d.deptno
+join salgrade s
+    on e.sal between s.losal and s.hisal
+where s.grade >= 3
+order by sal desc;
+
+-- 문제5. 각 부서 별로 평균 급여보다 높은 사원만 사원명, 부서이름, 급여, 
+-- 평균급여를 부서이름 오름차순, 급여 내림차순으로 정렬하세요.
+select ename, d.dname, sal, a.avsal
+from emp e
+join dept d
+    on e.deptno = d.deptno
+join (
+    select deptno, avg(sal) avsal
+    from emp
+    group by deptno
+) a
+    on e.deptno = a.deptno
+where sal > a.avsal
+order by d.dname asc, sal desc;
+
+-- 문제1
+-- emp, dept, salgrade
+-- 
+-- 문제2 : TODO
+-- 사용자1-할일1, 사용자1-할일1-시간, 사용자1-할일1-달성여부
+-- 사용자1-할일2, ...
+-- 사용자2-할일1, ...
+-- 
+-- 문제3 : 설문조사
+-- 
+-- 문제4 : 숙박예약
+-- 문제4-1 : 여러 펜션 관리
+-- 문제4-2 : 리뷰까지 추가
+-- 방
+-- 옵션(복층, 온돌, 침대, 수영장, 바베큐장, 반려동물 동반 가능 여부)
+-- 방이름
+-- 가격
+-- 독체여부
+-- 기본인원
+-- 최대인원
+-- 썸네일주소
+-- 회원이름
+-- 회원연락처
+-- checkin 날짜
+-- checkout 날짜
+-- 예약금
+-- 예약내용
+-- 예약인원
+-- 요청사항

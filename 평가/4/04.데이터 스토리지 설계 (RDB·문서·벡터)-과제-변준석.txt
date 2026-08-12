@@ -1,0 +1,44 @@
+-- 문제1
+select ename, sal, dname
+from emp e
+join dept d
+    on e.deptno = d.deptno
+where sal > 2000;
+
+-- 문제2
+select ename, sal, s.grade
+from emp e
+join salgrade s
+    on e.sal between s.losal and s.hisal
+where sal >= 1000 and sal <= 3000;
+
+-- 문제3
+select ename, hiredate, dname
+from emp e
+join dept d
+    on e.deptno = d.deptno
+order by hiredate;
+
+-- 문제4
+select ename, d.dname, sal, s.grade
+from emp e
+join dept d
+    on e.deptno = d.deptno
+join salgrade s
+    on e.sal between s.losal and s.hisal
+where s.grade >= 3
+order by sal desc;
+
+-- 문제5
+select ename, d.dname, sal, a.avsal
+from emp e
+join dept d
+    on e.deptno = d.deptno
+join (
+    select deptno, avg(sal) avsal
+    from emp
+    group by deptno
+) a
+    on e.deptno = a.deptno
+where sal > a.avsal
+order by d.dname asc, sal desc;
