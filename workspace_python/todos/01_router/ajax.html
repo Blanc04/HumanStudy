@@ -5,49 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ajax</title>
     <script>
+        // HTML 문서가 모두 로드된 뒤 실행
         window.onload = () =>{
+            // #todo 버튼 클릭 이벤트
             document.querySelector('#todo').addEventListener('click', async function(){
+                // 입력창의 id, item 값 가져오기
                 const id = document.querySelector('#id').value
                 const item = document.querySelector('#item').value
+                // 서버로 보낼 객체 생성
+                // item: item은 이름이 같으므로 item으로 생략 가능
                 const param = {
                     id: id,
                     item
                 }
-
+                // fetch를 이용해 FastAPI 서버에 POST 요청
                 await fetch('http://127.0.0.1:8000/todo', {
                     method : 'POST',
                     headers : {
+                        // JSON 형식으로 데이터를 보낸다고 서버에 알려줌
                         'Content-Type': 'application/json'
                     },
+                    // JavaScript 객체를 JSON 문자열로 변환
                     body : JSON.stringify(param)
                 }).then(function(response){
+                    // 서버 응답을 JSON 데이터로 변환
                     return response.json()
                 }).then(function(data){
+                    // 변환된 서버 응답 출력
                     console.log(data)
                 }).catch(function(err){
+                    // 요청 또는 처리 과정에서 에러 발생 시 실행
                     console.error(err)
                 })
             })
-
+            // Promise 동작을 연습하기 위한 버튼
             document.querySelector('#todo2').addEventListener('click', function(){
+                // 비동기 작업을 직접 Promise로 생성
                 new Promise(function(resolve, reject){
+                    // 1초 후 내부 함수 실행
                     setTimeout(function(){
                         try{
                             console.log('지금이니!')
+
+                            // Promise를 성공 상태로 변경하고 "메세지" 전달
                             resolve("메세지")
                         } catch ( e ){
+                            // 현재 코드에서는 catch에서도 resolve를 사용하므로
+                            // 에러가 발생해도 Promise는 성공 상태가 됨
                             resolve("메세지")
                         }
                     }, 1000)
+                // resolve가 실행되면 then으로 전달
                 }).then(function(data){
                     console.log('then에서 출력', data)
+                // reject가 실행되거나 Promise 처리 중 오류가 나면 catch 실행
                 }).catch(function(data){
                     console.error('catch에서 출력', data)
                 })
             })
-
+            // async / await 방식으로 비동기 처리 연습
             document.querySelector('#todo3').addEventListener('click', async function(){
                 console.log('시작 전')
+                // 아래 코드는 Promise의 결과를 await로 기다리는 방식
                 // const data = await new Promise(function(resolve, reject){
                 //     setTimeout(function(){
                 //         try{
@@ -59,17 +78,22 @@
                 //     }, 1000)
                 // })
 
+                // 1초가 지나 Promise가 완료될 때까지 기다림
                 await new Promise( resolve => setTimeout(resolve, 1000))
+                // await가 끝난 이후 실행
                 console.log('이후')
             })
+            // fetch + async/await 방식 연습
             document.querySelector('#todo4').addEventListener('click', async function(){
+                // 입력창의 값 가져오기
                 id = document.querySelector('#id').value
                 item = document.querySelector('#item').value
+                // 서버로 보낼 객체
                 param = {
                     id: id,
                     item
                 }
-
+                // fetch 요청이 완료될 때까지 기다린 뒤 Response 객체 저장
                 let response = await fetch('http://127.0.0.1:8000/todo', {
                     method : 'POST',
                     headers : {
@@ -77,35 +101,70 @@
                     },
                     body : JSON.stringify(param)
                 })
+                // fetch가 반환한 Response 객체 출력
                 console.log(response)
                 console.log('----------')
+                // response.json()은 JSON 변환 결과를 바로 반환하는 것이 아니라
+                // Promise를 반환함
+                console.log(response.json())
+            })
+            document.querySelector('#todo43').addEventListener('click', async function(){
+                // 입력창의 값 가져오기
+                id = document.querySelector('#id').value
+                item = document.querySelector('#item').value
+                // 서버로 보낼 객체
+                param = {
+                    id: id,
+                    item
+                }
+                // fetch 요청이 완료될 때까지 기다린 뒤 Response 객체 저장
+                let response = await fetch('http://127.0.0.1:8000/todo', {
+                    method : 'POST',
+                    headers : {
+                        'Content-Type': 'application/json'
+                    },
+                    body : JSON.stringify(param)
+                })
+                // fetch가 반환한 Response 객체 출력
+                console.log(response)
+                console.log('----------')
+                // response.json()은 JSON 변환 결과를 바로 반환하는 것이 아니라
+                // Promise를 반환함
                 console.log(response.json())
             })
         }
     </script>
 </head>
 <body>
+    <!-- GET 방식으로 /todo/param에 데이터를 전송 -->
+    <!-- input의 name이 Query Parameter 이름이 됨 -->
+    <!-- 전송 예: /todo/param?id=1&item=study -->
     <form method="get" action="http://127.0.0.1:8000/todo/param">
         id: <input type="text" name="id"><br>
         item: <input type="text" name="item"><br>
         <br>
         <input type="submit" value="전송">
     </form>
-
+    <!-- GET 방식으로 /todo/param2에 데이터 전송 -->
     <form method="get" action="http://127.0.0.1:8000/todo/param2">
         id: <input type="text" name="id"><br>
         item: <input type="text" name="item"><br>
         <br>
         <input type="submit" value="전송2">
     </form>
-
     <div>
+        <!-- JavaScript에서 #id, #item으로 값을 가져오기 위한 입력창 -->
         id: <input type="text" name="id" id="id"><br>
         item: <input type="text" name="item" id="item"><br>
+        <!-- fetch + then 방식 -->
         <button id="todo">todo 추가</button><br>
+        <!-- Promise + then 방식 연습 -->
         <button id="todo2">todo 추가-동기1</button><br>
+        <!-- async / await 방식 연습 -->
         <button id="todo3">todo 추가-동기2</button><br>
+        <!-- fetch + async / await 방식 연습 -->
         <button id="todo4">todo 추가-동기3</button><br>
+        <button id="todo43">todo 추가-동기43</button><br>
     </div>
 </body>
 </html>

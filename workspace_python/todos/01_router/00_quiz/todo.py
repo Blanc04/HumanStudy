@@ -2,7 +2,7 @@
 # Form : form 데이터 받기
 # Request : 요청 방식(GET, POST 등), 파라미터 등을 직접 확인할 때 사용
 from fastapi import APIRouter, Form, Request
-from model import Todo
+
 # todo 관련 API를 묶어서 관리할 Router 생성
 todo_router = APIRouter()
 
@@ -58,15 +58,19 @@ async def todoParamPost(id: int = Form(), item:str = Form()) -> dict:
 @todo_router.put("/todo/param2")
 @todo_router.delete("/todo/param2")
 async def todoParam(req:Request) -> dict:
+
     # GET 방식은 데이터를 Query Parameter로 받음
     if req.method == "GET":
         data = req.query_params
+
     # POST, PUT, DELETE는 Form 데이터로 받음
     else :
         data = await req.form()
+
     # 전달받은 데이터에서 id와 item 값 가져오기
     id = data.get('id')
     item = data.get('item')
+
     # 전달받은 값과 현재 HTTP 요청 방식 확인
     print(id, item, req.method)
     
@@ -75,17 +79,9 @@ async def todoParam(req:Request) -> dict:
         'item': item
     }
 
-# 43 페이지 실습
-@todo_router.post("/todo43")
-def add_todo43(todo: Todo) -> dict:
-    print(f'todo: {todo}')
-    todo_list.append(todo)
-    return {
-        'code': 'SUCC 200 OK'
-    }
-
 # todo.py가 import 되었는지 직접 실행되었는지 확인
 print(2, __name__)
+
 # todo.py 파일을 직접 실행했을 때만 실행
 # 직접 실행하면 __name__ == "__main__"
 if __name__=="__main__":

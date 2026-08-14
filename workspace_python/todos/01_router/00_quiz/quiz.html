@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_router</title>
+    <script>
+        window.onload = () => {
+            // document.querySelector('#btn').addEventListener('click', function(){
+                // const dan = document.querySelector('#dan').value
+                // const param = {
+                //     dan
+                // }0
+                // console.log(dan)
+            fetch(`http://127.0.0.1:8000/dan`, {
+                method : 'GET',
+                headers : {
+                    // JSON 형식으로 데이터를 보낸다고 서버에 알려줌
+                    'Content-Type': 'application/json'
+                },  // JavaScript 객체를 JSON 문자열로 변환
+                    // body : JSON.stringify(param)
+                })
+            fetch(`http://127.0.0.1:8000/plus`, {
+                method : 'GET',
+                headers : {
+                    // JSON 형식으로 데이터를 보낸다고 서버에 알려줌
+                    'Content-Type': 'application/json'
+                },  // JavaScript 객체를 JSON 문자열로 변환
+                    // body : JSON.stringify(param)
+                })
+            fetch(`http://127.0.0.1:8000/calc`, {
+                method : 'GET',
+                headers : {
+                    // JSON 형식으로 데이터를 보낸다고 서버에 알려줌
+                    'Content-Type': 'application/json'
+                },  // JavaScript 객체를 JSON 문자열로 변환
+                    // body : JSON.stringify(param)
+                })
+            // })
+        }
+    </script>
+</head>
+<body>
+    <form method="get" action="http://127.0.0.1:8000/dan">
+        <input type="text" name="dan">
+        <input type="submit" value="구구단 출력">
+    </form>
+    <form method="get" action="http://127.0.0.1:8000/plus">
+        <input type="text" name="num1">
+        <input type="text" name="num2">
+        <input type="submit" value="숫자 2개 합 출력">
+    </form>
+    <form method="get" action="http://127.0.0.1:8000/calc">
+        <input type="text" name="x">
+        <select name="op">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="text" name="y">
+        <input type="submit" value="숫자 2개 연산 출력">
+    </form>
+</body>
+</html>
