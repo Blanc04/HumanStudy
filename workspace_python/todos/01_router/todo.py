@@ -15,10 +15,8 @@ todo_list = []
 @todo_router.post("/todo")
 async def add_todo(todo: dict) -> dict:
     print('todo:', todo)
-
     # 전달받은 todo를 리스트에 추가
     todo_list.append(todo)
-
     return {
         'message': 'Todo added successfully.'
     }
@@ -36,7 +34,6 @@ async def retrieve_todos() -> dict:
 @todo_router.get("/todo/param")
 async def todoParamGet(id: int, item:str) -> dict:
     print(id, item)
-
     return {
         'id': id,
         'item': item
@@ -46,7 +43,6 @@ async def todoParamGet(id: int, item:str) -> dict:
 @todo_router.post("/todo/param")
 async def todoParamPost(id: int = Form(), item:str = Form()) -> dict:
     print(id, item)
-
     return {
         'id': id,
         'item': item
@@ -75,14 +71,54 @@ async def todoParam(req:Request) -> dict:
         'item': item
     }
 
-# 43 페이지 실습
-@todo_router.post("/todo43")
-def add_todo43(todo: Todo) -> dict:
-    print(f'todo: {todo}')
-    todo_list.append(todo)
+@todo_router.get('/todo/{todo_id}')
+async def get_single_todo(todo_id: int) -> dict:
+    print('todo_id:', todo_id)
+    for todo in todo_list:
+        if todo.id == todo_id:
+            return {
+                "todo": todo
+            }
     return {
-        'code': 'SUCC 200 OK'
+        "message": "Todo with supplied ID doesn't exist."
     }
+
+# Valid, Valldate 유효성 검증
+from fastapi import Path
+@todo_router.get('/todo/{todo_id}')
+async def get_single_todo(todo_id: int = Path(gt=10)) -> dict:
+    print('todo_id:', todo_id)
+    for todo in todo_list:
+        if todo.id == todo_id:
+            return {
+                "todo": todo
+            }
+    return {
+        "message": "Todo with supplied ID doesn't exist."
+    }
+
+from typing import Annotated
+
+ValidTodoId = Annotated[int, Path(ge=10)]
+
+@todo_router.get('/todo/{todo_id}')
+async def get_single_todo(todo_id:ValidTodoId) -> dict:
+# async def get_single_todo(todo_id:Annotated[int, Path(ge=10)]) -> dict:
+    print('todo_id:', todo_id)
+    for todo in todo_list:
+        if todo.id == todo_id:
+            return {
+                "todo": todo
+            }
+    return {
+        "message": "Todo with supplied ID doesn't exist."
+    }
+
+# get 방식일 때 즉 ? 뒤에 오는 query string
+from fastapi import Query
+@todo_router.get('/todo4')
+def todo4(id:int = Query(gt=0, lt=10000)):
+    print(id)
 
 # todo.py가 import 되었는지 직접 실행되었는지 확인
 print(2, __name__)
@@ -91,6 +127,14 @@ print(2, __name__)
 if __name__=="__main__":
     print('todo.py 파일 직접 실행')
 
+# 43 페이지 실습
+@todo_router.post("/todo43")
+def add_todo43(todo: Todo) -> dict:
+    print(f'todo: {todo}')
+    todo_list.append(todo)
+    return {
+        'code': 'SUCC 200 OK'
+    }
 
 
 
