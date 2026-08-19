@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>crud</title>
+    <script>
+        window.onload = () =>{
+            document.querySelector('#update-btn').addEventListener('click', function(){
+                const updateId = document.querySelector('#update-id').value
+                const updateItem = document.querySelector('#update-item').value
+                const param = {
+                    id: Number(updateId),
+                    item: updateItem
+                }
+                fetch('http://127.0.0.1:8000/crud', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(param)
+                })
+            })
+            document.querySelector('#delete-btn').addEventListener('click', function(){
+                const deleteId = document.querySelector('#delete-id').value
+                fetch(`http://127.0.0.1:8000/crud?id=${deleteId}`, {
+                    method: 'DELETE'
+                })
+            })
+        }
+    </script>
+</head>
+<body>
+    <form method="post" action="http://127.0.0.1:8000/crud" target="_blank">
+        id: <input type="number" name="id">
+        item: <input type="text" name="item">
+        <input type="submit" value="추가">
+    </form>
+    <form method="get" action="http://127.0.0.1:8000/crud/all" target="_blank">
+        <input type="submit" value="전체 찾기">
+    </form>
+    <form method="get" action="http://127.0.0.1:8000/crud" target="_blank">
+        id: <input type="number" name="id">
+        <input type="submit" value="찾기">
+    </form>
+    <div id="update-area">
+        id: <input type="number" id="update-id">
+        item: <input type="text" id="update-item">
+        <button id="update-btn">수정</button>
+    </div>
+    <div id="delete-area">
+        id: <input type="number" id="delete-id">
+        <button id="delete-btn">삭제</button>
+    </div>
+</body>
+</html>

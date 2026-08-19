@@ -9,7 +9,7 @@
 # (todos) D:\workspace\workspace_python\todos>uvicorn api:app --port 8000 --reload
 
 # FastAPI 서버를 만들기 위한 클래스
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Path, HTTPException
 # 다른 도메인/포트에서 API 요청을 허용하기 위한 CORS 기능
 from fastapi.middleware.cors import CORSMiddleware
 # todo.py에서 만든 todo 관련 Router 가져오기
@@ -53,6 +53,18 @@ def test(req : Request):
     print(ip)
 
     return ip
+
+@app.get('/err')
+def err():
+    print('/err 실행')
+    raise HTTPException(
+        status_code=400,
+        detail='글씨 아무거나 asdofihweo'
+    )
+
+@app.get('/html')
+def html(): 
+    return "<h1>hello world</h1>"
 
 # __name__에는 현재 파이썬 파일이 어떤 방식으로 실행되었는지가 들어감
 print(1, __name__)
