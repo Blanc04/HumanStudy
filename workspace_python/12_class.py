@@ -126,7 +126,6 @@ a.pay(66666666)
 # __study는 비공개 형태의 메소드이므로 외부에서 이 이름으로 직접 접근하면 에러가 발생한다.
 # print(a.__study)
 
-
 # __붙은 변수나 함수는
 # 내부에서는 접근 가능
 # 외부로 노출되지 않음
@@ -137,3 +136,148 @@ a.pay(66666666)
 # h1.setAddr('천안')
 # h1_addr = h1.getAddr()
 # print(h1_addr)
+
+class Knotted :
+
+    brand = '노티드-디저트맛집'
+
+    def __init__(self, name, addr) :
+        # self.brand = '노티드-디저트맛집'
+        self.name = name
+        self.addr = addr
+    def info(self):
+        print(self.name)
+
+k1 = Knotted('천안점', '천안')
+k2 = Knotted('아산점', '아산')
+
+print(k1.name, k1.brand)
+print(k2.name, k2.brand)
+
+print(k1.name, Knotted.brand)
+print(k2.name, Knotted.brand)
+
+class Calc :
+    PI = 3.141592
+
+    def __init__(self):
+        self.meet = 200
+
+    @staticmethod
+    def add(x, y):
+        return x + y
+
+    def plus(self, x, y):
+        return Calc.add(x, y)
+
+print( Calc.add(1,2) * Calc.PI )
+
+class Person4:
+    count = 0
+
+    def __init__(self) :
+        Person4.count += 1
+
+    @classmethod
+    def print_count(cls) :
+        print(f'{cls.count}명 생성 됨')
+
+p1 = Person4()
+p2 = Person4()
+p3 = Person4()
+Person4.print_count()
+
+
+class Account:
+    def __init__(self):
+        self.__balance = 0
+
+    def setBalance(self, money):
+        self.__balance = money
+
+    def getBalance(self):
+        return self.__balance
+
+a1 = Account()
+# a1.balance = 99999
+
+'''
+문제1
+멜론 차트 관리 시스템
+모든 곡을 리스트로 관리
+한 곡에 해당하는 클래스부터 만들자
+- 제목, 가수명, 앨범명, 가사
+
+두 곡 이상 정보를 저장
+각 곡의 '제목-가수명'을 출력
+
+문제2
+휴먼잡스 계정 관리 시스템
+내 계정에는 id, pw, 주소가 있다
+모두 접근 제한된 private 변수입니다.
+
+메소드를 이용해서 주소를 변경하거나
+주소를 return하는 메소드를 만들기
+
+문제3
+디저트 카페 노티드 창업을 위한 클래스
+ - 상호, 자본금이 필수 요소
+
+노티드를 두군데에 창업할 것이다.
+하나를 창업할 때 필수 요소를 꼭 넣어야 생성되도록 만드세요
+
+'''
+
+class Song :
+    # - 제목, 가수명, 앨범명, 가사
+    def __init__(self, title, singer, album, lyric):
+        self.title = title
+        self.singer = singer
+        self.album = album
+        self.lyric = lyric
+
+s1 = Song('LOVE ATTACK', 'RESCENE (리센느)', 'SCENEDROME', '라부 어택')
+s2 = Song('갑자기', '아이오아이 (I.O.I)', 'I.O.I 3rd MINI ALBUM', '써든 어택')
+
+melon = [s1, s2]
+for song in melon :
+    print(f'{song.title}-{song.singer}')
+
+class HumanJobs :
+    def __init__(self):
+        self.__id = None
+        self.__pw = ''
+        self.__addr = ''
+
+    def setAddr(self, addr):
+        if addr :
+            self.__addr = addr
+        else :
+            print('주소를 다시 입력하세요')
+    def getAddr(self):
+        return self.__addr
+
+h1 = HumanJobs()
+# print( h1.__id )
+h1.setAddr('천안')
+h1_addr = h1.getAddr()
+print( h1_addr )
+
+class Knotted2 :
+    def __init__(self, 상호, 자본금) :
+        self.상호 = 상호
+        self.자본금 = 자본금
+
+# k1 = Knotted2()
+# k1 = Knotted2('천안점')
+k1 = Knotted2('천안점', 10000)
+
+
+class Melon :
+    def __init__(self):
+        self.songList = []
+
+    def appendSong(self, song):
+        self.songList.append(song)
+m = Melon()
+m.appendSong(s1)

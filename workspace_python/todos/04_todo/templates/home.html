@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+</head>
+<body>
+    <h1>TODO 목록</h1>
+    <form action="/jinjatodo/add" method="get">
+        <button type="submit">
+            TODO 추가
+        </button>
+    </form>
+    <hr>
+    {% for todo in todo_list %}
+        <div>
+            {{ todo.id }} :
+            {{ todo.item }}
+            <form action="/jinjatodo/{{ todo.id }}" method="get">
+                <button type="submit">
+                    상세보기
+                </button>
+            </form>
+        </div>
+    {% endfor %}
+</body>
+</html>
