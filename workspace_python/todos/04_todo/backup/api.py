@@ -11,7 +11,7 @@ todo_list = [{
         'item': '파이썬 공부'
     }, {
         'id': 2,
-        'item': 'Jinja 공부'
+        'item': 'FastAPI 공부'
     }]
 
 # 전체 목록 페이지
@@ -35,7 +35,7 @@ def add_page(request: Request):
 # '/jinjatodo/add' 주소로 POST 요청이 들어왔을 때 실행
 # HTML form의 name="item" 값을 Form()으로 받아옴
 @app.post('/jinjatodo/add')
-def add_todo(item: str=Form()):
+def add_todo(item: str = Form()):
     # 새로운 TODO에 사용할 id 생성
     # todo_list가 비어있다면
     if len(todo_list) == 0:
@@ -59,61 +59,12 @@ def add_todo(item: str=Form()):
         url='/jinjatodo',
         status_code=303
     )
+    # 303 : 다시 올 때 Get으로 감소
+    # 307 : 다시 올 때 원래 방식 유지
 
-# 상세 조회
-@app.get('/jinjatodo/{todo_id}')
-def detail_todo(request: Request, todo_id: int):
-    for todo in todo_list:
-        if todo['id'] == todo_id:
-            return templates.TemplateResponse(request, 'detail.html', {
-                    'todo': todo
-                })
-    return {
-        'message': '존재하지 않는 항목입니다.'
-    }
-
-# 수정 페이지
-@app.get('/jinjatodo/{todo_id}/edit')
-def edit_page(request: Request, todo_id: int):
-    for todo in todo_list:
-        if todo['id'] == todo_id:
-            return templates.TemplateResponse(request, 'edit.html', {
-                    'todo': todo
-                })
-    return {
-        'message': '존재하지 않는 항목입니다.'
-    }
-
-# 수정
-@app.post('/jinjatodo/{todo_id}/edit')
-def edit_todo(todo_id: int, item: str=Form()):
-    for todo in todo_list:
-        if todo['id'] == todo_id:
-            todo['item'] = item
-            break
-    # 수정 완료 후 전체 조회
-    return RedirectResponse(
-        url='/jinjatodo',
-        status_code=303
-    )
-
-# 삭제
-@app.post('/jinjatodo/{todo_id}/delete')
-def delete_todo(todo_id: int):
-    for i in range(len(todo_list)):
-        if todo_list[i]['id'] == todo_id:
-            todo_list.pop(i)
-            break
-    # 삭제 완료 후 전체 조회
-    return RedirectResponse(
-        url='/jinjatodo',
-        status_code=303
-    )
-
-# 서버 실행
 if __name__=="__main__":
     # FastAPI 서버를 실행하기 위한 uvicorn
     import uvicorn
     # api.py의 app 객체를 사용하여 8000번 포트에서 서버 실행
     # reload=True : 코드가 수정되면 서버를 자동으로 재시작
-    uvicorn.run('api:app', port=8000, reload=True)
+    uvicorn.run('api:app', port=8000, reload=True, host="0.0.0.0")

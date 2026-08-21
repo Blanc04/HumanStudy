@@ -3,54 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>crud</title>
-    <script>
-        window.onload = () =>{
-            document.querySelector('#update-btn').addEventListener('click', function(){
-                const updateId = document.querySelector('#update-id').value
-                const updateItem = document.querySelector('#update-item').value
-                const param = {
-                    id: Number(updateId),
-                    item: updateItem
-                }
-                fetch('http://127.0.0.1:8000/crud', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(param)
-                })
-            })
-            document.querySelector('#delete-btn').addEventListener('click', function(){
-                const deleteId = document.querySelector('#delete-id').value
-                fetch(`http://127.0.0.1:8000/crud?id=${deleteId}`, {
-                    method: 'DELETE'
-                })
-            })
+    <title>Document</title>
+    <style>
+        .hide {
+            display: none;
         }
-    </script>
+    </style>
 </head>
-<body>
-    <form method="post" action="http://127.0.0.1:8000/crud" target="_blank">
-        id: <input type="number" name="id">
-        item: <input type="text" name="item">
-        <input type="submit" value="추가">
+<body style="height: 200vh">
+    <h1>등록 post</h1>
+    <form method="post" action="http://localhost:8000/crud/c">
+        id: <input type="number" name="id"><br> 
+        item: <input type="text" name="item"><br>
+        <input type="submit" value="등록[POST]">
     </form>
-    <form method="get" action="http://127.0.0.1:8000/crud/all" target="_blank">
-        <input type="submit" value="전체 찾기">
+    <hr>
+    <h1>등록 post - ajax</h1>
+    <form id="form1" method="post" action="http://localhost:8000/crud/c">
+        id: <input type="number" name="id" id="id"><br> 
+        item: <input type="text" name="item" id="item"><br>
+        <input type="submit" value="등록[POST]">
     </form>
-    <form method="get" action="http://127.0.0.1:8000/crud" target="_blank">
-        id: <input type="number" name="id">
-        <input type="submit" value="찾기">
-    </form>
-    <div id="update-area">
-        id: <input type="number" id="update-id">
-        item: <input type="text" id="update-item">
-        <button id="update-btn">수정</button>
+    <hr>
+    <h1>전체 목록 - ajax</h1>
+    <button type="button" id="readAll">전체 목록 가져오기</button>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>item</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            <!-- <tr>
+                <td>1</td>
+                <td>11</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>22</td>
+            </tr> -->
+        </tbody>
+    </table>
+
+    <h1>상세 - ajax</h1>
+    <div id="detail"></div>
+    <div>
+        <button type="button" id="update">수정하기</button>
     </div>
-    <div id="delete-area">
-        id: <input type="number" id="delete-id">
-        <button id="delete-btn">삭제</button>
+
+    <div id="modify" class="hide">
+        <h1>수정 - ajax</h1>
+        <div>
+            <!-- <form method="post" action="">
+                id : <span class="id" name="id">123</span><br>
+                <input type="hidden" name="id" value="123">
+                item: <input type="text" name="item"><br>
+                <input type="submit" value="수정">
+            </form> -->
+
+            id : <span class="id" name="id"></span><br>
+            item: <input class="item" type="text" name="item"><br>
+            <input type="button" class="commit" value="수정">
+            <input type="button" class="del" value="삭제">
+            <input type="button" class="cancel" value="취소">
+        </div>
     </div>
+
+
+    <script>
+        form1 = document.querySelector('#form1')
+        submit = document.querySelector('#form1 [type=submit]')
+
+        submit.addEventListener('click', function(event){
+            event.preventDefault()
+
+            id = document.querySelector('#id')
+            item = document.querySelector('#item')
+            
+            // url = form1.getAttribute('action')
+            url = 'http://localhost:8000/crud/api/c'
+            param = {
+                id: id.value,
+                item: item.value
+            }
+            console.log(''+param)
+            fetch(url, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                }, 
+                body: JSON.stringify(param)
+            })
+
+        })
+
+        readAll = document.querySelector('#readAll')
+        readAll.addEventListener('click', function(){
+            url = 'http://localhost:8000/crud/api/r'
+
+            fetch(url, {
+                method: 'get'
+            }).then(function(resp){
+                return resp.json()
+            }).then(function(data){
+                console.log(data)
+                tbody = document.querySelector('#tbody')
+                tbody.innerHTML = ''
+
+                for(let i=0; i<data.length; i++){
+                    id = data[i].id
+                    item = data[i].item
+
+                    // <tr>
+                    //     <td>1</td>
+                    //     <td>11</td>
+                    // </tr>
+                    tr = document.createElement('tr')
+                    tr.innerHTML = `
+                        <td class="id" data-id="${id}">${id}</td>
+                        <td>${item}</td>
+                    `
+                    tr.querySelector('.id').addEventListener('click', function(event){
+                        id = event.target.getAttribute('data-id')
+
+                        const xhr = new XMLHttpRequest()
+                        xhr.open('get', 'http://localhost:8000/crud/api/r/'+ id)
+                        xhr.send()
+                        xhr.onload = function(){
+                            data = JSON.parse(xhr.responseText)
+                            
+                            detail = document.querySelector('#detail')
+                            detail.innerHTML = `
+                                id: ${data.id}<br>
+                                item: ${data.item}<br>
+                            `
+
+                            update = document.querySelector('#update')
+                            update.setAttribute('data-id', data.id)
+
+                            // 이게 더 활용도가 높지 않을까? 삭제도 있는데?
+                            detail.setAttribute('data-id', data.id)
+                        }
+                    })
+                    tbody.append(tr)
+                }
+
+            })
+        })
+
+        update = document.querySelector('#update')
+        update.addEventListener('click', function(){
+
+            detail = document.querySelector('#detail')
+            id = detail.getAttribute('data-id')
+
+            const xhr = new XMLHttpRequest()
+            xhr.open('get', 'http://localhost:8000/crud/api/r/'+ id)
+            xhr.send()
+            xhr.onload = function(){
+                data = JSON.parse(xhr.responseText)
+
+                modify = document.querySelector('#modify')
+                modify.querySelector('.id').innerText = data.id
+                modify.querySelector('.id').setAttribute('data-id', data.id)
+                modify.querySelector('.item').value = data.item
+
+                modify.classList.remove('hide')
+            }
+        })
+
+        cancel = document.querySelector('#modify .cancel')
+        cancel.addEventListener('click', function(){
+            modify = document.querySelector('#modify')
+            modify.querySelector('.id').innerText = ''
+            modify.querySelector('.item').value = ''
+            modify.classList.add('hide')
+        })
+
+        commit = document.querySelector('#modify .commit')
+        commit.addEventListener('click', function(){
+            modify = document.querySelector('#modify')
+            // id = modify.querySelector('.id').innerText
+            id = modify.querySelector('.id').getAttribute('data-id')
+            item = modify.querySelector('.item').value
+
+            url = 'http://localhost:8000/crud/api/u'
+            param = {
+                id: id,
+                item: item
+            }
+
+            fetch(url, {
+                method: 'put',
+                headers: {
+                    'Content-Type': 'application/json'
+                }, 
+                body: JSON.stringify(param)
+            }).then(function(){
+                document.querySelector('#readAll').click()
+            })
+        })
+        
+        del = document.querySelector('#modify .del')
+        del.addEventListener('click', function(){
+            modify = document.querySelector('#modify')
+            // id = modify.querySelector('.id').innerText
+            id = modify.querySelector('.id').getAttribute('data-id')
+            item = modify.querySelector('.item').value
+
+            url = 'http://localhost:8000/crud/api/d'
+            param = {
+                id: id
+            }
+
+            fetch(url, {
+                method: 'delete',
+                headers: {
+                    'Content-Type': 'application/json'
+                }, 
+                body: JSON.stringify(param)
+            }).then(function(){
+                document.querySelector('#readAll').click()
+            })
+        })
+    </script>
 </body>
 </html>

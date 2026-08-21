@@ -1,112 +1,198 @@
-# crud.py
-# API 주소들을 따로 관리하기 위한 APIRouter 가져오기
-from fastapi import APIRouter, Form, Request
+from fastapi import APIRouter, Form, Request, Depends
 from pydantic import BaseModel
-class Todo(BaseModel) :
-    id: int
-    item: str
+from typing import Annotated, Optional
 
-# CRUD 관련 API들을 묶어서 관리할 Router 생성
-crud_router = APIRouter(prefix='/crud')
-# Todo 데이터를 임시로 저장할 리스트
-# 서버를 종료하면 저장된 데이터도 사라짐
+class Todo3(BaseModel) : 
+    # 기본적으로 json만 받음
+    id: int = -1
+    item: str = ''
+
+
+crud_router = APIRouter()
+# crud_router = APIRouter( prefix='/crud' )
+
 todo_list = []
 
-# Create
-# POST 방식으로 '/crud' 요청을 받음
-@crud_router.post('/crud')
-async def create_todo(id: int = Form(), item: str = Form()):
-    if id <= 0:
-        return {
-            'message': '유효하지 않은 id입니다.'
-        }
-    for todo in todo_list:
-        if todo.get('id') == id:
-            return {
-                'message': '이미 존재하는 id입니다.'
-            }
-    todo = {
-        'id': id,
-        'item': item
-    }
-    todo_list.append(todo)
-    return {
-        'todo': todo
-    }
+@crud_router.post('/crud/c')
+# 실패 : json 형식으로 들어오지 않아서 
+# def crud_c(todo:dict) :
 
-# Read
-# GET 방식으로 '/crud' 요청을 받음
-@crud_router.get('/crud/all')
-def read_todo():
-    return {
-        'todos': todo_list
-    }
-@crud_router.get('/crud')
-async def read_todo(id: int):
-    # todo_list에 저장된 데이터를 하나씩 확인
-    for todo in todo_list:
-        # 전달받은 id와 같은 id를 가진 todo를 찾음
-        if todo.get('id') == id:
-            return {
-                'todo': todo
-            }
-    # 같은 id를 가진 todo가 없으면 메시지 반환
-    return {
-        'message': '해당 id가 없습니다.'
-    }
+# # 성공
+# def crud_c(id : int = Form(), item:str = Form()) :
+#     print(id, item)
 
-# Update
-# PUT 방식으로 '/crud' 요청을 받음
-@crud_router.put('/crud')
-# 수정할 id와 item이 담긴 JSON 데이터를 dict로 받음
-async def update_todo(todo: dict):
-    # todo_list에 저장된 데이터를 하나씩 확인
-    for todo in todo_list:
-        # 기존 데이터의 id와 전달받은 todo의 id가 같은지 확인
-        if todo.get('id') == todo.get('id'):
-            # id가 같으면 기존 item을 전달받은 새로운 item으로 수정
-            todo['item'] = todo.get('item')
-    # 수정 후 전체 todo_list 반환
-    return {
-        'todos': todo_list
-    }
+#     return id, item
 
-# Delete
-# DELETE 방식으로 '/crud' 요청을 받음
-# id는 Query Parameter로 전달받음
-@crud_router.delete('/crud')
-async def delete_todo(id: int):
-    # todo_list의 길이만큼 index 번호를 반복
-    for todo in range(len(todo_list)):
-        # 현재 index에 있는 데이터의 id와 전달받은 id가 같은지 확인
-        if todo_list[todo]['id'] == id:
-            # 해당 index의 데이터를 todo_list에서 삭제
-            todo_list.pop(todo)
-            # 삭제가 끝났으므로 반복문 종료
-            break
-    # 삭제 후 전체 todo_list 반환
-    return {
-        'todos': todo_list
-    }
-
-# Create 주석
-# @crud_router.post('/crud')
-# # 요청 Body에서 JSON 데이터를 dict 형태로 받음
-# def create_todo(todo: dict):
-#     # 전달받은 todo 딕셔너리를 todo_list에 추가
-#     crud_list.append(todo)
-#     # 추가한 todo를 응답으로 반환
-#     return {
-#         'todo': todo
-#     }
-
-# async def create_todo(request: Request):
+# # 성공
+# async def crud_c(request: Request) :
 #     data = await request.form()
 #     id = data.get('id')
 #     item = data.get('item')
+#     print(1, id, item)
+
 #     return id, item
 
-# async def create_todo(todo: Todo = Form()):
-#     id = data.get('id')
-#     item = data.get('item')
+# # 실패 : json 형식으로 들어오지 않아서 
+# async def crud_c(todo3: Todo3) :
+#     id = todo3.id
+#     item = todo3.item
+#     print(2, id, item)
+
 #     return id, item
+
+# # 성공
+# async def crud_c(todo3: Todo3 = Form()) :
+#     id = todo3.id
+#     item = todo3.item
+#     print(2, id, item)
+
+#     return id, item
+
+# 성공
+# 위의 것과 같은 내용을 Annotated로 사용한 경우
+async def crud_c(todo3: Annotated[Todo3, Form()]) :
+    id = todo3.id
+    item = todo3.item
+    print(3, id, item, todo3)
+
+    todo_list.append(todo3)
+
+    return id, item
+
+@crud_router.get('/crud')
+async def crud() :
+    print('/crud 실행')
+    print(4, todo_list)
+
+    return todo_list
+
+# id를 전달받고
+# 목록 중에 id가 같은 녀석만 return
+@crud_router.get('/crud/r')
+# # 성공
+# # # -> Optional[Todo3] :
+# # #    필수는 아니다
+# # async def crud_r(id: int) -> Optional[Todo3] :
+# #  -> Todo3 | None
+# #     결과값이 Todo3 또는 None 인지 검증하라
+# async def crud_r(id: int) -> Todo3 | None:
+#     print('/crud/r')
+#     print(5, 'id:', id)
+
+#     # result = Todo3()
+#     result = None
+#     for todo in todo_list:
+#         if todo.id == id:
+#             print(todo)
+#             # return todo
+#             result = todo
+
+#     return result
+
+# # 성공
+# async def crud_r(request: Request) -> Todo3 | None:
+#     print('/crud/r')
+
+#     data = request.query_params
+#     id = data.get('id', -1)
+
+#     print(5, 'id:', id)
+
+#     # result = Todo3()
+#     result = None
+#     for todo in todo_list:
+#         if todo.id == id:
+#             print(todo)
+#             # return todo
+#             result = todo
+
+#     return result
+
+# 성공
+# html에서 form으로 보낼 때 pydantic으로 받는 법
+# post : Form()
+# get : Depends()
+async def crud_r(todo3: Annotated[Todo3, Depends()]) -> Todo3 | None:
+    print('/crud/r')
+   
+    id = todo3.id
+
+    print(5, 'id:', id)
+
+    # result = Todo3()
+    result = None
+    for todo in todo_list:
+        if todo.id == id:
+            print(todo)
+            # return todo
+            result = todo
+
+    return result
+
+
+@crud_router.get('/crud/r/{id}')
+def crud_r_id(id:int) :
+    print('/crud/r/'+str(id))
+    print(6, 'id:', id)
+
+    # result = Todo3()
+    result = None
+    for todo in todo_list:
+        if todo.id == id:
+            print(todo)
+            # return todo
+            result = todo
+
+    return result
+
+##############
+## ajax 전용
+##############
+
+@crud_router.post('/crud/api/c')
+def crud_api_c(todo3: Todo3):
+    print('/crud/api/c')
+    print(todo3)
+
+    todo_list.append(todo3)
+
+    return todo3
+
+@crud_router.get('/crud/api/r')
+def crud_api_c():
+    print('/crud/api/r')
+    print(todo_list)
+    return todo_list
+
+@crud_router.get('/crud/api/r/{id}')
+def crud_api_c(id:int):
+    print('/crud/api/r/id')
+
+    result = None
+    for todo in todo_list:
+        if todo.id == id:
+            print(todo)
+            # return todo
+            result = todo
+
+    return result
+
+@crud_router.put('/crud/api/u')
+# @crud_router.post('/crud/api/u')
+def crud_api_u(todo3: Todo3):
+    print('/crud/api/u', todo3)
+
+    for todo in todo_list:
+        if todo.id == todo3.id:
+            todo.item = todo3.item
+
+@crud_router.delete('/crud/api/d')
+def crud_api_delete(todo3: Todo3):
+    print('/crud/api/d', todo3)
+
+    for i in range(len(todo_list)) :
+        print('i', i)
+        if todo_list[i].id == todo3.id:
+            todo_list.pop(i)
+            break
+

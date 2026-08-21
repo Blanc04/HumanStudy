@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>TODO 상세</title>
+</head>
+<body>
+    <h1>TODO 상세</h1>
+    <div>
+        ID : {{ todo.id }}
+    </div>
+    <div>
+        TODO : {{ todo.item }}
+    </div>
+    <a href="/jinjatodo/{{ todo.id }}/edit">수정</a>
+    <form action="/jinjatodo/{{ todo.id }}/delete" method="post">
+        <button type="submit">삭제</button>
+    </form>
+    <a href="/jinjatodo">전체 목록</a>
+</body>
+</html>

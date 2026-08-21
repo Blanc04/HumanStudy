@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>TODO 수정</title>
+</head>
+<body>
+    <h1>TODO 수정</h1>
+    <form action="/jinjatodo/{{ todo.id }}/edit" method="post">
+        <input type="text" name="item" value="{{ todo.item }}">
+        <button type="submit">수정</button>
+    </form>
+    <a href="/jinjatodo/{{ todo.id }}">취소</a>
+</body>
+</html>
