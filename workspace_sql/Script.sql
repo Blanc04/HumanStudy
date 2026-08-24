@@ -1009,32 +1009,13 @@ join (
 where sal > a.avsal
 order by d.dname asc, sal desc;
 
--- 문제1
--- emp, dept, salgrade
--- 
--- 문제2 : TODO
--- 사용자1-할일1, 사용자1-할일1-시간, 사용자1-할일1-달성여부
--- 사용자1-할일2, ...
--- 사용자2-할일1, ...
--- 
--- 문제3 : 설문조사
--- 
--- 문제4 : 숙박예약
--- 문제4-1 : 여러 펜션 관리
--- 문제4-2 : 리뷰까지 추가
--- 방
--- 옵션(복층, 온돌, 침대, 수영장, 바베큐장, 반려동물 동반 가능 여부)
--- 방이름
--- 가격
--- 독체여부
--- 기본인원
--- 최대인원
--- 썸네일주소
--- 회원이름
--- 회원연락처
--- checkin 날짜
--- checkout 날짜
--- 예약금
--- 예약내용
--- 예약인원
--- 요청사항
+select * from emp3;
+
+insert into emp3
+select * from emp;
+
+update emp3
+set sal = sal * 1.1
+where deptno = 30
+
+drop table emp3;
