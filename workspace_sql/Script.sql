@@ -1009,7 +1009,13 @@ join (
 where sal > a.avsal
 order by d.dname asc, sal desc;
 
+
 select * from emp3;
+
+drop table emp3;
+
+insert into dept3
+select * from dept;
 
 insert into emp3
 select * from emp;
@@ -1017,5 +1023,3 @@ select * from emp;
 update emp3
 set sal = sal * 1.1
 where deptno = 30
-
-drop table emp3;
