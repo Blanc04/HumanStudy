@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit</title>
+</head>
+<body>
+    <h1>EMP 수정</h1>
+    <form action="/emp/edit/{{ emp.empno }}" method="post">
+        <input type="text" name="ename" value="{{ emp.ename }}">
+        <input type="text" name="job" value="{{ emp.job }}">
+        <input type="date" name="hiredate" value="{{ emp.hiredate }}">
+        <input type="text" name="sal" value="{{ emp.sal }}">
+        <input type="text" name="deptno" value="{{ emp.deptno }}">
+        <button type="submit">수정</button>
+    </form>
+    <a href="/emp">취소</a>
+</body>
+</html>
