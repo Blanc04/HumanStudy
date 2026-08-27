@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cookie</title>
+    <script>
+        window.onload = ()=>{
+            document.querySelector('#eatcookie1').addEventListener('click', ()=>{
+                // 만료일이 없는
+                // session cookie 생성
+                document.cookie = 'key=value'
+            })
+            document.querySelector('#eatcookie2').addEventListener('click', ()=>{
+                // 만료일이 없는
+                // session cookie 생성
+                // max-age : 만료일, 단위는 초
+                document.cookie = `mode=attack; max-age=${60*60}`
+                document.cookie = `heal=full; max-age=${60*60*2}`
+            })
+            document.querySelector('#eatcookie3').addEventListener('click', ()=>{
+                console.log(document.cookie)
+            })
+        }
+    </script>
+</head>
+<body>
+    <button type="button" id="eatcookie1">쿠키 먹이기 1</button><br>
+    <button type="button" id="eatcookie2">쿠키 먹이기 2</button><br>
+    <button type="button" id="eatcookie3">쿠키 먹이기 3</button><br>
+</body>
+</html>
