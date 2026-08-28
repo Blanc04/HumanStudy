@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cookie</title>
+    <style>
+        .popup {
+            border: 2px solid black;
+            padding: 20px;
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            background-color: white;
+        }
+        .hide {
+            display:none;
+        }
+    </style>
     <script>
         window.onload = ()=>{
             document.querySelector('#eatcookie1').addEventListener('click', ()=>{
@@ -12,7 +25,7 @@
                 document.cookie = 'key=value'
             })
             document.querySelector('#eatcookie2').addEventListener('click', ()=>{
-                // 만료일이 없는
+                // 만료일이 있는
                 // session cookie 생성
                 // max-age : 만료일, 단위는 초
                 document.cookie = `mode=attack; max-age=${60*60}`
@@ -20,6 +33,57 @@
             })
             document.querySelector('#eatcookie3').addEventListener('click', ()=>{
                 console.log(document.cookie)
+
+                // 쿠키 중 heal의 값이 'full'이면
+                // '힐 합니다' 출력
+                // 아니면 '힐 안 합니다' 출력
+                cookies = document.cookie.split('; ')
+                for(cookie of cookies) {
+                    console.log(cookie)
+
+                    name = cookie.split('=')[0]
+                    value = cookie.split('=')[1]
+
+                    if (name == 'heal') {
+                        if (value == 'full') {
+                            console.log('힐 합니다')
+                        } else {
+                            console.log('힐 안 합니다')                            
+                        }
+                    }
+                }
+            })
+            function none() {
+                let popup = document.querySelector('.popup')
+                popup.classList.add('hide')
+            }
+            cookies = document.cookie.split('; ')
+            for(cookie of cookies) {
+                name = cookie.split('=')[0]
+                value = cookie.split('=')[1]
+                if (name == 'no') {
+                    if (value == 'true') {
+                        none()
+                    }
+                }
+            }
+            document.querySelector('.close').addEventListener('click', ()=>{
+                none()
+                cookie4checked = document.querySelector('#eatcookie4')
+                cookie5checked = document.querySelector('#eatcookie5')
+                if (cookie4checked.checked) {
+                    document.cookie = `no=true; max-age=${10}`
+                    console.log('10초 안 보기')
+                }
+                if (cookie5checked.checked) {
+                    let date = new Date()
+                    let hours = date.getHours() * 60 * 60
+                    let minutes = date.getMinutes() * 60
+                    let seconds = date.getSeconds()
+                    let skipTime = hours + minutes + seconds
+                    document.cookie = `no=true; max-age=${86400-skipTime}`
+                    console.log('오늘 하루 안 보기')
+                }
             })
         }
     </script>
@@ -28,5 +92,20 @@
     <button type="button" id="eatcookie1">쿠키 먹이기 1</button><br>
     <button type="button" id="eatcookie2">쿠키 먹이기 2</button><br>
     <button type="button" id="eatcookie3">쿠키 먹이기 3</button><br>
+
+    <div class="popup">
+        <div>
+            너무 너무 중요한 공지
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" id="eatcookie4">10초간 안 보이기
+            </label>
+            <label>
+                <input type="checkbox" id="eatcookie5">오늘 하루 안 보기
+            </label>
+            <button type="button" class="close">닫기</button>
+        </div>
+    </div>
 </body>
 </html>

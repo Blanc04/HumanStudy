@@ -33,11 +33,11 @@
         console.log('초 :', s)
 
         const iso = now.toISOString()
-        console.log(iso)
-        console.log(iso.split('T')[0])
+        console.log('iso: ', iso)
+        console.log('iso.split: ', iso.split('T')[0])
         
         const timestamp = now.getTime()
-        console.log(timestamp)
+        console.log('timestamp: ', timestamp)
         
         const before = new Date().getTime()
         for(let i=0;i<100;i++){
