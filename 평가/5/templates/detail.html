@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    empno: {{emp.empno}}<br>
+    ename: {{emp.ename}}<br>
+    job: {{emp.job}}<br>
+    mgr :
+    {% if emp.mgr == None %}
+        -
+    {% else %}
+        {{emp.mgr}}
+    {% endif %}
+    <br>
+    hiredate: {{emp.hiredate}}<br>
+    sal: {{emp.sal}}<br>
+    comm: 
+    {% if emp.comm == None %}
+        -
+    {% else %}
+        {{emp.comm}}
+    {% endif %}
+    <br>
+    deptno: {{emp.deptno}}<br>
+
+    <a href="/modify?empno={{emp.empno}}">
+        <button type="button">수정</button>
+    </a>
+    <form method="post" action="/api/delete">
+        <input type="hidden" name="empno" value="{{emp.empno}}">
+        <button type="submit">삭제</button>
+    </form>
+    <a href="/list">
+        <button type="button">목록으로</button>
+    </a>
+
+</body>
+</html>

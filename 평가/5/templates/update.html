@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" action="/api/modify">
+        empno: {{emp.empno}} <br>
+        <input type="hidden" name="empno" value="{{emp.empno}}"><br>
+        ename: <input type="text" name="ename" value="{{emp.ename}}"><br>
+        job: <input type="text" name="job" value="{{emp.job}}"><br>
+        mgr : <input type="text" name="mgr" 
+            {% if emp.mgr != None %}
+                value="{{emp.mgr}}"
+            {% endif %}
+        ><br>
+        hiredate: <input type="text" name="hiredate" value="{{emp.hiredate}}"><br>
+        sal: <input type="text" name="sal" value="{{emp.sal}}"><br>
+        comm : <input type="text" name="comm"
+            {% if emp.comm != None %}
+                 value="{{emp.comm}}"
+            {% endif %}
+        ><br>
+        deptno: <input type="text" name="deptno" value="{{emp.deptno}}"><br>
+
+        <br>
+        <button type="submit">수정완료</button>
+        <a href='/detail/{{emp.empno}}'>
+            <button type="button">취소</button>
+        </a>
+    </form>
+
+</body>
+</html>

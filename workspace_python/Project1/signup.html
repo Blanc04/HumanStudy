@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 페이지</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        <!-- HEADER -->
+        <header class="header">
+            <div class="logo">
+                &lt;로고&gt;&nbsp; Dish Inside
+            </div>
+
+            <!-- 회원 아이콘 -->
+            <div class="profile">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="8" r="3"></circle>
+                    <path d="M6 19 C6 15.5 8.7 13 12 13 C15.3 13 18 15.5 18 19">
+                    </path>
+                </svg>
+            </div>
+        </header>
+
+        <!-- MAIN -->
+        <main class="main">
+            <form class="form-box signup-box">
+
+                <!-- 이름 -->
+                <div class="signup-row">
+                    <label class="signup-label required">
+                        이름
+                    </label>
+                    <div class="input-area">
+                        <input type="text" placeholder="이름을 입력하세요">
+                        <div class="error">
+                            이름이 입력되지 않았습니다.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 아이디 -->
+                <div class="signup-row">
+                    <label class="signup-label required">
+                        아이디
+                    </label>
+                    <div class="input-area">
+                        <input
+                            type="text"
+                            placeholder="ID를 입력하세요"
+                        >
+                        <div class="error">
+                            중복된 아이디입니다.
+                        </div>
+                    </div>
+                    <button type="button" class="side-btn">
+                        중복 확인
+                    </button>
+                </div>
+
+                <!-- 전화번호 -->
+                <div class="signup-row">
+                    <label class="signup-label required">
+                        전화번호
+                    </label>
+                    <div class="input-area">
+                        <input
+                            type="tel"
+                            placeholder="전화번호를 입력하세요"
+                        >
+                        <div class="error">
+                            전화번호는 필수입니다.
+                        </div>
+                    </div>
+                    <button type="button" class="side-btn">
+                        인증 요청
+                    </button>
+                </div>
+
+                <!-- 비밀번호 -->
+                <div class="signup-row">
+                    <label class="signup-label required">
+                        비밀번호
+                    </label>
+                    <div class="input-area">
+                        <input
+                            type="password"
+                            placeholder="PW를 입력하세요"
+                        >
+                        <div class="error">
+                            비밀번호가 입력되지 않았습니다.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 비밀번호 확인 -->
+                <div class="signup-row">
+                    <label class="signup-label required">
+                        비밀번호 확인
+                    </label>
+                    <div class="input-area">
+                        <input type="password" placeholder="PW를 입력하세요">
+                        <div class="error">
+                            입력하신 비밀번호가 일치하지 않습니다.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 가입 버튼 -->
+                <button type="submit" class="signup-submit">
+                    회원 가입
+                </button>
+            </form>
+        </main>
+        <footer class="footer">
+            Provided by Team. NAT
+        </footer>
+    </div>
+</body>
+</html>

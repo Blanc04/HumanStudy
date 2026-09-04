@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 페이지</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo">
+            &lt;로고&gt;&nbsp; Dish Inside
+        </div>
+        <div class="profile">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="3"></circle>
+                <path d="
+                    M6 19
+                    C6 15.5 8.7 13 12 13
+                    C15.3 13 18 15.5 18 19
+                ">
+                </path>
+            </svg>
+        </div>
+    </header>
+        <!-- MAIN -->
+        <main class="main login-main">
+            <form class="form-box login-box">
+
+                <!-- ID -->
+                <div class="login-field">
+                    <label for="login-id">
+                        ID
+                    </label>
+                    <input id="login-id" type="text" placeholder="ID를 입력하세요">
+                    <!-- <div class="error">
+                        아이디를 입력하세요.
+                    </div> -->
+                </div>
+
+                <!-- PW -->
+                <div class="login-field">
+                    <label for="login-pw">
+                        PW
+                    </label>
+                    <input id="login-pw" type="password" placeholder="PW를 입력하세요">
+                    <!-- <div class="error">
+                        비밀번호를 입력하세요.
+                    </div> -->
+                </div>
+
+                <!-- 로그인 -->
+                <button type="submit" class="login-submit">
+                    로그인
+                </button>
+                <!-- 하단 메뉴 -->
+                <div class="login-menu">
+                    <button type="button">
+                        회원 가입
+                    </button>
+                    <button type="button">
+                        아이디 찾기/비밀번호 재설정
+                    </button>
+                </div>
+            </form>
+        </main>
+        <footer class="footer">
+            Provided by Team. NAT
+        </footer>
+    </div>
+</body>
+</html>

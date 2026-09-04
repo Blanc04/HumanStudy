@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add</title>
+    <script>
+        let a = '{{count}}'
+        console.log(a)
+    </script>
+</head>
+<body>
+    <h1>EMP 추가</h1>
+    <form action="/emp/add" method="post">
+        <input type="text" name="empno" placeholder="번호 입력">
+        <input type="text" name="ename" placeholder="이름 입력">
+        <input type="text" name="job" placeholder="직업 입력">
+        <input type="text" name="hiredate" placeholder="입사일 입력">
+        <input type="text" name="sal" placeholder="급여 입력">
+        <input type="text" name="deptno" placeholder="부서 번호 입력">
+        <button type="submit">추가</button>
+    </form>
+    <a href="/emp">취소</a>
+</body>
+</html>

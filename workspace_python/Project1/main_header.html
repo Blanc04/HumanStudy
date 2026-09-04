@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .header {
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 14px 0 7px;
+        }
+        .logo {
+            font-size: 17px;
+            color: #333;
+        }
+        .profile {
+            width: 49px;
+            height: 49px;
+
+            border-radius: 50%;
+
+            background: #d9d9d9;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .profile svg {
+            width: 25px;
+            height: 25px;
+
+            fill: none;
+            stroke: #222;
+            stroke-width: 1.8;
+        }
+        .footer {
+            position: absolute;
+
+            bottom: 7px;
+            left: 0;
+
+            width: 100%;
+
+            text-align: center;
+
+            font-size: 12px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo">
+            &lt;로고&gt;&nbsp; Dish Inside
+        </div>
+        <div class="profile">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="3"></circle>
+                <path d="M6 19C6 15.5 8.7 13 12 13 C15.3 13 18 15.5 18 19">
+                </path>
+            </svg>
+        </div>
+    </header>
+    <footer class="footer">
+        Provided by Team. NAT
+    </footer>
+</body>
+</html>

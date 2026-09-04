@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>list</title>
+</head>
+<body>
+    <h1>EMP 목록</h1>
+    <form action="/emp/add" method="get">
+        <button type="submit">EMP 추가</button>
+    </form>
+    {% for emp3 in emp_list %}
+        <div>
+            {{ emp3.empno }}
+            {{ emp3.ename }}
+            {{ emp3.job }}
+            {{ emp3.hiredate }}
+            {{ emp3.sal }}
+            {{ emp3.deptno }}
+            <a href="/emp/edit/{{ emp3.empno }}">수정</a>
+            <form action="/emp/delete/{{ emp3.empno }}" method="post" style="display:inline;">
+                <button type="submit">삭제</button>
+            </form>
+        </div>
+    {% endfor %}
+</body>
+</html>
