@@ -1023,3 +1023,4 @@ select * from emp;
 update emp3
 set sal = sal * 1.1
 where deptno = 30
+

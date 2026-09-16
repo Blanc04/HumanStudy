@@ -17,14 +17,14 @@
     전달받은 내용을 새 div로 만들어 #view의 맨 위에 표시하는 공통 함수이다.
 */
 function log(message){
-// 아직 문서에 붙지 않은 새로운 div 요소를 생성한다.
+    // 아직 문서에 붙지 않은 새로운 div 요소를 생성한다.
     const div = document.createElement('div')
-// CSS 적용을 위해 log 클래스를 추가한다.
+    // CSS 적용을 위해 log 클래스를 추가한다.
     div.classList.add('log')
-// innerHTML은 문자열을 HTML로 해석한다. 단순 글자라면 textContent가 더 안전하다.
+    // innerHTML은 문자열을 HTML로 해석한다. 단순 글자라면 textContent가 더 안전하다.
     div.innerHTML = message
     const view = document.querySelector('#view')
-// prepend()이므로 가장 최근 로그가 기존 로그보다 위에 들어간다.
+    // prepend()이므로 가장 최근 로그가 기존 로그보다 위에 들어간다.
     view.prepend(div)
 }
 
@@ -46,10 +46,10 @@ window.addEventListener('load', function(){
         query.style.background = 'white'
     })
     // input : 값이 변경될 때
-/*
-    input 이벤트는 타이핑, 붙여넣기, 삭제 등으로 값이 실제 변경될 때 발생한다.
-    keyup과 달리 마우스로 붙여넣거나 모바일 입력을 해도 값 변경을 잡을 수 있다.
-*/
+    /*
+        input 이벤트는 타이핑, 붙여넣기, 삭제 등으로 값이 실제 변경될 때 발생한다.
+        keyup과 달리 마우스로 붙여넣거나 모바일 입력을 해도 값 변경을 잡을 수 있다.
+    */
     query.addEventListener('input', function(){
 // 입력할 때마다 현재 검색어를 화면 로그에 추가한다.
         log(query.value)
@@ -69,10 +69,10 @@ window.addEventListener('load', function(){
 
     // 제출 동작을 검사할 form 요소를 가져온다.
     const form = document.querySelector('#form')
-/*
-    submit 이벤트는 제출 버튼 클릭뿐 아니라
-    입력칸에서 Enter를 눌러 폼이 제출될 때도 발생한다.
-*/
+    /*
+        submit 이벤트는 제출 버튼 클릭뿐 아니라
+        입력칸에서 Enter를 눌러 폼이 제출될 때도 발생한다.
+    */
     form.addEventListener('submit', function(event){
         // 태그의 기본(고유) 기능을 막음
         // 폼이 바로 서버로 전송되거나 페이지가 이동하는 기본 동작을 우선 막는다.
@@ -141,44 +141,44 @@ window.addEventListener('load', function(){
 
     // 1. click된 dom 출력
     // 5. 작성자를 클릭했을 때 속성 writer 값 출력
-/*
-    board 하나에 클릭 이벤트를 등록해 내부의 여러 요소를 처리한다.
-    이것이 이벤트 위임(event delegation) 방식이다.
-*/
+    /*
+        board 하나에 클릭 이벤트를 등록해 내부의 여러 요소를 처리한다.
+        이것이 이벤트 위임(event delegation) 방식이다.
+    */
     const board = document.querySelector('#board')
     board.addEventListener('click', function(event){
-// board 바깥 부모로 이벤트가 더 올라가는 것은 막지만 board 내부의 이전 단계까지 되돌리지는 않는다.
+    // board 바깥 부모로 이벤트가 더 올라가는 것은 막지만 board 내부의 이전 단계까지 되돌리지는 않는다.
         event.stopPropagation()
-// 실제 클릭된 요소를 확인한다.
+        // 실제 클릭된 요소를 확인한다.
         console.log(event.target)
     // 2. 지금 클릭 요소에 클래스 chk가 있는지 출력
     // 3. 만약 체크박스일 때만 value 출력
-// 실제 클릭 요소에 chk 클래스가 있을 때만 체크박스 값으로 처리한다.
+        // 실제 클릭 요소에 chk 클래스가 있을 때만 체크박스 값으로 처리한다.
         if(event.target.classList.contains('chk')){
             log(event.target.value)
         }
     // 4. 제목을 클릭했을 때 제목 글씨 출력
-// title 클래스를 클릭했다면 해당 요소의 글자를 출력한다.
+        // title 클래스를 클릭했다면 해당 요소의 글자를 출력한다.
         if(event.target.classList.contains('title')){
             log(event.target.textContent)
         }
-// writer라는 사용자 정의 속성이 있는 요소를 클릭했는지 검사한다.
+    // writer라는 사용자 정의 속성이 있는 요소를 클릭했는지 검사한다.
         if(event.target.hasAttribute('writer')){
-// getAttribute('writer')로 속성에 저장된 작성자 값을 읽는다.
+    // getAttribute('writer')로 속성에 저장된 작성자 값을 읽는다.
             log(event.target.getAttribute('writer'))
         }
     })
-/*
-    이번에는 board 안의 모든 tr을 찾아 각각 이벤트를 등록한다.
-    위 이벤트 위임 방식과 비교하기 위한 코드이다.
+    /*
+        이번에는 board 안의 모든 tr을 찾아 각각 이벤트를 등록한다.
+        위 이벤트 위임 방식과 비교하기 위한 코드이다.
 
-    제목 등을 클릭하면 tr 리스너와 board 리스너가 모두 실행되어
-    같은 내용이 두 번 출력될 수 있다.
-*/
+        제목 등을 클릭하면 tr 리스너와 board 리스너가 모두 실행되어
+        같은 내용이 두 번 출력될 수 있다.
+    */
     const trs = document.querySelectorAll('#board tr')
-// for...of로 NodeList의 각 행(tr)을 하나씩 꺼낸다.
+    // for...of로 NodeList의 각 행(tr)을 하나씩 꺼낸다.
     for(let tr of trs){
-// 현재 반복 중인 행마다 별도의 클릭 리스너를 등록한다.
+    // 현재 반복 중인 행마다 별도의 클릭 리스너를 등록한다.
         tr.addEventListener('click', function(event){
             console.log(event.target)
 
