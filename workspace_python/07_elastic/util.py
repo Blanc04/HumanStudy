@@ -1,5 +1,3 @@
-# pip install elasticsearch fastapi uvicorn python-dotenv google-genai
-
 from elasticsearch import Elasticsearch
 from config import ELASTIC_ENDPOINT, ELASTIC_API_KEY, GEMINI_API_KEY
 import json
@@ -14,6 +12,7 @@ es = Elasticsearch(
 
 # gemini 연결
 gemini = genai.Client(api_key=GEMINI_API_KEY)
+
 
 # json 파일 읽어오기
 def load_documents():
