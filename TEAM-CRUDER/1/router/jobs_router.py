@@ -13,7 +13,7 @@ router = APIRouter(tags=['채용정보 관련 라우터'])
 es = Elasticsearch(
     ELASTIC_ENDPOINT
 )
-
+ 
 
 # ==============================================================================
 # 1. ALIO 채용정보 가져오기
@@ -31,7 +31,7 @@ def fetch_jobs():
         # 조회할 페이지 번호
         'pageNo': 1,
         # 한 번에 가져올 데이터 개수
-        'numOfRows': 1000
+        'numOfRows': 500
     }
 
     # HTTP 요청에 같이 전달할 Header
@@ -58,7 +58,7 @@ def fetch_jobs():
 
     # result가 없을 경우 빈 리스트 반환
     return data.get('result', [])
-
+ 
 
 # ==============================================================================
 # 2. Elasticsearch에 채용정보 저장
@@ -129,7 +129,7 @@ def filter_jobs(jobs, keyword):
 
     return keyword, filtered_jobs
 
-
+ 
 # ==============================================================================
 # 4. 채용정보 조회 API
 # ==============================================================================
@@ -153,3 +153,35 @@ def get_jobs(keyword: str):
         'result': filtered_jobs
     }
 
+
+# ==============================================================================
+# 과거 ALIO API 요청 방식 테스트 코드
+# 공부용으로 남겨둠
+# ==============================================================================
+
+# print('ALIO_API_KEY 존재:', ALIO_API_KEY is not None)
+# print('ALIO_API_KEY 길이:', len(ALIO_API_KEY) if ALIO_API_KEY else 0)
+
+
+# response = requests.get(
+#     url,
+#     params=params,
+#     allow_redirects=False
+# )
+
+# return {
+#     'status_code': response.status_code,
+#     'response': response.text
+# }
+
+# response = requests.get(
+#     'https://opendata.alio.go.kr/new/v1/recruit/list.do',
+#     params=params,
+#     allow_redirects=False
+# )
+
+# return {
+#     'status_code': response.status_code,
+#     'location': response.headers.get('Location'),
+#     'content_type': response.headers.get('Content-Type'),
+#     'response': response.text

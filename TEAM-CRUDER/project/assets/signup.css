@@ -1,0 +1,226 @@
+/* ==================================
+   기본 리셋 및 폰트 설정
+=================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+}
+
+body {
+    background-color: #F8F9FA;
+    color: #212529;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+/* 회원가입 컨테이너 */
+.signup-container {
+    width: 100%;
+    max-width: 1000px;
+    background-color: #ffffff;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    padding: 45px 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    margin: auto;
+}
+
+/* 타이틀 */
+.page-title {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 35px;
+    color: #111;
+    letter-spacing: -0.5px;
+}
+
+/* 콘텐츠 래퍼 (좌우 분할) */
+.signup-content {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* ==================================
+   좌측 폼 영역
+=================================== */
+.form-section {
+    flex: 1;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: #ffffff;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus {
+    border-color: #6B46C1;
+}
+
+.form-input::placeholder {
+    color: #9CA3AF;
+}
+
+.flex-grow {
+    flex: 1;
+}
+
+/* 공통 버튼 스타일 */
+.btn {
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+/* 보라색 테마 버튼 */
+.btn-purple {
+    background-color: #6B46C1;
+    box-shadow: 0 2px 4px rgba(107, 70, 193, 0.2);
+}
+
+.btn-purple:hover {
+    background-color: #5533A3;
+    transform: translateY(-1px);
+}
+
+.btn-small {
+    padding: 0 18px;
+    border-radius: 8px; 
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.btn-large {
+    flex: 1;
+    padding: 14px 0;
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+
+/* 경고 메세지 */
+.warning-message {
+    color: #DC2626;
+    font-size: 0.85rem;
+    padding-left: 4px;
+    font-weight: 500;
+}
+
+/* 하단 가입/취소 버튼 그룹 */
+.action-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+/* ==================================
+   우측 약관 영역
+=================================== */
+.terms-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.terms-box {
+    background-color: #F9FAFB;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    padding: 24px;
+    height: 470px; 
+    overflow-y: auto; 
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #4B5563;
+    margin-bottom: 16px;
+}
+
+.terms-box p {
+    word-break: keep-all;
+}
+
+.terms-agree {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #374151;
+    font-weight: 500;
+}
+
+.agree-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: #6B46C1;
+    cursor: pointer;
+}
+
+/* ==================================
+   모바일 반응형 웹 설정 (미디어 쿼리)
+=================================== */
+@media (max-width: 768px) {
+    body {
+        padding: 20px 10px;
+    }
+
+    .signup-container {
+        padding: 25px 20px;
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+    }
+
+    .signup-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .form-section, .terms-section {
+        width: 100%;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+        margin-bottom: 24px;
+    }
+
+    .terms-box {
+        height: 220px; 
+    }
+
+    .btn-small {
+        padding: 0 14px;
+        font-size: 0.85rem;
+    }
+
+    .action-buttons {
+        gap: 10px;
+    }
+}

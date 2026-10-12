@@ -1,0 +1,56 @@
+<header class="header">
+    <!-- 좌측 브랜드 -->
+    <div class="brand">
+        <a href="/jobgogo" class="brand-link" aria-label="취업할래 말래 메인페이지">
+            <img src="/static/images/logo.png" alt="취업할래말래 로고">
+            <span class="brand-name">취업할래 말래</span>
+        </a>
+    </div>
+
+    <!-- 중앙 주요 메뉴 -->
+    <nav class="gnb" aria-label="주요 메뉴">
+        <ul>
+            <li><a href="/jobgogo/jobtip">공지사항</a></li>
+            <li><a href="/jobgogo/recult">채용 공고</a></li>
+            <li><a href="/jobgogo/jobtip">취업 꿀팁</a></li>
+        </ul>
+    </nav>
+
+    <!-- 우측 사용자 메뉴 -->
+    <div class="user-menu">
+
+        {% if user_id %}
+
+            {% if user_status_id == 3 %}
+                <a href="/jobgogo/admin" class="admin-link">
+                    관리자 페이지
+                </a>
+            {% endif %}
+
+            <span class="greeting">
+                {{ user_name }}님 환영합니다
+            </span>
+
+            <a href="/jobgogo/mypage" class="mypage-link">
+                마이페이지
+            </a>
+
+            <a href="/logout" class="btn-logout">
+                로그아웃
+            </a>
+
+        {% else %}
+
+            <a href="/jobgogo/login" class="mypage-link">
+                로그인
+            </a>
+
+            <a href="/jobgogo/signup" class="mypage-link">
+                회원가입
+            </a>
+
+        {% endif %}
+    </div>
+
+    <button class="mobile-menu-btn" type="button" aria-label="메뉴 열기">☰</button>
+</header>

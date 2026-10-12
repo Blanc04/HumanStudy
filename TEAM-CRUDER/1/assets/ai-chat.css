@@ -1,0 +1,171 @@
+/* ==================================
+   기본 리셋 및 폰트 설정
+=================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+}
+
+body {
+    background-color: #F8F9FA;
+    color: #212529;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 임시 헤더 & 푸터 */
+.wireframe-header, .wireframe-footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.1rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid #E5E7EB;
+    color: #4B5563;
+}
+
+.wireframe-footer {
+    border-top: 1px solid #E5E7EB;
+    border-bottom: none;
+    margin-top: auto; 
+}
+
+/* 메인 챗봇 컨테이너 */
+.chat-main {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 50px 20px;
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+/* 공통 포인트 테두리 스타일 (세련된 노란색 계열) */
+.outline-yellow {
+    border: 2px solid #F59E0B;
+    border-radius: 24px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.08);
+}
+
+/* ==================================
+   AI 메시지 영역
+=================================== */
+.ai-message-section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.bot-icon {
+    position: absolute;
+    top: -24px;
+    left: 24px;
+    font-size: 3.5rem;
+    color: #6B46C1; /* 프로젝트 테마 컬러 포인트 연계 */
+    background: #F8F9FA;
+    padding: 0 10px;
+}
+
+.message-box {
+    width: 100%;
+    max-width: 780px;
+    padding: 40px 30px;
+    text-align: center;
+    line-height: 1.7;
+    font-size: 1.1rem;
+    color: #374151;
+}
+
+.example-format {
+    margin-top: 25px;
+    background-color: #FFFBEB;
+    padding: 16px;
+    border-radius: 12px;
+    display: inline-block;
+    text-align: left;
+    font-size: 0.95rem;
+    color: #B45309;
+}
+
+/* ==================================
+   사용자 입력 영역
+=================================== */
+.user-input-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.input-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: -0.5px;
+}
+
+.input-box {
+    width: 100%;
+    min-height: 180px;
+    padding: 30px;
+    font-size: 1.05rem;
+    text-align: center;
+    resize: none;
+    outline: none;
+    line-height: 1.6;
+    transition: all 0.2s ease;
+}
+
+.input-box::placeholder {
+    color: #9CA3AF;
+    text-align: center;
+}
+
+.input-box:focus {
+    border-color: #D97706;
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
+}
+
+/* ==================================
+   모바일 반응형 웹 설정 (미디어 쿼리)
+=================================== */
+@media (max-width: 768px) {
+    .chat-container {
+        gap: 30px;
+    }
+
+    .ai-message-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bot-icon {
+        position: static;
+        margin-bottom: 10px;
+    }
+
+    .message-box {
+        padding: 30px 20px;
+        border-radius: 20px;
+    }
+
+    .input-box {
+        padding: 25px 20px;
+        border-radius: 20px;
+        min-height: 160px;
+    }
+
+    .input-box::placeholder {
+        font-size: 0.9rem;
+    }
+}
