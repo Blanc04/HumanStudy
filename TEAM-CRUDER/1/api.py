@@ -5,12 +5,14 @@ from starlette.middleware.sessions import SessionMiddleware
 
 from router.main_router import router as main_router
 from router.api_router import router as api_router
-from router.login_router import router as login_router
+from router.auth_router import router as auth_router
 from router.admin_router import router as admin_router
-# from router.signup_router import router as signup_router
 from router.mypage_router import router as mypage_router
+from router.edit_profile_router import router as edit_profile_router
 from router.recult_router import router as recult_router
 from router.jobtip_router import router as jobtip_router
+from router.ai_chat_router import router as ai_chat_router
+from router.notice_router import router as notice_router
 
 from config import SESSION_SECRET_KEY
 
@@ -18,12 +20,14 @@ router = FastAPI()
 
 router.include_router(main_router)
 router.include_router(api_router)
-router.include_router(login_router)
+router.include_router(auth_router)
 router.include_router(admin_router)
-# router.include_router(signup_router)
 router.include_router(mypage_router)
+router.include_router(edit_profile_router)
 router.include_router(recult_router)
 router.include_router(jobtip_router)
+router.include_router(ai_chat_router)
+router.include_router(notice_router)
 
 
 router.add_middleware(
