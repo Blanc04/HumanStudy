@@ -1,0 +1,141 @@
+/* ==================================
+   기본 리셋 및 폰트 설정
+=================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #212529;
+    background-color: #F8F9FA;
+}
+
+/* 임시 헤더 스타일 */
+.wireframe-header {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.1rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid #E5E7EB;
+    color: #374151;
+}
+
+/* 메인 래퍼 */
+.main-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* ==================================
+   게시글 메타 정보 영역
+=================================== */
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    font-size: 1.05rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+.header-left {
+    display: flex;
+    gap: 30px;
+    color: #4B5563;
+}
+
+.header-right {
+    display: flex;
+    gap: 30px;
+    color: #6B7280;
+}
+
+/* ==================================
+   게시글 본문 영역
+=================================== */
+.post-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    min-height: 450px;
+    padding: 30px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+.content-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #1F2937;
+}
+
+/* 액션 버튼 영역 */
+.action-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+.btn-report {
+    background-color: #FEF2F2;
+    color: #DC2626;
+    border: 1px solid #FCA5A5;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-report:hover {
+    background-color: #DC2626;
+    color: #fff;
+    border-color: #DC2626;
+}
+
+/* ==================================
+   모바일 반응형 웹 설정 (미디어 쿼리)
+=================================== */
+@media (max-width: 768px) {
+    .post-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 20px;
+    }
+
+    .header-left, .header-right {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .post-content {
+        min-height: 350px;
+        padding: 20px;
+    }
+
+    .action-area {
+        justify-content: stretch;
+    }
+
+    .btn-report {
+        width: 100%;
+        padding: 14px;
+    }
+}

@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 게시판</title>
+
+    <link rel="stylesheet" href="/assets/notice.css">
+    <link rel="stylesheet" href="/assets/header.css">
+    <link rel="stylesheet" href="/assets/footer.css">
+</head>
+<body>
+
+    <!-- 상단 헤더 영역 -->
+    {% include 'header.html' %}
+
+    <!-- 메인 콘텐츠 영역 -->
+    <main class="main-container">
+
+        <!-- 검색 및 글쓰기 영역 -->
+        <div class="board-controls">
+
+            <!-- 검색창 -->
+            <form action="/notice" method="get" class="search-box">
+                <span class="search-icon">🔍</span>
+
+                <input
+                    type="text"
+                    name="keyword"
+                    value="{{ keyword }}"
+                    placeholder="검색"
+                    class="search-input"
+                >
+            </form>
+
+            <!-- 글쓰기 버튼 -->
+            <button
+                type="button"
+                class="btn-write"
+                onclick="location.href='/write'">
+                글쓰기
+            </button>
+
+        </div>
+
+        <!-- 게시판 테이블 -->
+        <div class="board-table">
+
+            <!-- 테이블 헤더 -->
+            <div class="board-header">
+                <div class="col-num">번호</div>
+                <div class="col-title">제목</div>
+                <div class="col-author">글쓴이</div>
+                <div class="col-date">날짜</div>
+                <div class="col-views">조회수</div>
+            </div>
+
+            <!-- DB에서 가져온 게시글 반복 출력 -->
+            {% for notice in notice_list %}
+
+            <div class="board-row">
+
+                <!-- 게시글 번호 -->
+                <div class="col-num" data-label="번호">
+                    {{ notice.notice_id }}
+                </div>
+
+                <!-- 게시글 제목 -->
+                <div class="col-title" data-label="제목">
+                    <a href="/notice/{{ notice.notice_id }}">
+                        {{ notice.notice_title }}
+                    </a>
+                </div>
+
+                <!-- 글쓴이 -->
+                <div class="col-author" data-label="글쓴이">
+                    {{ notice.user_id }}
+                </div>
+
+                <!-- 작성 날짜 -->
+                <div class="col-date" data-label="날짜">
+                    {{ notice.notice_date.strftime('%Y-%m-%d') if notice.notice_date else '' }}
+                </div>
+
+                <!-- 조회수는 현재 DB에서 가져오지 않음 -->
+                <div class="col-views" data-label="조회수">
+                    -
+                </div>
+
+            </div>
+
+            {% else %}
+
+            <!-- 게시글이 없을 경우 -->
+            <div class="board-row">
+                <div class="col-title">
+                    등록된 공지사항이 없습니다.
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- 페이지네이션 영역 -->
+        <div class="pagination">
+
+            <!-- 이전 페이지 -->
+            {% if page > 1 %}
+            <button
+                type="button"
+                class="page-btn arrow"
+                onclick="location.href='/notice?page={{ page - 1 }}&keyword={{ keyword | urlencode }}'">
+                ◀
+            </button>
+            {% endif %}
+
+            <!-- 페이지 번호 -->
+            {% for num in range(1, total_page + 1) %}
+            <button
+                type="button"
+                class="page-btn {% if num == page %}active{% endif %}"
+                onclick="location.href='/notice?page={{ num }}&keyword={{ keyword | urlencode }}'">
+                {{ num }}
+            </button>
+            {% endfor %}
+
+            <!-- 다음 페이지 -->
+            {% if page < total_page %}
+            <button
+                type="button"
+                class="page-btn arrow"
+                onclick="location.href='/notice?page={{ page + 1 }}&keyword={{ keyword | urlencode }}'">
+                ▶
+            </button>
+            {% endif %}
+
+            <span class="page-text">페이지</span>
+
+        </div>
+
+    </main>
+
+    <!-- 하단 푸터 -->
+    {% include 'footer.html' %}
+
+</body>
+</html>

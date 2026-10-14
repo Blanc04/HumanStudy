@@ -5,7 +5,7 @@ from fastapi.responses import RedirectResponse
 from fastapi import FastAPI, Depends
 from fastapi.staticfiles import StaticFiles
 
-from sqlmodel import Session
+from sqlmodel import Session,text
 
 from database import get_session
 from DTO.UserDTO import User
@@ -60,42 +60,52 @@ def mypage(
 
     # 조회한 회원 정보를 HTML에 전달
     return templates.TemplateResponse(
-            request,
-            'my-page.html',
-            {
-                'user': user
-            }
+        request=request,
+        name='my-page.html',
+        context={
+            'user': user,
+            'user_id': request.session.get('user_id'),
+            'user_name': request.session.get('user_name'),
+            'user_status_id': request.session.get('user_status_id')
+        }
+    )
+    
+    
+@router.get('/jobgogo/inquiry_list')
+def inquiry_list(request:Request,
+    session: Session = Depends(get_session)       
+     ):
+    user_id=request.session.get('user_id')
+    
+    if user_id is None:
+        return RedirectResponse(
+            url='/jobgogo'
+            ,status_code=303
         )
-
-    # 옛날 방식
-    # return templates.TemplateResponse(
-    #     request=request,
-    #     name='my-page.html',
-    #     context={
-    #         'user': user,
-    #         'user_id': request.session.get('user_id'),
-    #         'user_name': request.session.get('user_name'),
-    #         # 'user_status_id': request.session.get('user_status_id')
-    #     }
-    # )
-
-
-# @router.get('/jobgogo/mypage')
-# def mypage(request: Request):
-
-#     # 로그인 여부 체크(세션에서)
-#     login_chk=request.session.get('member_id')
-
-#     if not login_chk:
-#         return RedirectResponse(
-#                 url='/jobgogo',
-#                 status_code=303
-#             )
-
-#     return templates.TemplateResponse(
-#             request,
-#             'my-page.html',
-#             {
-#                 'member_id': login_chk
-#             }
-#         )
+    
+    sql=text('''
+             select *
+             from inquiry
+             where user_id=:user_id 
+             
+             ''')
+    
+    result=session.exec(
+        sql,
+        params={
+          'user_id': user_id
+        }
+    )
+    results= result.mappings().fetchall()
+    
+    # html 출력
+    
+    return templates.TemplateResponse(
+    request=request,
+    name='inquiry_result.html',
+    context={
+        'inquiries': results,
+        'user_id': user_id
+        # 'user_name': request.session.get('user_name')
+    }
+    )  

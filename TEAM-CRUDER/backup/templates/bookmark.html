@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>찜한 공고 목록 - 취업 할래말래</title>
+    <link rel="stylesheet" href="/assets/bookmark.css">
+    <link rel="stylesheet" href="/assets/header.css">
+    <!-- 푸터 css적용 -->
+    <link rel="stylesheet" href="/assets/footer.css">
+    <!-- FontAwesome (사용자 프로필 아이콘 렌더링용) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <!-- 메인 레이아웃 컨테이너 -->
+    <main class="mypage-container">
+        <!-- 좌측 사이드바 영역 -->
+        <aside class="sidebar">
+            <h2 class="sidebar-title">마이페이지</h2>
+            <ul class="sidebar-menu">
+                <li><a href="#">회원 정보 수정</a></li>
+                <li><a href="#">쓴 글 목록</a></li>
+                <li><a href="#" class="active">찜한 공고 목록</a></li>
+                <li><a href="#">일대일 문의</a></li>
+            </ul>
+        </aside>
+
+        <!-- 우측 메인 콘텐츠 영역 -->
+        <section class="content-area">
+            <!-- 사용자 정보 및 타이틀 -->
+            <div class="user-greeting">
+                <div class="avatar">
+                    <i class="fa-regular fa-user"></i>
+                </div>
+                <h3>{{ user_name }} 님이 최근 찜한 게시글 목록</h3>
+            </div>
+
+            <!-- 찜한 공고 테이블 -->
+            <div class="bookmark-table">
+                <!-- 데스크톱용 테이블 헤더 -->
+                <div class="table-header">
+                    <div class="col-company">기관명</div>
+                    <div class="col-title">공고명</div>
+                    <div class="col-exp">경력</div>
+                    <div class="col-loc">지역</div>
+                    <div class="col-detail">상세</div>
+                    <div class="col-check"></div> <!-- 체크박스 영역 -->
+                </div>
+                
+                <!-- 리스트 아이템 1 -->
+                {% for job in bookmarks %}
+
+                <div class="table-row">
+                    <div class="col-company" data-label="기관명">
+                        {{ job.inst_nm }}
+                    </div>
+
+                    <div class="col-title" data-label="공고명">
+                        {{ job.recrut_pbanc_ttl }}
+                    </div>
+
+                    <div class="col-exp" data-label="채용구분">
+                        {{ job.recrut_se_nm }}
+                    </div>
+
+                    <div class="col-loc" data-label="지역">
+                        {{ job.work_rgn_nm_lst }}
+                    </div>
+
+                    <div class="col-detail">
+                        <a
+                            href="https://job.alio.go.kr/mobile2021/recruit/recruitView.do?idx={{ job.recrut_pblnt_sn }}"
+                            class="btn-detail"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            상세보기
+                        </a>
+                    </div>
+                </div>
+
+                {% else %}
+
+                <div class="empty-bookmark">
+                    찜한 채용 공고가 없습니다.
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            <!-- 하단 삭제 버튼 영역 -->
+            <div class="action-area">
+                <button type="button" class="btn-delete">삭제</button>
+            </div>
+        </section>
+    </main>
+
+    {% include 'footer.html' %}
+</body>
+</html>

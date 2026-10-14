@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자페이지 - 회원 및 신고 관리</title>
+    <!--
+        <link rel="stylesheet" href="{{ url_for('assets', path='admin-users.css') }}">
+        이렇게 작성하면 URL 구조가 몇 단계 깊어지더라도 항상 올바른 정적 파일 주소를 생성해 줍니다. 
+        <by Google Gemini>
+    -->
+    <link rel="stylesheet" href="{{ url_for('assets', path='admin-users.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 상단 헤더 영역 -->
+    {% include 'admin-header.html' %}
+
+    <!-- 메인 콘텐츠 영역 -->
+    <main class="admin-main">
+
+        <!-- 회원관리 섹션 -->
+        <section class="admin-section">
+            <div class="section-header">
+                <h2 class="section-title">회원관리</h2>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <form method="get" action="/jobgogo/admin/user/search">
+                        <input type="text" name="keyword" placeholder="아이디 또는 이름 검색">
+                    </form>
+                </div>
+            </div>
+
+            <div class="board-table member-table">
+                <!-- 테이블 헤더 -->
+                <div class="table-header">
+                    <div class="col" data-label="아이디">아이디</div>
+                    <div class="col" data-label="이름">이름</div>
+                    <div class="col" data-label="연락처">연락처</div>
+                    <div class="col" data-label="경고">경고</div>
+                    <div class="col" data-label="상태">상태</div>
+                    <div class="col" data-label="관리">관리</div>
+                </div>
+
+                <!-- 리스트 아이템 1 -->
+                {% for user in users %}
+                <div class="table-row">
+                    <div class="col" data-label="아이디">{{user.user_id}}</div>
+                    <div class="col" data-label="이름">{{user.user_name}}</div>
+                    <div class="col" data-label="연락처">{{user.user_phone}}</div>
+                    <div class="col" data-label="경고">{{user.warning_count}}</div>
+                    <div class="col" data-label="상태">
+                        {% if user.user_status_id == 5 %}
+                        <span class="badge status-suspend ">정지</span>
+                        {% elif user.warning_count >= 5 %}
+                        <span class="badge status-warning">경고</span>
+                        {% elif user.user_status_id == 1 %}
+                        <span class="badge status-admin"> 최고 관리자</span>
+                        {% elif user.user_status_id == 2 %}
+                        <span class="badge status-admin"> 일반 관리자</span>
+                        {% else %}
+                        <span class="badge status-normal ">일반 회원</span>
+                        {% endif %}
+                    </div>
+                    <div class="col action-buttons" data-label="관리">
+                        <form method="post" action="/jobgogo/admin/user/warning/{{user.user_id}}">
+                            <button class="btn btn-outline-purple" type="submit">경고</button>
+                        </form>
+
+                        <form method="post" action="/jobgogo/admin/user/warning/delete/{{user.user_id}}">
+                            <button class="btn btn-outline-purple" type="submit">경고 제거</button>
+                        </form>
+
+                        {% if user.user_status_id == 5 %}
+                        <form method="post" action="/jobgogo/admin/user/unsuspension/{{user.user_id}}">
+                            <button class="btn btn-outline-purple" type="submit">정지 해제</button>
+                        </form>
+                        {% else %}
+                        <form method="post" action="/jobgogo/admin/user/suspension/{{user.user_id}}">
+                            <button class="btn btn-red" type="submit">회원 정지</button>
+                        </form>
+                        {% endif %}
+
+                        {% if user.user_status_id ==  1 and 2 %}
+                        <form method="post" action="/jobgogo/admin-users">
+                            <button class="btn btn-red">회원 삭제</button>
+                        </form>
+                            {% else %}
+                            <form method="post" action="/jobgogo/admin/user/delete/{{user.user_id}}">
+                                <button class="btn btn-red" type="submit">회원 삭제</button>
+                            </form>
+                            {% endif %}
+                            {% if user.user_status_id == 3 %}
+                            <form method="post" action="/jobgogo/admin/user/get-admin/{{user.user_id}}">
+                                <button class="btn btn-outline-purple" type="submit">관리자 권한 부여</button>
+                            </form>
+                            {% else %}
+                            <form method="post" action="/jobgogo/admin/user/lose-admin/{{user.user_id}}">
+                                <button class="btn btn-outline-purple" type="submit">관리자 권한 박탈</button>
+                            </form>
+                            {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- 글 신고 내역 섹션 -->
+        <section class="admin-section">
+            <div class="section-header">
+                <h2 class="section-title">글 신고 내역 <span class="badge badge-count">총 {{report_count}}건</span></h2>
+            </div>
+            <div class="board-table report-table">
+                <!-- 테이블 헤더 -->
+                <div class="table-header">
+                    <div class="col" data-label="신고 번호">신고 번호</div>
+                    <div class="col" data-label="글 작성자 ID">글 작성자 ID</div>
+                    <div class="col" data-label="글 작성자">글 작성자</div>
+                    <div class="col" data-label="글 신고자 ID">글 신고자</div>
+                    <div class="col" data-label="글 제목">글 제목</div>
+                    <div class="col" data-label="신고 사유">신고 사유</div>
+                    <div class="col" data-label="관리">관리</div>
+                </div>
+
+                <!-- 리스트 아이템 1 -->
+                {% for report in reports %}
+                <div class="table-row">
+                    <div class="col" data-label="신고 번호">{{report.report_id}}</div>
+                    <div class="col" data-label="글 작성자 ID">{{report.author_id}}</div>
+                    <div class="col" data-label="글 작성자">{{report.user_name}}</div>
+                    <div class="col" data-label="글 신고자 ID">{{report.reporter_id}}</div>
+                    <div class="col truncate" data-label="글 제목">{{report.job_tip_title}}</div>
+                    <div class="col truncate" data-label="신고 사유">{{report.report_reason}}</div>
+                    <div class="col action-buttons" data-label="관리">
+                        <form method="post" action="/jobgogo/admin/user/report/delete/{{report.report_id}}">
+                            <button class="btn btn-red" type="button">삭제</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>
