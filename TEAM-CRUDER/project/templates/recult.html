@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>채용 공고 - 취업할래말래</title>
-
+    <link rel="shortcut icon" href="/static/images/favicon.ico">
     <link rel="stylesheet" href="/assets/recult.css">
     <link rel="stylesheet" href="/assets/header.css">
     <link rel="stylesheet" href="/assets/footer.css">
@@ -134,13 +134,13 @@
         <!-- 페이지네이션: 현재 디자인만 적용 -->
         <div class="pagination">
 
-    {% if page > 1 %}
-    <a href="/jobgogo/recult?page={{ page - 1 }}&keyword={{ keyword | urlencode }}">
+    {% if start_page > 1 %}
+     <a href="/jobgogo/recult?page={{ page - 1 }}&keyword={{ keyword | urlencode }}">
         이전
-    </a>
+     </a>
     {% endif %}
 
-    {% for p in range(1, total_pages + 1) %}
+    {% for p in range(start_page, end_page + 1) %}
     <a href="/jobgogo/recult?page={{ p }}&keyword={{ keyword | urlencode }}"
        class="{% if p == page %}active{% endif %}">
         {{ p }}

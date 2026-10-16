@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>채용 공고 - 취업할래말래</title>
-
+    <link rel="shortcut icon" href="/static/images/favicon.ico">
     <link rel="stylesheet" href="/assets/recult.css">
     <link rel="stylesheet" href="/assets/header.css">
     <link rel="stylesheet" href="/assets/footer.css">
@@ -58,10 +58,7 @@
                     <p>현재 모집 중인 채용 공고를 확인해보세요.</p>
                 </div>
 
-                <a href="/jobgogo/recult" class="view-all">
-                    전체 보기
-                    <i class="fa-solid fa-arrow-right"></i>
-                </a>
+        
             </div>
 
             <!-- 채용 공고 카드 영역 -->
@@ -77,9 +74,8 @@
                             <span class="badge recruiting">
                                 모집중
                             </span>
-
                             <i
-                                class="{% if job.recrut_pblnt_sn in bookmarked_job_ids %}fa-solid{% else %}fa-regular{% endif %} fa-star icon-bookmark"
+                                class="fa-star icon-bookmark {% if job.recrut_pblnt_sn in bookmarked_job_ids %}fa-solid{% else %}fa-regular{% endif %}"
                                 data-job-id="{{ job.recrut_pblnt_sn }}"
                             ></i>
                         </div>
@@ -138,17 +134,26 @@
         <!-- 페이지네이션: 현재 디자인만 적용 -->
         <div class="pagination">
 
-            <button type="button" class="page-btn arrow">◀</button>
+    {% if start_page > 1 %}
+     <a href="/jobgogo/recult?page={{ page - 1 }}&keyword={{ keyword | urlencode }}">
+        이전
+     </a>
+    {% endif %}
 
-            <button type="button" class="page-btn active">1</button>
-            <button type="button" class="page-btn">2</button>
-            <button type="button" class="page-btn">3</button>
-            <button type="button" class="page-btn">4</button>
-            <button type="button" class="page-btn">5</button>
+    {% for p in range(start_page, end_page + 1) %}
+    <a href="/jobgogo/recult?page={{ p }}&keyword={{ keyword | urlencode }}"
+       class="{% if p == page %}active{% endif %}">
+        {{ p }}
+    </a>
+    {% endfor %}
 
-            <button type="button" class="page-btn arrow">▶</button>
+    {% if page < total_pages %}
+    <a href="/jobgogo/recult?page={{ page + 1 }}&keyword={{ keyword | urlencode }}">
+        다음
+    </a>
+    {% endif %}
 
-        </div>
+</div>
 
     </main>
 

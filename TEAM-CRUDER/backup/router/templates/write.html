@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 글쓰기 에디터</title>
+    <link rel="shortcut icon" href="/static/images/favicon.ico">
+    <link rel="stylesheet" href="/assets/write.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/header.css">
+    <link rel="stylesheet" href="/assets/footer.css">
+
+    <style>
+        /* 본문 입력 영역 */
+        #editor {
+            min-height: 350px;
+            padding: 15px;
+            outline: none;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+        }
+
+        #editor:empty::before {
+            content: "내용을 입력하시오";
+            color: #999;
+        }
+
+        /* 본문에 삽입된 이미지 */
+        #editor img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 12px 0;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'header.html' %}
+
+    <main class="main-container">
+
+        <!-- 공지사항 글 등록 폼 -->
+        <form id="writeForm" action="/notice/write" method="post">
+
+            <div class="form-header">
+
+                <!-- 공지사항 제목 -->
+                <input type="text" name="notice_title" id="notice_title" class="title-input" placeholder="제목을 입력하시오"
+                    required>
+
+                <div class="button-group">
+
+                    <!-- 취소 버튼 -->
+                    <button type="button" class="btn btn-cancel" onclick="location.href='/jobgogo/notice'">
+                        취소
+                    </button>
+
+                    <!-- 등록 버튼 -->
+                    <button type="submit" class="btn btn-submit">
+                        등록
+                    </button>
+
+
+                </div>
+            </div>
+
+            <div class="editor-container">
+
+                <div class="editor-toolbar">
+
+                    <!-- 이미지 업로드 기능은 현재 사용하지 않음 -->
+
+                </div>
+
+                <!-- 본문 입력 영역 -->
+                <div class="editor-content">
+
+                    <div id="editor" contenteditable="true" role="textbox" aria-label="게시글 내용" aria-multiline="true">
+                    </div>
+
+                </div>
+
+                <!-- Python으로 전달할 공지사항 내용 -->
+                <input type="hidden" name="notice_detail" id="notice_detail">
+
+            </div>
+
+        </form>
+
+    </main>
+
+    {% include 'footer.html' %}
+
+    <script>
+        const editor = document.getElementById("editor");
+        const writeForm = document.getElementById("writeForm");
+        const detailInput = document.getElementById("notice_detail");
+
+        // 등록 버튼 클릭 시 본문 내용 전달
+        writeForm.addEventListener("submit", function (event) {
+
+            // 제목 확인
+            const titleInput = document.getElementById("notice_title");
+
+            if (titleInput.value.trim() === "") {
+                event.preventDefault();
+                alert("제목을 입력해주세요.");
+                return;
+            }
+
+            // 본문 내용 확인
+            if (editor.textContent.trim() === "") {
+                event.preventDefault();
+                alert("내용을 입력해주세요.");
+                return;
+            }
+
+            // 작성한 HTML 내용을 hidden input에 저장
+            detailInput.value = editor.innerHTML;
+
+        });
+    </script>
+
+</body>
+</html>

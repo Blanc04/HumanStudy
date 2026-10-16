@@ -76,8 +76,12 @@ def jobtip(
             job_tip_title,
             job_tip_date,
             job_tip_detail,
-            user_id
-        FROM job_tip
+            user_id,
+            user_nickname,
+            view_count
+        FROM job_tip AS jt
+        LEFT JOIN `user` AS u
+            USING (user_id)
         WHERE (
             :keyword = ''
             OR job_tip_title LIKE :search_keyword
@@ -99,9 +103,9 @@ def jobtip(
 
     job_tip_list = result.mappings().fetchall()
 
-    # 검색 조건에 맞는 전체 게시글 수
+    # 검색 조건에 맞는 전체 게시글 수(*에서 게시글 번호 수를 세는걸로 소소하게 바꿨습니다.)
     sql_count = text('''
-        SELECT COUNT(*) AS job_tip_count
+        SELECT COUNT(job_tip_no) AS job_tip_count
         FROM job_tip
         WHERE (
             :keyword = ''
@@ -297,8 +301,12 @@ def jobtip_read(
             job_tip_detail,
             job_tip_date,
             job_tip_attachment,
-            user_id
-        FROM job_tip
+            user_id,
+            user_nickname,
+            view_count
+        FROM job_tip AS jt
+        LEFT JOIN `user` AS u
+            USING (user_id)
         WHERE job_tip_no = :job_tip_no
     ''')
 
@@ -306,9 +314,26 @@ def jobtip_read(
         sql,
         {'job_tip_no': job_tip_no}
     ).mappings().first()
-
+    
+    # 이쪽에다가 조회수 카운트하는 함수를 추가하면 될것같습니다.
+    
+    
     if job is None:
-        return popup_error("게시글이 없습니다....")
+            return popup_error("게시글이 없습니다....") 
+    view_count_sql=text('''
+                update job_tip
+                set view_count=view_count+1
+                where job_tip_no=:job_tip_no         
+                        
+                        ''')
+    view_count=session.exec(
+        view_count_sql,params={
+            'job_tip_no':job_tip_no
+        }
+    )
+    session.commit()
+    
+    
 
     # DB에 저장된 이미지 가져오기
     attachment_paths = json.loads(
@@ -322,8 +347,11 @@ def jobtip_read(
             reple,
             parent_reple_no,
             job_tip_no,
-            user_id
-        FROM job_tip_comment
+            user_id,
+            user_nickname
+        FROM job_tip_comment AS jc
+        LEFT JOIN `user` AS u
+            USING (user_id)
         WHERE job_tip_no = :job_tip_no
         ORDER BY reple_no DESC
     ''')
@@ -345,6 +373,7 @@ def jobtip_read(
             'user_id': request.session.get('user_id'),
             'user_name': request.session.get('user_name'),
             'user_status_id': request.session.get('user_status_id')
+           
         }
     )
 

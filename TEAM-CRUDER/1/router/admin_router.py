@@ -1,4 +1,5 @@
-from sqlmodel import create_engine, Session, SQLModel
+from sqlmodel import create_engine, SQLModel
+from sqlalchemy.orm import Session
 from sqlalchemy import text, URL
 
 from fastapi import HTTPException
@@ -71,25 +72,38 @@ def admin_dashboard(
         select 
             '공지' as category,
             notice_title as title,
-            user_id,
+            notice.user_id as user_id,
+            u.user_name as user_name,
             notice_date as created_at 
         from notice
+        left join user as u on notice.user_id = u.user_id 
         union all 
         select 
             '취업 꿀팁' as category,
             job_tip_title as title,
-            user_id, 
+            job_tip.user_id as user_id,
+            u.user_name as user_name, 
             job_tip_date as created_at
         from job_tip
+        left join user as u on job_tip.user_id = u.user_id
         order by created_at desc
         limit 5
     ''')
     results3 = session.execute(sql3).mappings().fetchall() 
 
+    # 답변 대기 중인 문의가 몇 개인지 세는 SQL문
+    sql4=text('''
+        select count(*)
+        from inquiry
+        where inquiry_status_id = 1
+    ''')
+    results4 = session.execute(sql4).mappings().fetchall()
+
     return templates.TemplateResponse(request, 'admin-dashboard.html',{
         'total_users_count' : results1[0]['count(*)'],
         'total_ongoing_count' : results2[0]['count(*)'],
-        'recent_posts' : results3
+        'recent_posts' : results3,
+        'inquiry_wating_count' : results4[0]['count(*)']
     })
 
 @router.get('/jobgogo/admin-users')
@@ -376,41 +390,83 @@ def lose_admin (
 
 
 @router.get('/jobgogo/admin-board')
-def admin_board(request:Request, session: Session = Depends(get_session), _: None = Depends(require_admin)):
+def admin_board(request:Request, page:int = 1, session: Session = Depends(get_session), _: None = Depends(require_admin)):
     print('게시물관리 페이지로 이동합니다.')
 
+    # 페이지 번호 계산 
+    if page < 1:
+        page=1
+    
+    # 한 페이지당 게시물 7개씩 보여줌
+    limit = 10
+    offset = (page - 1)* limit
+    
     sql_post = text('''
         select 
             '공지' as category,
             notice_title as title,
             notice_id as post_no,
             notice_detail as post_detail,
-            user_id,
+            notice.user_id as user_id,
+            u.user_name as user_name,
             notice_date as created_at 
             from notice
+            left join user as u on notice.user_id = u.user_id
             union all 
         select 
             '취업 꿀팁' as category,
             job_tip_title as title,
             job_tip_no as post_no,
             job_tip_detail as post_detail,
-            user_id, 
+            job_tip.user_id as user_id, 
+            u.user_name as user_name,
             job_tip_date as created_at
             from job_tip
+            left join user as u on job_tip.user_id = u.user_id
+            limit :limit offset :offset
     ''')
-    result = session.execute(sql_post).mappings().fetchall()
+    post_result = session.execute(sql_post, params={
+         'limit' : limit,
+        'offset' : offset
+    }).mappings().fetchall()
+
+    # DB에 저장된 게시물의 갯수를 세는 SQL문
+    sql_count=text('''
+        select (select count(*) from notice) + (select count(*) from job_tip) as total_count
+    ''')
+    result = session.execute(sql_count)
+    total_count = result.fetchone()[0]
+
+    # 총 페이지 계산 
+    total_pages = (total_count + limit - 1) // limit
+
+    # 몇 그룹씩 끊을지 생각하기 
+    page_group = 5
+
+    # 시작 페이지 그룹 계산하기 
+    start_page = ((page - 1)//5)*page_group+1
+
+    # 마지막 페이지 그룹 계산
+    end_page = start_page+page_group-1
+
+    if end_page>total_pages:
+        end_page=total_pages
 
     return templates.TemplateResponse (
         request, 'admin-board.html', {
-            'posts' : result
+            'posts' : post_result,
+            'page' : page,
+            'total_pages' : total_pages,
+            'start_page' : start_page,
+            'end_page' : end_page
         }
     )
 
-@router.post('/jobgogo/admin/board/delete/{post_number}')
+@router.post('/jobgogo/admin-board/delete/{post_number}')
 def delete_post(
     request: Request, 
     post_number : int, 
-    category: str = Form(...), 
+    category: str = Form(...),
     session: Session = Depends(get_session), 
     _: None = Depends(require_admin)
 ):
@@ -426,22 +482,34 @@ def delete_post(
         else:
             sql = text('''
                 delete from job_tip
-                where job_tip_no = :post_number
+                where job_tip_no = :post_number 
             ''')
-        session.execute(sql, {'post_number' : post_number})
+        session.execute(sql, {'post_number' : post_number , 'category' : category})
         session.commit()
+
+        return RedirectResponse (
+            url='/jobgogo/admin-board', status_code=303
+        )
 
     except Exception as e:
         session.rollback()
         print(f"게시글 삭제에 실패했습니다. : {e}")
 
     return RedirectResponse (
-                url='/jobgogo/admin-board', status_code=303
-            )
+        url='/jobgogo/admin-board', status_code=303
+    )
 
 @router.get('/jobgogo/admin-recult')
-def recult(request:Request,  session:Session = Depends(get_session), _: None = Depends(require_admin)):
+def recult(request:Request, page:int = 1,  session:Session = Depends(get_session), _: None = Depends(require_admin)):
     print('채용 공고 관리 페이지로 이동합니다.')
+
+    # 페이지 번호 계산 
+    if page < 1:
+        page=1
+
+    # 한 페이지당 게시물 10개씩 보여줌
+    limit = 10 
+    offset = (page - 1)* limit
 
     # DB에 저장된 채용 공고들을 뽑아옵니다.
     sql_jobs = text('''
@@ -453,14 +521,44 @@ def recult(request:Request,  session:Session = Depends(get_session), _: None = D
             pbanc_end_ymd, 
             recrut_se_nm,
             work_rgn_nm_lst
-        from jobs 
-        limit 9
+        from jobs         
+        limit :limit offset :offset
     ''')
 
-    results = session.execute(sql_jobs).mappings().fetchall()
+    results = session.execute(sql_jobs , params = {
+        'limit' : limit,
+        'offset' : offset
+    }).mappings().fetchall()
+
+    # DB에 저장된 채용 공고의 수를 세는 SQL문 
+    sql_count = text('''
+        select count(*) from jobs 
+    ''')
+
+    result = session.execute(sql_count)
+    total_count = result.fetchone()[0]
+
+    # 총 페이지 계산 
+    total_pages = (total_count + limit - 1) // limit
+
+    # 몇 그룹씩 끊을지 생각하기 
+    page_group = 5
+
+    # 시작 페이지 그룹 계산하기 
+    start_page = ((page - 1)//5)*page_group+1
+
+    # 마지막 페이지 그룹 계산
+    end_page = start_page+page_group-1
+
+    if end_page>total_pages:
+        end_page=total_pages
 
     return templates.TemplateResponse(request, 'admin-recult.html' , {
-        'recrut_lists' : results
+        'recrut_lists' : results,
+        'page' : page,
+        'total_pages' : total_pages,
+        'start_page' : start_page,
+        'end_page' : end_page
     })
 
 @router.post('/jobgogo/admin-recult/delete/{recrut_pblnt_sn}')
@@ -533,6 +631,22 @@ def answer_inquiry(  request: Request,
     session.commit()
 
     return RedirectResponse(url='/jobgogo/admin-inquiry' , status_code=303)
+
+@router.post('/jobgogo/admin-inquiry/delete/{id}')
+def delete_inquiry(  request: Request,  
+    id : int, session: Session = Depends(get_session), 
+    _: None = Depends(require_admin)):
+    print ('문의 삭제를 실행합니다.')
+
+    sql=text('''
+    delete from inquiry 
+    where inquiry_id = :id
+    ''')
+
+    session.execute(sql, {'id' : id})
+    session.commit()
+    return RedirectResponse(url='/jobgogo/admin-inquiry' , status_code=303)
+
 
 @router.get('/jobgogo/warning')
 def warning_page(

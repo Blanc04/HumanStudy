@@ -1,0 +1,209 @@
+/* ==================================
+   취업 꿀팁 상세 - 댓글 영역
+   페이지 전역(body 등)은 건드리지 않음
+=================================== */
+.comments-section {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color: #212529;
+}
+
+.comments-section .comments-title {
+    margin: 0 0 16px;
+    padding-left: 4px;
+    color: #111827;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+/* 댓글 목록 */
+.comments-section .comments-list {
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #ffffff;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+.comments-section .comment-item {
+    display: flex;
+    gap: 18px;
+    padding: 22px 20px;
+    border-bottom: 1px solid #F3F4F6;
+    transition: background-color 0.15s ease;
+}
+
+.comments-section .comment-item:last-child {
+    border-bottom: none;
+}
+
+.comments-section .comment-item:hover {
+    background-color: #FAFAFA;
+}
+
+/* 프로필 아바타 */
+.comments-section .comment-avatar {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #F3F0FF;
+    color: #6B46C1;
+    font-size: 1.2rem;
+}
+
+/* 댓글 본문 */
+.comments-section .comment-content {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 9px;
+}
+
+.comments-section .comment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.comments-section .comment-header .author {
+    color: #111827;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.comments-section .comment-body {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.comments-section .comment-body .text {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    color: #4B5563;
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+/* 댓글 삭제 */
+.comments-section .btn-delete {
+    flex-shrink: 0;
+    padding: 6px 13px;
+    background-color: #FEF2F2;
+    color: #DC2626;
+    border: 1px solid #FCA5A5;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.comments-section .btn-delete:hover {
+    background-color: #DC2626;
+    color: #ffffff;
+    border-color: #DC2626;
+}
+
+/* 댓글 없음 */
+.comments-section .comments-empty {
+    margin: 0;
+    padding: 38px 20px;
+    color: #9CA3AF;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+/* 댓글 입력 */
+.comments-section .comment-input-area {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+.comments-section .comment-input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 18px;
+    background-color: #ffffff;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    color: #1F2937;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.comments-section .comment-input:focus {
+    border-color: #6B46C1;
+    box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.10);
+}
+
+.comments-section .comment-input::placeholder {
+    color: #9CA3AF;
+}
+
+.comments-section .btn-submit {
+    flex-shrink: 0;
+    padding: 0 28px;
+    background-color: #6B46C1;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(107, 70, 193, 0.2);
+    transition: all 0.2s ease;
+}
+
+.comments-section .btn-submit:hover {
+    background-color: #5533A3;
+    transform: translateY(-1px);
+}
+
+/* 모바일 */
+@media (max-width: 768px) {
+    .comments-section .comment-item {
+        gap: 13px;
+        padding: 18px 15px;
+    }
+
+    .comments-section .comment-avatar {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+
+    .comments-section .comment-body {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .comments-section .comment-input-area {
+        gap: 10px;
+    }
+
+    .comments-section .comment-input {
+        padding: 12px 14px;
+    }
+
+    .comments-section .btn-submit {
+        padding: 0 20px;
+        font-size: 0.95rem;
+    }
+}

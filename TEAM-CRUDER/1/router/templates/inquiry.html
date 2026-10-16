@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1:1 문의 - 취업할래말래</title>
+
+    <link rel="stylesheet" href="/assets/inquiry.css">
+    <link rel="stylesheet" href="/assets/header.css">
+    <link rel="stylesheet" href="/assets/footer.css">
+    <link rel="shortcut icon" href="/static/images/favicon.ico">
+
+</head>
+<body>
+
+    {% include 'header.html' %}
+
+    <main class="inquiry-main">
+        <div class="inquiry-container">
+
+            <!-- 페이지 제목 -->
+            <div class="inquiry-heading">
+                <h1>1:1 문의</h1>
+                <p>서비스 이용 중 궁금한 점이나 불편한 사항을 문의해 주세요.</p>
+            </div>
+
+            <!-- 문의 작성 -->
+            <section class="inquiry-section">
+                <div class="section-heading">
+                    <h2>새 문의 작성</h2>
+                    <p>문의하신 내용은 관리자만 확인할 수 있습니다.</p>
+                </div>
+
+                <form method="post" action="/api/inquiry/add" class="inquiry-form">
+
+                    <div class="form-group">
+                        <label for="inquiry_type">문의 유형</label>
+                        <select id="inquiry_type" name="inquiry_type" required>
+                            <option value="계정">계정 문의</option>
+                            <option value="채용">채용 공고</option>
+                            <option value="오류">서비스 오류</option>
+                            <option value="기타">기타 문의</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inquiry_title">제목</label>
+                        <input type="text" id="inquiry_title" name="inquiry_title" placeholder="문의 제목을 입력해 주세요."
+                            maxlength="200" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inquiry_detail">문의 내용</label>
+                        <textarea id="inquiry_detail" name="inquiry_detail" placeholder="문의 내용을 자세히 입력해 주세요."
+                            maxlength="5000" required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">
+                            1:1 문의 등록
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+
+
+        </div>
+    </main>
+
+    {% include 'footer.html' %}
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+
+/* 기본 설정 */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f8f9fc;
+    color: #252538;
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+}
+
+/* 메인 */
+.inquiry-main {
+    padding: 55px 20px 85px;
+    min-height: 75vh;
+}
+
+.inquiry-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* 페이지 제목 */
+.inquiry-heading {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.inquiry-heading h1 {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 0 12px;
+}
+
+.inquiry-heading p {
+    color: #888a9b;
+    font-size: 15px;
+    margin: 0;
+}
+
+/* 공통 섹션 */
+.inquiry-section {
+    background: #fff;
+    border: 1px solid #e5e6ed;
+    border-radius: 16px;
+    padding: 35px;
+    margin-bottom: 28px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.025);
+}
+
+.section-heading {
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #eeeef2;
+}
+
+.section-heading h2 {
+    font-size: 21px;
+    margin: 0 0 8px;
+}
+
+.section-heading p {
+    font-size: 14px;
+    color: #9395a5;
+    margin: 0;
+}
+
+/* 문의 작성 */
+.inquiry-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group label {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    border: 1px solid #dedfe7;
+    border-radius: 9px;
+    background: #fff;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #6842bf;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #a4a6b5;
+}
+
+.form-group textarea {
+    min-height: 210px;
+    resize: vertical;
+    line-height: 1.7;
+}
+
+/* 등록 버튼 */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-submit {
+    background: #6842bf;
+    border: none;
+    border-radius: 9px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 15px 38px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover {
+    background: #5533a5;
+}
+
+/* 문의 목록 */
+.inquiry-list {
+    border: 1px solid #ededf1;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.inquiry-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid #ededf1;
+    transition: background 0.2s;
+}
+
+.inquiry-item:last-child {
+    border-bottom: none;
+}
+
+.inquiry-item:hover {
+    background: #faf8ff;
+}
+
+.inquiry-item-info {
+    min-width: 0;
+}
+
+.inquiry-category {
+    color: #6842bf;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.inquiry-item h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 9px 0;
+    overflow-wrap: anywhere;
+}
+
+.inquiry-date {
+    color: #9a9baa;
+    font-size: 13px;
+}
+
+/* 답변 상태 */
+.status {
+    flex-shrink: 0;
+    padding: 8px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status.waiting {
+    background: #fff5df;
+    color: #c18a1a;
+}
+
+.status.completed {
+    background: #e9f7ef;
+    color: #299764;
+}
+
+/* 문의 없음 */
+.inquiry-empty {
+    text-align: center;
+    padding: 65px 20px;
+    color: #999baa;
+    font-size: 15px;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .inquiry-main {
+        padding: 30px 15px 60px;
+    }
+
+    .inquiry-heading h1 {
+        font-size: 25px;
+    }
+
+    .inquiry-section {
+        padding: 22px 18px;
+    }
+
+    .form-actions {
+        display: block;
+    }
+
+    .btn-submit {
+        width: 100%;
+    }
+
+    .inquiry-item {
+        padding: 20px 14px;
+        gap: 10px;
+    }
+
+    .inquiry-item h3 {
+        font-size: 14px;
+    }
+}

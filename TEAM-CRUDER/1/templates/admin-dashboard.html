@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자페이지 - 대시보드</title>
     <link rel="stylesheet" href="../assets/admin-dashboard.css">
+    <link rel="shortcut icon" href="/static/images/favicon.ico">
 </head>
 <body>
     <!-- 상단 헤더 영역 -->
@@ -25,6 +26,10 @@
                 <div class="stat-card">
                     <h3>채용 공고 (모집중)</h3>
                     <p class="stat-number">{{total_ongoing_count}}건</p>
+                </div>
+                <div class="stat-card">
+                    <h3>문의 답변 대기</h3>
+                    <p class="stat-number">{{inquiry_wating_count}}건</p>
                 </div>
             </div>
             
@@ -56,7 +61,7 @@
                 <div class="table-row">
                         <div class="col-category" data-label="카테고리">{{post.category}}</div>
                         <div class="col-title" data-label="제목">{{post.title}}</div>
-                        <div class="col-author" data-label="작성자">{{post.user_id}}</div>
+                        <div class="col-author" data-label="작성자">{{post.user_name}} ({{post.user_id}})</div>
                         <div class="col-date" data-label="작성일">{{post.created_at}}</div>
                     </div>
                 {% endfor %}

@@ -29,9 +29,14 @@ templates = Jinja2Templates(directory='templates/')
 @router.get('/jobgogo/signup')
 def _signup(request: Request):
     
+    messege=request.session.pop('idChk_Messge',None)
+    
     return templates.TemplateResponse(
-        request,
-        'signup.html'
+        request=request,
+        name='signup.html',
+        context={
+            'messege':messege
+        }
     )
     
 # =========================================================
@@ -54,6 +59,8 @@ def signup(
     print('user',user)
     
     hashed=crypt(user.user_pw)
+    
+
     #  회원가입할떄 user_status_id를 일반 유저를 1로 일단 넘기기
     try:
         sql=text('''
@@ -103,16 +110,6 @@ def signup(
         )
 
 
-
-
-
-
-
-
-
-
-
-
 ##########################################################
 # 로그인 페이지 접속 라우팅
 ########################################################## 
@@ -122,11 +119,14 @@ def signup(
 def jobgogo(
     request: Request
 ):
-    
-    login_error=request.session.pop('login_error',None)
+    login_error = request.session.pop('login_error', None)
+
     return templates.TemplateResponse(
         request,
-        'login.html'
+        'login.html',
+        {
+            'login_error': login_error
+        }
     )
     
 
@@ -164,22 +164,31 @@ def login(
            )
     
     user=result.mappings().fetchone()
+
     # 아이디 검증
     if user is None:
-        
-          request.session['login_error']='아이디 또는 비밀번호가 올바르지 않습니다.'
-          return RedirectResponse(
-                url='/jobgogo/login',
-                status_code=303
-            )
+        request.session['login_error']='아이디 또는 비밀번호가 올바르지 않습니다.'
+        return RedirectResponse(
+            url='/jobgogo/login',
+            status_code=303
+        )
+    
     #  비밀번호가 틀렸을 경우  
     if not verify(user_pw,user['user_pw']):
-        
-            request.session['login_error']='아이디 또는 비밀번호가 올바르지 않습니다.'
-            return RedirectResponse(
-                                    url='/jobgogo/login',
-                                    status_code=303
-                                )        
+        request.session['login_error']='아이디 또는 비밀번호가 올바르지 않습니다.'
+        return RedirectResponse(
+            url='/jobgogo/login',
+            status_code=303
+        )
+    
+    # 정지 회원 로그인 차단
+    if user['user_status_id'] == 5:
+        # request.session.clear()
+        request.session['login_error'] = '정지된 계정입니다.'
+        return RedirectResponse(
+            url='/jobgogo/login',
+            status_code=303
+        )
         
       
     # 로그인 성공!
@@ -201,7 +210,43 @@ def login(
            url='/jobgogo',
            status_code=303
        )
+
+# id 중복 확인 
+
+@router.get('/api/check-id')
+def chkId(
+    request: Request,
+    user_id:str,
+    session: Session = Depends(get_session)
+     ):
     
+    
+    sql=text('''
+          select user_id
+          from user
+          where user_id=:user_id   
+             ''')
+    
+    
+    result=session.exec(
+                   sql,
+                   params={
+                       'user_id':user_id,
+                       
+                   }
+               ) 
+    user=result.mappings().fetchone()
+    #세선에 저장하자아
+    if user is None:
+        request.session['idChk_Messge']='이미 존재하는 아이디 입니다'
+    else:
+        request.session['idChk_Messge']='사용 가능한 아이디 입니다'
+    
+    return RedirectResponse(
+           url='/jobgogo/signup',
+           status_code=303
+       )
+
     
     
     # # 아이디로 사용자 조회

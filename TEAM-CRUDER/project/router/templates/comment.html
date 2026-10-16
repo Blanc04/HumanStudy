@@ -1,0 +1,66 @@
+<!-- 댓글 영역 -->
+<section class="comments-section">
+
+    <h2 class="comments-title">댓글</h2>
+
+    <div class="comments-list">
+        {% for comment in reple_list %}
+        <div class="comment-item">
+
+            <div class="comment-avatar" aria-hidden="true">
+                <i class="fa-regular fa-user"></i>
+            </div>
+
+            <div class="comment-content">
+                <div class="comment-header">
+                    <span class="author">{{ comment.user_nickname }}</span>
+                </div>
+
+                <div class="comment-body">
+                    <p class="text">{{ comment.reple }}</p>
+
+                    {% if user_id == comment.user_id %}
+                    <form
+                        action="/jobtip/{{ job.job_tip_no }}/reple/del"
+                        method="post"
+                        onsubmit="return confirm('댓글을 삭제하시겠습니까?');"
+                    >
+                        <input
+                            type="hidden"
+                            name="reple_no"
+                            value="{{ comment.reple_no }}"
+                        >
+
+                        <button type="submit" class="btn-delete">
+                            삭제
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p class="comments-empty">등록된 댓글이 없습니다.</p>
+        {% endfor %}
+    </div>
+
+    <form
+        action="/jobtip/{{ job.job_tip_no }}"
+        method="post"
+        class="comment-input-area"
+    >
+        <input
+            type="text"
+            name="reple"
+            class="comment-input"
+            placeholder="댓글을 입력하세요"
+            autocomplete="off"
+            required
+        >
+
+        <button type="submit" class="btn-submit">
+            전송
+        </button>
+    </form>
+
+</section>
