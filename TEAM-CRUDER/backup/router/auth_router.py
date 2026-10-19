@@ -9,6 +9,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, Form, Request
 from fastapi.responses import RedirectResponse
+from fastapi.responses import JSONResponse
 from fastapi.templating import Jinja2Templates
 from passlib.context import CryptContext
 from sqlmodel import Session, select,text
@@ -52,6 +53,7 @@ def crypt(txt):
 
 @router.post('/api/signup')
 def signup(
+    request: Request,
     user:User=Form(),
     session: Session = Depends(get_session)):
     
@@ -73,7 +75,7 @@ def signup(
                 user_email,
                 user_phone,
                 user_status_id
-                 )  
+                )  
               VALUES(
                   :user_id,
                   :user_name,
@@ -83,7 +85,6 @@ def signup(
                   :user_email,
                   :user_phone,
                   3
-                            
               )    
                  
                  ''')
@@ -212,40 +213,47 @@ def login(
        )
 
 # id 중복 확인 
-
 @router.get('/api/check-id')
-def chkId(
-    request: Request,
-    user_id:str,
+def check_id(
+    user_id: str,
     session: Session = Depends(get_session)
-     ):
-    
-    
-    sql=text('''
-          select user_id
-          from user
-          where user_id=:user_id   
-             ''')
-    
-    
-    result=session.exec(
-                   sql,
-                   params={
-                       'user_id':user_id,
-                       
-                   }
-               ) 
-    user=result.mappings().fetchone()
-    #세선에 저장하자아
-    if user is None:
-        request.session['idChk_Messge']='이미 존재하는 아이디 입니다'
-    else:
-        request.session['idChk_Messge']='사용 가능한 아이디 입니다'
-    
-    return RedirectResponse(
-           url='/jobgogo/signup',
-           status_code=303
-       )
+):
+    user_id = user_id.strip()
+
+    if not user_id:
+        return JSONResponse(
+            status_code=400,
+            content={
+                'available': False,
+                'message': '아이디를 입력해주세요.'
+            }
+        )
+
+    sql = text('''
+        SELECT user_id
+        FROM user
+        WHERE user_id = :user_id
+    ''')
+
+    result = session.exec(
+        sql,
+        params={
+            'user_id': user_id
+        }
+    )
+
+    user = result.mappings().first()
+
+    if user is not None:
+        return {
+            'available': False,
+            'message': '이미 존재하는 아이디입니다.'
+        }
+
+    return {
+        'available': True,
+        'message': '사용 가능한 아이디입니다.'
+    }
 
     
     

@@ -88,13 +88,7 @@
 
                 </div>
 
-                <!-- 새 대화 -->
-                <button type="button" class="reset-btn">
-
-                    <i class="fa-solid fa-rotate-right"></i>
-                    새 대화
-
-                </button>
+               
 
             </div>
 
@@ -306,7 +300,7 @@
                 <form class="chat-form"
                       id="chat-form"
                       method="post"
-                      action="#">
+                      action="/api/chatjopt">
 
                     <textarea
                         name="question"
@@ -329,6 +323,7 @@
                         <!-- 전송 버튼 -->
                         <button type="submit"
                                 class="send-btn"
+                                
                                 aria-label="메시지 전송">
 
                             <i class="fa-solid fa-arrow-up"></i>
@@ -362,8 +357,10 @@
 
 
     <!-- =====================================
-         추천 질문 입력 기능
-         실제 RAG API 연결은 추후 구현
+       입력하고 나서, 채용 공고에 있는
+       공고가, 나와야하는 구조임
+       ai-chat-result.html이 나와야함
+       
     ====================================== -->
     <script>
 

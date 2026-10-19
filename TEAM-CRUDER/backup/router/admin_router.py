@@ -1,4 +1,5 @@
-from sqlmodel import create_engine, Session, SQLModel
+from sqlmodel import create_engine, SQLModel
+from sqlalchemy.orm import Session
 from sqlalchemy import text, URL
 
 from fastapi import HTTPException
@@ -71,16 +72,20 @@ def admin_dashboard(
         select 
             '공지' as category,
             notice_title as title,
-            user_id,
+            notice.user_id as user_id,
+            u.user_name as user_name,
             notice_date as created_at 
         from notice
+        left join user as u on notice.user_id = u.user_id 
         union all 
         select 
             '취업 꿀팁' as category,
             job_tip_title as title,
-            user_id, 
+            job_tip.user_id as user_id,
+            u.user_name as user_name, 
             job_tip_date as created_at
         from job_tip
+        left join user as u on job_tip.user_id = u.user_id
         order by created_at desc
         limit 5
     ''')
@@ -103,17 +108,29 @@ def admin_dashboard(
 
 @router.get('/jobgogo/admin-users')
 def users(
-    request:Request, 
+    request:Request, page:int = 1,
     session: Session = Depends(get_session), 
     _: None = Depends(require_admin)
 ):
     print('/admin-users 실행')
 
+    # 페이지 번호 계산 
+    if page < 1:
+        page=1
+    
+    # 한 페이지당 게시물 7개씩 보여줌
+    limit = 5
+    offset = (page - 1)* limit
+
     # 등록된 모든 회원을 가져오는 SQL문
     sql1 = text('''
         select * from user
+        limit :limit offset :offset
     ''')
-    results1 = session.execute(sql1).mappings().fetchall()
+    results1 = session.execute(sql1, params={
+        'limit' : limit,
+        'offset' : offset
+    }).mappings().fetchall()
 
     # 신고가 접수된 취업꿀팁 게시판의 글 제목과 신고 사유를 긁어오는 SQL문 
     sql2 = text('''
@@ -128,6 +145,28 @@ def users(
     ''')
     results2 = session.execute(sql2).mappings().fetchall()
 
+    sql_count= text('''
+       select count(*)
+       from user
+    ''')
+    result = session.execute(sql_count)
+    total_count = result.fetchone()[0]
+
+     # 총 페이지 계산 
+    total_pages = (total_count + limit - 1) // limit
+
+    # 몇 그룹씩 끊을지 생각하기 
+    page_group = 5
+
+    # 시작 페이지 그룹 계산하기 
+    start_page = ((page - 1)//5)*page_group+1
+
+    # 마지막 페이지 그룹 계산
+    end_page = start_page+page_group-1
+
+    if end_page>total_pages:
+        end_page=total_pages
+
     # 신고 건수를 세는 SQL문 
     sql3 = text ('''
         select count(*)
@@ -138,7 +177,11 @@ def users(
     return templates.TemplateResponse(request, 'admin-users.html', {
         'users' : results1,
         'reports' : results2,
-        'report_count' : results3[0]['count(*)']
+        'report_count' : results3[0]['count(*)'],
+        'page' : page,
+        'total_pages' : total_pages,
+        'start_page' : start_page,
+        'end_page' : end_page
     })
 
 # 신고 삭제
@@ -271,12 +314,56 @@ def user_unsuspension(request:Request, user_id: str, session: Session = Depends(
 def user_delete(request:Request, user_id: str, session:Session = Depends(get_session), _: None = Depends(require_admin)):
     print('계정을 삭제합니다.')
 
-    sql = text('''
-        delete from user
-        where user_id = :user_id and user_status_id not in (1, 2)
+    # 관리자 계정 삭제 방어
+    admin_check = session.execute(
+        text("select user_status_id from user where user_id = :user_id"), {'user_id' : user_id}
+    ).fetchone()
+
+    if not admin_check or admin_check[0] in (1, 2):
+        print('관리자 계정이거나 존재하지 않는 계정은 삭제할 수 없습니다.')
+        return RedirectResponse(url='/jobgogo/admin-users', status_code=303)
+
+    params = {'user_id' : user_id}
+
+    # 삭제하려는 회원의 북마크 삭제 
+    sql_bookmark = text('''
+        delete from bookmark
+        where user_id = :user_id
+    ''')
+
+    # 해당 회원이 쓴 게시물에 달린 모든 댓글 먼저 삭제 
+    sql_post_comments = text('''
+        delete from job_tip_comment
+        where job_tip_no in (select job_tip_no from job_tip where user_id = :user_id)
+    ''')
+
+    # 해당 회원이 다른 글에 작성한 본인 댓글 삭제 
+    sql_my_comments = text('''
+        delete from job_tip_comment where user_id = :user_id
+    ''')
+
+    # 게시글 삭제 
+    sql_job_tip = text('''
+        delete from job_tip where user_id = :user_id
+    ''')
+
+    # 해당 회원의 문의 내역 삭제 
+    sql_inquiry = text('''
+        delete from inquiry where user_id = :user_id
+    ''')
+
+    # 최종 회원 삭제 
+    sql_user = text('''
+        delete from user 
+        where user_id = :user_id 
     ''')
     try:
-        session.execute(sql, {'user_id' : user_id})
+        session.execute(sql_bookmark, params)
+        session.execute(sql_post_comments, params)
+        session.execute(sql_my_comments, params)
+        session.execute(sql_job_tip, params)
+        session.execute(sql_inquiry, params)
+        session.execute(sql_user, params)
         session.commit()
 
         return RedirectResponse (url='/jobgogo/admin-users' , status_code=303)
@@ -289,8 +376,16 @@ def user_delete(request:Request, user_id: str, session:Session = Depends(get_ses
         )
 
 @router.get('/jobgogo/admin/user/search')
-def search_user(request: Request, keyword : str = "" , session: Session = Depends(get_session), _: None = Depends(require_admin)):
+def search_user(request: Request, page: int = 1, keyword : str = "" , session: Session = Depends(get_session), _: None = Depends(require_admin)):
     print('사용자 검색을 실행합니다.')
+
+    # 페이지 번호 계산 
+    if page < 1:
+        page=1
+        
+    # 한 페이지당 게시물 7개씩 보여줌
+    limit = 5
+    offset = (page - 1)* limit
 
     # 이름이나 아이디에 검색어가 포함된 회원을 찾는 SQL문
     sql_search = text('''
@@ -301,11 +396,14 @@ def search_user(request: Request, keyword : str = "" , session: Session = Depend
             or user_id like :search_keyword
         )
         order by user_id
+        limit :limit offset :offset
     ''')
-    result = session.execute(sql_search, {
-        'keyword' : keyword,
-        'search_keyword' : f'%{keyword}%'
-})
+    result = session.execute(sql_search, 
+    {'keyword' : keyword,
+     'search_keyword' : f'%{keyword}%',
+     'limit' : limit,
+     'offset' : offset
+    })
     search_list = result.mappings().fetchall()
 
     sql_report = text('''
@@ -322,6 +420,28 @@ def search_user(request: Request, keyword : str = "" , session: Session = Depend
         session.execute(sql_report).mappings().fetchall()
     )
 
+    sql_count= text('''
+           select count(*)
+           from user
+        ''')
+    result = session.execute(sql_count)
+    total_count = result.fetchone()[0]
+    
+    # 총 페이지 계산 
+    total_pages = (total_count + limit - 1) // limit
+    
+    # 몇 그룹씩 끊을지 생각하기 
+    page_group = 5
+    
+    # 시작 페이지 그룹 계산하기 
+    start_page = ((page - 1)//5)*page_group+1
+    
+    # 마지막 페이지 그룹 계산
+    end_page = start_page+page_group-1
+    
+    if end_page>total_pages:
+        end_page=total_pages
+
     sql_count = text('''
         select count(*)
         from report_logs
@@ -334,7 +454,11 @@ def search_user(request: Request, keyword : str = "" , session: Session = Depend
         request, 'admin-users.html', {
             'users' : search_list,
             'reports' : post_report_list,
-            'report_count' : report_count[0]['count(*)']
+            'report_count' : report_count[0]['count(*)'],
+            'page' : page,
+            'total_pages' : total_pages,
+            'start_page' : start_page,
+            'end_page' : end_page
         }
     )
 
@@ -402,18 +526,22 @@ def admin_board(request:Request, page:int = 1, session: Session = Depends(get_se
             notice_title as title,
             notice_id as post_no,
             notice_detail as post_detail,
-            user_id,
+            notice.user_id as user_id,
+            u.user_name as user_name,
             notice_date as created_at 
             from notice
+            left join user as u on notice.user_id = u.user_id
             union all 
         select 
             '취업 꿀팁' as category,
             job_tip_title as title,
             job_tip_no as post_no,
             job_tip_detail as post_detail,
-            user_id, 
+            job_tip.user_id as user_id, 
+            u.user_name as user_name,
             job_tip_date as created_at
             from job_tip
+            left join user as u on job_tip.user_id = u.user_id
             limit :limit offset :offset
     ''')
     post_result = session.execute(sql_post, params={
@@ -471,11 +599,16 @@ def delete_post(
                 where notice_id = :post_number
             ''')
         else:
-            sql = text('''
+            sql_comment = text ('''
+                delete from job_tip_comment 
+                where job_tip_no = :post_number
+            ''')
+            sql_post = text('''
                 delete from job_tip
                 where job_tip_no = :post_number 
             ''')
-        session.execute(sql, {'post_number' : post_number , 'category' : category})
+        session.execute(sql_comment , {'post_number' : post_number})
+        session.execute(sql_post, {'post_number' : post_number , 'category' : category})
         session.commit()
 
         return RedirectResponse (
