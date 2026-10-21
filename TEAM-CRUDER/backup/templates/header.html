@@ -21,12 +21,12 @@
      
         {% if request.session.get('user_id') %}
            <!--user_status_id(상태 코드에 따라서 헤더에서 보이는 것이 달라짐) -->
-            {% if user_status_id == 1 or user_status_id == 2 %}
+            {% if request.session.get('user_status_id') == 1 or request.session.get('user_status_id') == 2 %}
                 <a href="/jobgogo/admin" class="admin-link">관리자 페이지</a>
             {% endif %}
 
             <span class="greeting">
-                {{ user_name }}님 환영합니다
+                {{ request.session.get('user_name') }}님 환영합니다
             </span>
 
             <a href="/jobgogo/mypage" class="mypage-link">
