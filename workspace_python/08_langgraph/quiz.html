@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const names = ['규혁', '근욱', '영욱', '상우', 'Dragon Jun', '익명의 유팀장', '재성', 'Jun Stone']
+        let nameCount = [0,0,0,0,0,0,0,0]
+        console.log(names.length)
+        let count = 0
+        let best = 0
+        let bestName = 0
+        for(let i=0; i<100; i++){
+            const nameNum = Math.floor(Math.random() * names.length)
+            nameCount[nameNum]++
+            count++
+            // console.log(names[nameNum], nameCount[nameNum])
+        }
+        for (let j=0; j<names.length; j++){
+            console.log(names[j], nameCount[j] + '표')
+            if (nameCount[j] > best) {
+                // 최고 득표 기록 갱신
+                best = nameCount[j]
+                bestName = names[j]
+            }
+        }
+        console.log("최고 득표자", bestName, '최고 득표 수', best)
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

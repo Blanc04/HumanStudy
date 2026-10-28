@@ -3,6 +3,7 @@ import traceback
 import util
 import pandas as pd
 from typing import Any
+from surprise import Dataset, Reader, KNNWithMeans
 
 import os
 
@@ -507,6 +508,118 @@ def split_train_test(test_size: float = 0.2):
         # index만 모음 - 나중에 학습 데이터 분리할 때 사용하려고
         test_indices.extend(ordered.tail(test_count).index.tolist())
 
-    # 테스트 할 데이터의 index는 모아둔 상태
     # 실제 테스트 데이터 추출
+    test = data.loc[test_indices].copy()
+
     # 학습 데이터 추출
+    train = data.drop(index=test_indices).copy()
+
+    # 원래 순서로 복구 해두고
+    # 내가 활용하기 위해 추가한 컬럼 original_order를 지움
+    # 그러면 거의 원본에서 필요한 데이터만 추출한 결과를 만들 수 있음
+    test = test.sort_values('original_order', kind='stable').drop(columns='original_order')
+    train = train.sort_values('original_order', kind='stable').drop(columns='original_order')
+
+    # reset_index : pandas 내부 index를 재정리
+    # drop-True를 안 하면 새로 추가되어 버림. 그래서 엉망인 건 버려라
+    return test.reset_index(drop=True), train.reset_index(drop=True)
+
+# CF 협업 필터링 Collaborative Filtering
+# "다른 사람들은 뭘 좋아했지?"
+def collaborative_filtering(userId, top_k=10):
+    test, train = split_train_test()
+
+    data = train[ ['userId', 'movieId', 'rating'] ].copy()
+    if userId not in data['userId']:
+        raise ValueError(f'{userId}을/를 찾을 수 없음. 일단 차가운 시선을 듣고 다시 시도 바람.')
+
+    # Reader는 필수
+    # 평점 데이터를 해석할 수 있도록 해주는 것
+    # 기왕 범위도 알려줌
+    reader = Reader(rating_scale=(0.5, 5.0))
+
+    # pandas에 DataFrame을 Surprise의 데이터셋으로 변경
+    data_set = Dataset.load_from_df(
+        data[ ['userId', 'movieId', 'rating'] ],
+        reader
+    )
+
+    # 모델 학습에 사용할 자료 구조로 변환
+    train_set = data_set.build_full_trainset()
+
+    # 유클리드 거리
+    #   피타고라스 정리 값이 직선 거리
+    # 코사인 거리
+    #   방향(각도)만 비교
+    #   100편 액션 영화를 좋아한 사람과 1편의 액션을 좋아한 사람은 같은 취향(방향)
+    #   문서 길이나 단어의 빈도 수는 달라도 주제가 비슷한지 판단
+
+    # name에 들어갈 수 있는 것들
+    # msd : 기본 값, Mean Squared Differense 빠름, 대용량 데이터에 좋음
+    # cosine: 코사인 유사도, 취향 패턴 분석에 좋음 
+    # pearson : 피어슨 상관계수, 편향 완화가 필요할 때
+    # pearson_baseline : 피어슨 베이스라인, 조금 느림, 데이더가 부족한데 정밀한 예측이 필요할 때
+
+    # user_based
+    #   True: 내 취향과 평점 패턴이 비슷한 다른 사용자(이웃)이 이 영화에 몇 점을 줬는가?
+    #   False: 이 아이템을 좋아하는 사람들이 좋아하는 다른 유사한 아이템은?
+    n_neighbors = 30
+    model = KNNWithMeans(
+        k=n_neighbors,
+        sim_options={
+            'name': 'cosine',
+            'user_based': True
+        },
+        verbose=False # 학습 과정 출력 여부
+    )
+
+    # 학습
+    model.fit(train_set)
+
+    # 내가 평가한 목록 구함
+    # to_inner_uid : 사용자 id로 Surprise 내부 인덱스로 변환
+    inner_user_id = train_set.to_inner_uid(userId)
+
+    # ur : user rating
+    # user1이 영화 1에 3점, 영화 2에 3.5점을 줌
+    # ir : item rating
+    # 영화 1은 user1에게 3점, user2에게 1.5점을 받음
+    rated_movies = set()
+    for inner_movie_id, rating in train_set.ur[inner_user_id] :
+        # to_raw_iid : to_raw_item_id
+        # 내부 영화 인덱스를 원래 movieId로 바꿔줌
+        rated_movies.add(train_set.to_raw_iid(inner_movie_id))
+
+    # 학습 데이터 줌 없는 목록을 구함
+    # n_items : length
+    candidate_movies = [
+        train_set.to_raw_iid(inner_movie_id)
+        for inner_movie_id in range(train_set.n_items)
+        if train_set.to_raw_iid(inner_movie_id) not in rated_movies
+    ]
+    # for inner_movie_id in range(train_set.n_items) :
+    #     if train_set.to_raw_iid(inner_movie_id) not in rated_movies:
+    #         candidate_movies.append(train_set.to_raw_iid(inner_movie_id))
+
+
+    # 목록의 예상 평점을 계산
+    # 너라면 이 영화에 평점을 얼마 줄 거 같음
+    recommend = []
+    for movieId in candidate_movies:
+        # 예상 평점
+        # est: 예측한 평점, estimated의 약자
+        score = model.predict(userId, movieId).est
+        recommend.append({
+            'movieId': movieId,
+            'score': score
+        })
+
+    # 평점이 높은 순으로 정렬
+    recommend.sort(key=lambda x:x['score'], reverse=True)
+
+    # top_k 만큼 뽑아서 돌려줌
+    return recommend[:top_k]
+
+@router.get('/es/recommend/cf')
+def cf(userId: int, top_k: int = 10):
+    return collaborative_filtering(userId, top_k)
