@@ -301,6 +301,44 @@ def search_movies(keyword: str, size: int = 10) :
 
     return response
 
+def search_vector(keyword: str, size: int = 10):
+
+    # 검색어를 벡터로 바꿈
+    # 그런데 기존의 embedding_with_gemini는 수정 없이 활용하고 싶음
+
+    querys = [{
+        'content': keyword,
+        'movieId': 0,
+        'chunk_index': 0
+    }]
+    vectors = util.embedding_with_gemini(querys)
+    '''
+        [
+            {
+                '_index': os.getenv('ES_INDEX'),
+                '_id': f'{chunk["movieId"]}-{chunk["chunk_index"]}',
+                '_source': {
+                                'content': keyword,
+                                'embedding': vector
+                }
+            }
+        ]
+    '''
+    vector = vectors[0]['_source']['embedding']
+
+    response = util.es.search(
+        index=os.getenv('ES_INDEX'),
+        knn={
+            'field': 'embedding',
+            'query_vector': vector,
+            'num_candidates': max(size*10, 50),
+            'k': size
+        },
+        size=size
+    )
+
+    return response
+
 @router.get('/es/select/multi_match')
 def multi_match(keyword, size=10):
     response = search_movies(keyword, size)
@@ -336,7 +374,7 @@ def terms(ids:list = Query(...)):
 # 추천 시스템
 #####################################
 
-@router.get('/recommand/test/counter')
+@router.get('/recommend/test/counter')
 def test_counter():
     str = 'hello world'
     print(Counter(str))
@@ -352,8 +390,8 @@ def test_counter():
 
     food_counter2 = Counter()
     for food in [list_food]:
-        food_counter.update(food)
-    print(2, food_counter)
+        food_counter2.update(food)
+    print(2, food_counter2)
 
     favorite_foods = [
         ['밥', '치킨'],
@@ -369,7 +407,7 @@ def test_counter():
 
 # CBF 콘텐츠 기반 필터링 Content-Based Filtering
 # "내가 뭘 좋아했지?"
-def content_based_filtering(list_movieId: list):
+def content_based_filtering(list_movieId: list, candidate_size: int = 10):
     selected = term_movieId(list_movieId)
 
     # return selected
@@ -417,20 +455,32 @@ def content_based_filtering(list_movieId: list):
     # dict.fromkeys()를 사용하면 됨
     # [a,b,a] >>>> {a: None, b: None}
     # 이걸 join하면 key만 빼올 수 있음
+    # query = ' '.join(dict.fromkeys(terms))
+    # response = search_movies(query, candidate_size)
+
     query = ' '.join(dict.fromkeys(terms))
-    response = search_movies(query)
+
+    print("선택한 영화 ID:", list_movieId)
+    print("CBF 검색어:", repr(query))
+
+    response = search_movies(query, candidate_size)
+
+    print("CBF 검색 결과 수:", response['hits']['total']['value'])
 
     return response
 
-@router.get('/recommand/cbf')
+@router.get('/recommend/cbf')
 def cbf(list_movieId: list[int] = Query(...)):
     response = content_based_filtering(list_movieId)
 
     return response['hits']['hits']
 
-test_indices = []
+
 
 def split_train_test(test_size: float = 0.2):
+
+    test_indices = []
+
     '''
         과거 평점을 학습시키고 미래 평점으로 평가하자
         test_size: 미래 평점의 비율(정답 데이터의 비율)
@@ -488,7 +538,7 @@ def split_train_test(test_size: float = 0.2):
         # 0.4 등의 결과를 1로 만듬
         test_count = math.ceil(len(ordered) * test_size)
         if test_count < 1:
-            test_count - 1
+            test_count = 1
 
         if test_count > len(ordered) - 1:
             test_count = len(ordered) -1
@@ -509,10 +559,10 @@ def split_train_test(test_size: float = 0.2):
         test_indices.extend(ordered.tail(test_count).index.tolist())
 
     # 실제 테스트 데이터 추출
-    test = data.loc[test_indices].copy()
+    test = valid_data.loc[test_indices].copy()
 
     # 학습 데이터 추출
-    train = data.drop(index=test_indices).copy()
+    train = valid_data.drop(index=test_indices).copy()
 
     # 원래 순서로 복구 해두고
     # 내가 활용하기 위해 추가한 컬럼 original_order를 지움
@@ -526,11 +576,12 @@ def split_train_test(test_size: float = 0.2):
 
 # CF 협업 필터링 Collaborative Filtering
 # "다른 사람들은 뭘 좋아했지?"
-def collaborative_filtering(userId, top_k=10):
+def collaborative_filtering(userId:int, top_k=10):
     test, train = split_train_test()
 
     data = train[ ['userId', 'movieId', 'rating'] ].copy()
-    if userId not in data['userId']:
+    if userId not in data['userId'].values :
+    # if userId not in data['userId'].to_numpy() :
         raise ValueError(f'{userId}을/를 찾을 수 없음. 일단 차가운 시선을 듣고 다시 시도 바람.')
 
     # Reader는 필수
@@ -563,11 +614,13 @@ def collaborative_filtering(userId, top_k=10):
     # user_based
     #   True: 내 취향과 평점 패턴이 비슷한 다른 사용자(이웃)이 이 영화에 몇 점을 줬는가?
     #   False: 이 아이템을 좋아하는 사람들이 좋아하는 다른 유사한 아이템은?
-    n_neighbors = 30
+    # n_neighbors = 30
+    n_neighbors = 50
     model = KNNWithMeans(
         k=n_neighbors,
         sim_options={
-            'name': 'cosine',
+            # 'name': 'cosine',
+            'name': 'pearson',
             'user_based': True
         },
         verbose=False # 학습 과정 출력 여부
@@ -623,3 +676,224 @@ def collaborative_filtering(userId, top_k=10):
 @router.get('/es/recommend/cf')
 def cf(userId: int, top_k: int = 10):
     return collaborative_filtering(userId, top_k)
+
+# Recall@K
+# 전재 정답 개수 중에 맞힌 개수
+# 순위는 안 봄
+# 내 정답 개수 / 전체 정답 개수
+def recall_at_k(
+    userId:int,
+    test:pd.DataFrame,      # 정답 데이터
+    recommend:list[dict],   # 추천 목록
+    threshold: float = 4.0,
+    k:int=10
+):
+    # 내가 평점을 threshold 이상을 준 정답만 뽑자
+    # 첫 번째 전달인자: 조건
+    # 두 번째 전달인자: 특정 컬럼만 가져오기
+    # relevant_movies  relevant(관련된)
+    # 나와 관련된 영화 목록
+    # pandas.Series 객체는 set으로 자동 형 변환이 안 됨
+    # 그래서 set()으로 명시적 형 변환
+    relevant_movies = set(test.loc[
+        # 첫 번째
+        (test['userId'] == userId)
+        & (test['rating'] >= threshold),
+
+        # 두 번째
+        'movieId'
+    ])
+    # 정답 데이터에 조건이 맞는 영화가 없어서 Recall 계산할 수 없음
+    if len(relevant_movies) == 0 :
+        return -1.0
+
+    # 암시적, 묵시적 형 변환
+    recommend_movies = {
+        item['movieId'] for item in recommend[:k]
+    }
+
+    # 추천 목록 중에서 내가 좋아하는 영화의 개수
+    # 추천 중 정답 개수
+    # & : 교집합
+    hit_count = len(relevant_movies & recommend_movies)
+
+    print('hit_count', hit_count)
+    print('len(relevant_movies)', len(relevant_movies))
+
+    # Reacall@K = 맟힌 개수 / 전체 정답
+    result = hit_count / len(relevant_movies)
+
+    return result
+
+# 추천 결과의 Recall@K를 확인하는 API
+@router.get('/recommend/recall')
+def recall(userId: int):
+
+    # 전체 데이터를 train / test로 나누고
+    # 여기서는 평가에 필요한 test 데이터만 사용
+    test, _ = split_train_test()
+
+    # CF(협업 필터링) 방식으로
+    # 해당 userId에게 영화 50개를 추천
+    recommend = collaborative_filtering(userId, 50)
+
+    # 사용자가 실제로 좋아했다고 판단할 평점 기준
+    threshold = 2.0
+
+    # 추천 결과 중 상위 몇 개까지 평가할지 설정
+    k = 50
+
+    # 실제 test 데이터와 추천 결과를 비교해서
+    # Recall@K 값을 계산
+    return recall_at_k(userId, test, recommend, threshold, k)
+
+
+# ============================================================
+# 하이브리드 추천
+# CBF(Content-Based Filtering) + CF(Collaborative Filtering)
+# ============================================================
+
+def hybrid_filtering(
+    list_movieId: list[int],     # 사용자가 이미 본 영화 목록 / CBF에서 사용할 영화 목록
+    userId: int,                 # CF에서 사용할 사용자 ID
+    top_k: int = 10,             # 최종적으로 반환할 추천 영화 개수
+    candidate_size: int = 50,    # CBF / CF 각각에서 가져올 후보 영화 개수
+):
+
+    # --------------------------------------------------------
+    # 1. CBF 추천
+    # --------------------------------------------------------
+
+    # 사용자가 본 영화(list_movieId)를 기준으로
+    # 콘텐츠 기반 추천 영화 candidate_size개를 가져옴
+    #
+    # content_based_filtering(list_movieId: list, top_k=10)
+    response_cbf = content_based_filtering(list_movieId, candidate_size)
+
+    # CBF 추천 결과에서 movieId만 따로 담을 리스트
+    result_cbf = set()
+
+    # Elasticsearch 응답 구조
+    # response_cbf['hits']['hits'] 안에
+    # 각각의 추천 영화 document가 들어 있음
+    for hit in response_cbf['hits']['hits']:
+
+        # _source 안에 저장된 movieId를 꺼냄
+        # Elasticsearch에서 문자열로 넘어올 수도 있으므로 int로 변환
+        movieId = int(hit['_source']['movieId'])
+
+        # 추천된 영화가 사용자가 이미 본 영화 목록에 없다면 추가
+        #
+        # not in:
+        # movieId가 list_movieId 안에 존재하지 않는지 검사
+        if movieId not in list_movieId:
+            result_cbf.add(movieId)
+
+
+    # --------------------------------------------------------
+    # 2. CF 추천
+    # --------------------------------------------------------
+
+    # 사용자의 평점 패턴을 기준으로
+    # 협업 필터링 추천 candidate_size개를 가져옴
+    #
+    # collaborative_filtering(userId: int, top_k=10)
+    response_cf = collaborative_filtering(userId, candidate_size)
+
+    # CF 추천 결과의 movieId만 저장할 리스트
+    result_cf = set()
+
+    # CF 추천 결과 하나씩 확인
+    for hit in response_cf:
+
+        # hit 딕셔너리에서 movieId 값을 가져옴
+        #
+        # hit['movieId'] 대신 get()을 사용하면
+        # movieId 키가 없을 경우 에러 대신 None이 반환됨
+        movieId = hit.get('movieId')
+
+        # 사용자가 이미 본 영화가 아니라면 추천 후보에 추가
+        if movieId not in list_movieId:
+            result_cf.add(movieId)
+
+
+    # --------------------------------------------------------
+    # 3. CBF + CF 추천 결과 합치기
+    # --------------------------------------------------------
+
+    # 두 추천 방식에서 얻은 후보 리스트를 하나로 합침
+    #
+    # 예)
+    # result_cbf = [1, 2, 3]
+    # result_cf  = [4, 5, 6]
+    #
+    # result = [1, 2, 3, 4, 5, 6]
+    # result = result_cbf + result_cf
+
+    # RRF
+    # 각각 점수 계산하기
+    rrf_score = {}
+    # CBF의 RRF 점수 계산
+    # start : index의 시작값
+    for index, movieId in enumerate(result_cbf, start=1):
+
+        # rrf_score라는 딕셔너리에 movieID로 된 키가 있는지 확인
+        if rrf_score.get(movieId):
+            # rrf_score[movieId] = rrf_score[movieId] = 1 / (60 + index)
+            rrf_score[movieId] += 1 / (60 + index)
+        else :
+            rrf_score[movieId] = 1 / (60 + index)
+
+    # CF의 RRF 점수 계산
+    for index, movieId in enumerate(result_cf, start=1):
+
+        if rrf_score.get(movieId):
+            rrf_score[movieId] += 1 / (60 + index)
+        else :
+            rrf_score[movieId] = 1 / (60 + index)
+
+    # 점수 높은 수 정렬
+    result = sorted(
+        rrf_score.items(),
+        key=lambda x:x[1],
+        reverse=True
+    )
+
+    # 상위 목록 top_k 만큼 돌려주기
+    return result[:top_k]
+
+@router.get('/recommend/hybrid')
+def hybrid(
+    userId: int,                # CF에서 사용할 사용자 ID
+    top_k: int = 10,            # 결과 개수
+    candidate_size: int = 50,    # 각각의 추천의 후보 수
+    list_movieId: list[int] = Query(...)    # CBF에서 사용할 영화 목록
+):
+    result_hybrid = hybrid_filtering(list_movieId, userId, top_k, candidate_size)
+    # return result
+    df_movies = util.load_csv('movies.csv')
+
+    result = {}
+    for i in result_hybrid:
+        movieId = i[0]
+        score = i[1]
+        title = df_movies.loc[
+            # 조건
+            df_movies['movieId'] == movieId,
+            # 출력할 컬럼명
+            'title'
+        ].iloc[0]
+
+        print(title)
+
+        '''
+        iloc : 결과 중 몇 번째 줄
+            Dragon Ball Z: The History of Trunks (Doragon bôru Z: Zetsubô e no hankô!! Nokosareta chô senshi - Gohan to Torankusu) (1993)
+        '''
+
+        result[movieId] = {
+            'title': title,
+            'score': score
+        }
+
+    return result
