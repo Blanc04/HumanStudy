@@ -2,6 +2,8 @@ from fastapi import APIRouter, Query
 import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
+from fastapi.responses import HTMLResponse
+import markdown
 
 from openai import OpenAI
 
@@ -204,6 +206,7 @@ class Recipe(BaseModel):
 
 @router.get("/langchain/output_parser")
 def output_parser(dish:str):
+    
     output_parser = PydanticOutputParser(pydantic_object=Recipe)
 
     prompt = ChatPromptTemplate.from_messages(
@@ -366,13 +369,18 @@ def recommend_hybrid(
         [
             (
                 "system",
-                "아래 사항을 반영해서 영화 추천 결과를 설명해줘\n"
-                "입력 데이터가 하이브리드 추천 알고리즘의 결과\n"
-                "score는 추천 순위를 계산하는 데 사용된 점수\n"
-                "영화 제목과 점수를 바탕으로 읽기 좋은 추천 목록을 작성해야 함\n"
-                "제공되지 않은 줄거리나 영화 정보를 지어내면 안 됨\n"
+                '너는 영화 추천 서비스의 설명 도우미야.'
+                '필요하면 인터넷 검색을 해서 알아봐.'
+                '입력 받은 추천 결과만 사용해서 설명해.'
+                '결과는 구조적인 json으로 알려줘.'
             ),
-            ("human", '{hybrid}')
+            (
+                "human", 
+                'cbf, cf의 하이브리드 추천 결과물: {hybrid}'
+                '제목을 한국 제목으로 변경해서 알려줘. 단 제목을 추측하지 마.'
+                '영화 줄거리도 알려줘. 단 추측하지 마.'
+                '순위를 보고 3개 정도면 정리해주면 되.'
+            )
         ]
     )
 
@@ -394,8 +402,14 @@ def recommend_hybrid(
 
     chain = prompt | model | StrOutputParser()
 
-    # return chain
-
     return chain.invoke({
         'hybrid': hybrid
     })
+
+    # result = chain.invoke({
+    #     'hybrid': hybrid
+    # })
+
+    # html = markdown.markdown(result)
+
+    # return HTMLResponse(content=html)
