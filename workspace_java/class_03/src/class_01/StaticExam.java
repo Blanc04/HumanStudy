@@ -1,4 +1,4 @@
-package class_03;
+package class_01;
 
 public class StaticExam {
 
@@ -22,7 +22,7 @@ public class StaticExam {
 		test();
 	}
 	
-	void test() {
+	static void test() {
 		System.out.println("테스트");
 	}
 

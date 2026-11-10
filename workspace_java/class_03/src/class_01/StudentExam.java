@@ -1,4 +1,4 @@
-package class_03;
+package class_01;
 
 public class StudentExam {
 

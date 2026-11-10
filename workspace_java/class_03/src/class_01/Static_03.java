@@ -1,4 +1,4 @@
-package class_03;
+package class_01;
 
 public class Static_03 {
 	// static
