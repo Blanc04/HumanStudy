@@ -1,11 +1,13 @@
 package game_04;
 
-public class Champ {
+//public final class Champ extends Object {
+public class Champ extends Object {
 	
 	void attack() {
 		System.out.println("기본 공격 합니다.");
 	}
 	
+	// final : 메소드의 경우 오버라이드 금지
 	void move() {
 		System.out.println("이동합니다.");
 	}
