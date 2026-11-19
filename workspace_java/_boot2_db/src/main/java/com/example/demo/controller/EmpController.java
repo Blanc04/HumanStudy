@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,22 +32,38 @@ public class EmpController {
 	@Autowired
 	EmpService empService;
 	
+	@Autowired
+	SqlSession sqlSession;
+	
 	@ResponseBody
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String hello() {
+		EmpDTO dto = new EmpDTO();
+		System.out.println(dto);
 		return "hello";
 	}
 	
+	// 사원 목록 조회
+	// 리스트라는 주소를 매핑으로 추가해 전달인자를 model로 받고 List DB 안에 있는 변수를 직원 서비스 안의 직원 리스트 불러오기로 지정
+	// model이라는 전달인자에 list라는 속성을 추가하고 그 결과를 반환
 	@GetMapping("/list")
 	public String list(Model model) {
 		System.out.println("/list 실행");
 		
-		List<EmpDTO> list = empService.getEmpList();
+//		List<EmpDTO> list = empService.getEmpList();
+		List<EmpDTO> list = sqlSession.selectList("mapper.emp.selectEmp");
 		System.out.println("/list: list: "+ list);
 		
 		model.addAttribute("list", list);
 		return "result";
 	}
+//	@GetMapping("/list")
+//	public String list(Model model) {
+//		List<EmpDTO> list = empService.getEmpList();
+//		model.addAttribute("list", list);
+//		return "result";
+//	}
+
 
 	@RequestMapping("/getEmpno")
 	public String getEmpno(Model model,

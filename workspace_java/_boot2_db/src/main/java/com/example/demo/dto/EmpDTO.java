@@ -7,6 +7,24 @@ import lombok.Data;
 
 
 public class EmpDTO {
+	
+	private int empno;
+	private String ename;
+	private String job;
+	private int sal = Integer.MIN_VALUE;
+	private Integer mgr;
+	private Date hiredate;
+	private Integer comm;
+	private int deptno;
+	
+
+	@Override
+	public String toString() {
+		return "EmpDTO [empno=" + empno + ", ename=" + ename + ", job=" + job + ", sal=" + sal + ", mgr=" + mgr
+				+ ", hiredate=" + hiredate + ", comm=" + comm + ", deptno=" + deptno + ", size=" + size + ", page="
+				+ page + ", start=" + start + ", end=" + end + ", type=" + type + ", keyword=" + keyword + ", empnos="
+				+ empnos + "]";
+	}
 
 	public int getEmpno() {
 		return empno;
@@ -127,15 +145,6 @@ public class EmpDTO {
 	public void setEmpnos(List empnos) {
 		this.empnos = empnos;
 	}
-
-	private int empno;
-	private String ename;
-	private String job;
-	private int sal = Integer.MIN_VALUE;
-	private Integer mgr;
-	private Date hiredate;
-	private Integer comm;
-	private int deptno;
 	
 	private int size = 10;
 	private int page = 1;
