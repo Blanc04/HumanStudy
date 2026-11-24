@@ -342,7 +342,6 @@ def filter_date(keyword:str="", session: Session = Depends(get_session)):
     
     
 #엠베딩 작업수행
-
 @router.post('/alio/embed/create')
 def create_embed_index():
 
